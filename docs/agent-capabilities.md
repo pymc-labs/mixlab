@@ -21,7 +21,7 @@ The assistant has two read tools (`inspect_workspace`, `inspect_data`) and eight
 
 - The reported `Opened data.` confirms successful navigation. The following generic `Unsupported action.` came from action validation; without the original provider payload its exact arguments cannot be reconstructed.
 - Previously no descriptive data tool existed. `inspect_data` now supplies actual computed aggregates before any fit, including invalid guided datasets.
-- The tool schema now declares per-kind required fields. Validation identifies missing, unexpected and invalid arguments and gives supported-action guidance rather than a generic failure.
+- The tool description now declares per-kind required fields; local validation enforces them. The provider schema uses a plain object because Claude rejects top-level anyOf/oneOf/allOf. Validation identifies missing, unexpected and invalid arguments and gives supported-action guidance rather than a generic failure.
 - Failed, blocked and cancelled execution results are marked as tool errors; navigation changes now participate in stale-proposal detection. Python busy state is visible in context.
 - The agent instructions explicitly distinguish pre-fit exploration, navigation, fitted Python and manual-only operations.
 
