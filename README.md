@@ -57,6 +57,15 @@ npm run typecheck
 flyctl deploy --remote-only --ha=false
 ```
 
+Pushes to `main` automatically deploy to Fly.io after tests, type checking, and the production build pass. Pull requests and other branches only run validation. You can also run **Validate and deploy Mixlab** manually from GitHub Actions on `main`. Deployments are serialized so an active release is never cancelled by a newer push.
+
+The workflow uses the repository Actions secret `FLY_API_TOKEN`, an app-scoped deploy token for `pymc-mixlab`. Rotate it before its one-year expiry. To replace it without printing or storing the token locally:
+
+```sh
+set -o pipefail
+flyctl tokens create deploy --app pymc-mixlab --name github-actions --expiry 8760h | gh secret set FLY_API_TOKEN --repo twiecki/mixlab
+```
+
 The Docker build installs locked dependencies, downloads and verifies the pinned runtime, and builds the static website. Nginx serves the app and runtime on port 8080. Fly provides HTTPS and a health check; a single 256 MB machine stops when idle and starts on demand. CSV data and inference stay in the visitor's browser.
 
 ## Notebook.link
