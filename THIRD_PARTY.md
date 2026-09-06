@@ -6,3 +6,5 @@
 - `runtime-manifest.json` records every runtime file checksum and the archive checksum. `scripts/check-runtime.mjs` verifies installed bytes before production builds.
 - UI primitives under `components/ui/` come from the generated Sites/Shadcn starter. JavaScript dependencies retain their upstream licenses in their npm packages.
 - The synthetic example in `public/example.csv` derives from the nuts-rs-wasm MMM example. Outcome and spend columns have been rescaled and renamed for a more legible working surface. It is not real client data.
+
+- `vendor/nuts-rs-wasm/` contains the same unmodified client and Comlink modules for bundler-native imports in the guided app. Their original license notices are retained. The standalone Python lab uses the identical modules from `public/nuts/`.

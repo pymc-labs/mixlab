@@ -13,7 +13,7 @@ Mixlab turns a CSV into an editable PyMC-Marketing model, runs real NUTS inferen
 - **Browser NUTS:** four-chain default, configurable sampling budget, live progress and carryover posterior, cancellation, Arrow posterior and sampler-statistic downloads.
 - **Honest results:** observed series, in-sample posterior predictive intervals, channel contributions, R-hat, bulk/tail ESS, and divergences. No simulated fit or fabricated posterior.
 - **Counterfactual lab:** rescale the historical channel spend, recompute the model's exact carryover and saturation, and compare paired posterior contributions and credible intervals.
-- **Open Python lab:** edit model code, sample in a separate browser session, and execute follow-up Python with `mmm` and `idata` still available.
+- **Open Python lab:** edit model code, sample in a separate browser session, and execute follow-up Python with `mmm` and `idata` still available. Export the edited model and follow-up cells together as a browser notebook.
 - **Portable projects:** download and restore data, mappings, configuration, posterior summaries/parameter draws, and scenario settings. Arrow traces are separate files.
 - **Notebook escape routes:** self-contained native PyMC notebooks and browser notebooks using the same WASM runtime. Both include the selected data and editable code.
 
@@ -71,14 +71,14 @@ Convergence gates use max R-hat ≤ 1.01, minimum bulk and tail ESS ≥ 400, and
 
 `scripts/check-exports.py` additionally compares exported notebook models with the guided browser specification under different carryover, prior, and seasonality settings.
 
-The underlying nuts-rs-wasm distribution has prior browser validation. This app's UI and exported notebook.link flow have not undergone automated browser interaction testing in this initial implementation.
+Browser interaction checks cover complete four-chain fits in both the guided workspace and standalone Python lab, follow-up Python against the live posterior, scenario changes, project restoration, and recovery after reload. The exported notebook.link launch has not been validated end to end in its UI.
 
 ## Limits
 
 - The first runtime download is about 120 MB. Chains run sequentially; larger fits can consume substantial memory and compilation time.
 - The runtime currently uses compatibility patches to PyTensor and PyMC-Marketing. Pinning and tests matter.
 - No holdout forecasting, lift-test calibration, hierarchical MMMs, automated budget optimization, authentication, scheduled refresh, or team sync yet.
-- Work is held in memory. Export before reloading. Project imports restore summaries and parameter draws, but not the original live Python kernel or Arrow binaries.
+- Valid guided workspaces are saved in this tab’s session storage and restored after reload. Closing the tab or exceeding browser storage limits can lose the cache; export a project for a durable backup. The footer reports save status. Project imports restore summaries and parameter draws, but not the original live Python kernel or Arrow binaries. Use Copy project JSON and Data → Paste project JSON if browser downloads are blocked.
 - The Python lab runs executable code with browser network access. It never autoruns code supplied in a link.
 - Results and diagnostics depend on the selected data, priors, and sampling budget.
 

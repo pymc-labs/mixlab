@@ -1,3 +1,5 @@
+import { createSampler } from '../vendor/nuts-rs-wasm/client.mjs';
+import { wrap } from '../vendor/nuts-rs-wasm/comlink.mjs';
 import {
   canonicalCSV,
   type Config,
@@ -23,9 +25,7 @@ export async function fit(
   onUpdate: (p: ProgressState) => void,
   signal: AbortSignal,
 ): Promise<{ posterior: Posterior; traces: Trace[] }> {
-  const clientUrl = '/nuts/client.mjs';
-  const [module, modelResponse, analysisResponse] = await Promise.all([
-    import(/* @vite-ignore */ clientUrl),
+  const [modelResponse, analysisResponse] = await Promise.all([
     fetch('/python/model.py'),
     fetch('/python/analyze.py'),
   ]);
@@ -33,7 +33,8 @@ export async function fit(
     throw Error('Model files could not be loaded. Reload and try again.');
   const model = await modelResponse.text(),
     analysis = await analysisResponse.text();
-  const sampler = module.createSampler({
+  const sampler = createSampler({
+    wrap,
     runtimeUrl: '/runtime/',
     environment: 'pymc-marketing-wasm',
     assetsUrl: new URL('/nuts/', location.href),

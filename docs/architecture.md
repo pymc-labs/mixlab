@@ -19,7 +19,7 @@ The native notebook runs ordinary PyMC, with data embedded in a code cell and a 
 ## State and data movement
 
 - Uploaded files are read with the browser File API. There is no application upload request.
-- The guided workspace uses React memory. A lab launch temporarily stores a same-origin payload in session storage and consumes it on opening the lab.
+- The guided workspace uses React memory plus a validated, debounced same-origin session-storage snapshot of data, settings, posterior summaries/draws, and scenarios. Reload restores it; closing the tab can remove it. Quota/storage errors appear in the footer. A lab launch separately stores a temporary same-origin payload and consumes it on opening the lab. Live Python kernels and Arrow binaries are not cached.
 - A project export contains dataset, mapping, config, posterior parameter draws/summaries, and scenario state. It can be restored without rerunning sampling; Arrow binaries and live Python state are excluded.
 - Data/config changes invalidate prior results. A cancellation signal terminates the worker.
 - Downloaded notebooks include the user's data. Opening notebook.link launches the public example environment; importing a personal notebook is a separate user action on that platform.

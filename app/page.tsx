@@ -37,6 +37,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
 import { Progress } from '@/components/ui/progress';
 import {
   Dialog,
@@ -198,6 +199,10 @@ export default function Home() {
     [exportOpen, setExportOpen] = useState(false),
     [aboutOpen, setAboutOpen] = useState(false),
     [multipliers, setMultipliers] = useState<number[]>([]);
+  const [hydrated, setHydrated] = useState(false),
+    [saveStatus, setSaveStatus] = useState('loading'),
+    [pasteOpen, setPasteOpen] = useState(false),
+    [projectText, setProjectText] = useState('');
   const controller = useRef<AbortController | null>(null),
     fileInput = useRef<HTMLInputElement>(null),
     projectInput = useRef<HTMLInputElement>(null),
@@ -233,6 +238,72 @@ export default function Home() {
     },
     [],
   );
+  useEffect(() => {
+    try {
+      const raw = sessionStorage.getItem('mixlab-workspace-v1');
+      if (raw) {
+        const saved = readProject(raw);
+        saved.dataset.example =
+          JSON.stringify(saved.dataset.rows) === JSON.stringify(example.rows);
+        setTable(saved.dataset);
+        setMapping(saved.mapping);
+        setConfig(saved.config);
+        setPosterior(saved.posterior);
+        setMultipliers(saved.scenarioMultipliers);
+        setNotice('Your last local session was restored.');
+      }
+    } catch {
+      setNotice(
+        'The previous local session could not be restored. Import an exported project to recover it.',
+      );
+    } finally {
+      setHydrated(true);
+    }
+  }, []);
+  useEffect(() => {
+    if (!hydrated) return;
+    if (!data) {
+      setSaveStatus('invalid');
+      return;
+    }
+    setSaveStatus('saving');
+    const save = () => {
+      try {
+        sessionStorage.setItem('mixlab-workspace-v1', projectJSON());
+        setSaveStatus('saved');
+      } catch {
+        setSaveStatus('unavailable');
+      }
+    };
+    const timer = setTimeout(save, 500);
+    window.addEventListener('pagehide', save);
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('pagehide', save);
+    };
+  }, [hydrated, table, mapping, config, posterior, multipliers, data]);
+  function restoreProjectText(text: string) {
+    const project = readProject(text);
+    invalidate();
+    setTable(project.dataset);
+    setMapping(project.mapping);
+    setConfig(project.config);
+    setPosterior(project.posterior);
+    setMultipliers(project.scenarioMultipliers);
+    setTab('overview');
+    setNotice(
+      'Project restored locally. Saved posterior and scenarios are available; original Arrow files remain separate exports.',
+    );
+  }
+  function pasteProject() {
+    try {
+      restoreProjectText(projectText);
+      setPasteOpen(false);
+      setProjectText('');
+    } catch (e) {
+      setError(e instanceof Error ? e.message : String(e));
+    }
+  }
   function invalidate() {
     generation.current++;
     controller.current?.abort();
@@ -310,26 +381,38 @@ export default function Home() {
       controller.current = null;
     }
   }
-  function exportProject() {
-    download(
-      'mixlab-project.json',
-      JSON.stringify(
-        {
-          format: 'mixlab-project',
-          version: 1,
-          createdAt: new Date().toISOString(),
-          dataset: table,
-          mapping,
-          config,
-          posterior,
-          scenarioMultipliers: effectiveMultipliers,
-        },
-        null,
-        2,
-      ),
+  function projectJSON() {
+    return JSON.stringify(
+      {
+        format: 'mixlab-project',
+        version: 1,
+        createdAt: new Date().toISOString(),
+        dataset: table,
+        mapping,
+        config,
+        posterior,
+        scenarioMultipliers: effectiveMultipliers,
+      },
+      null,
+      2,
     );
+  }
+  async function copyProject() {
+    try {
+      await navigator.clipboard.writeText(projectJSON());
+      setNotice(
+        'Project JSON copied. Paste it into a .json file to keep your data and fit.',
+      );
+    } catch {
+      setError(
+        'Clipboard access is unavailable in this browser. Try the project download.',
+      );
+    }
+  }
+  function exportProject() {
+    download('mixlab-project.json', projectJSON());
     setNotice(
-      'Project downloaded with data, settings, and available posterior results.',
+      'Project export prepared. If your browser blocks the download, use Copy project JSON.',
     );
   }
   function exportPython() {
@@ -367,17 +450,7 @@ export default function Home() {
     try {
       if (file.size > 20_000_000)
         throw Error('Choose a project smaller than 20 MB.');
-      const project = readProject(await file.text());
-      invalidate();
-      setTable(project.dataset);
-      setMapping(project.mapping);
-      setConfig(project.config);
-      setPosterior(project.posterior);
-      setMultipliers(project.scenarioMultipliers);
-      setTab('overview');
-      setNotice(
-        'Project restored locally. Arrow files are separate exports; saved summaries and scenarios are available.',
-      );
+      restoreProjectText(await file.text());
     } catch (e) {
       setError(e instanceof Error ? e.message : String(e));
     } finally {
@@ -749,7 +822,7 @@ export default function Home() {
                   <span>
                     Max R̂{' '}
                     <strong>
-                      {posterior.diagnostics.maxRhat?.toFixed(3) ??
+                      {posterior.diagnostics.maxRhat?.toFixed(4) ??
                         'Unavailable'}
                     </strong>
                     <small>≤ 1.01</small>
@@ -1030,6 +1103,9 @@ export default function Home() {
                   Set up your model <ArrowRight />
                 </Button>
                 <div className="data-links">
+                  <button disabled={busy} onClick={() => setPasteOpen(true)}>
+                    Paste project JSON <Code2 size={14} />
+                  </button>
                   <button
                     disabled={busy}
                     onClick={() => projectInput.current?.click()}
@@ -1579,10 +1655,37 @@ export default function Home() {
           </span>
           <span>
             PyMC-Marketing + nuts-rs <span className="footer-plus">+</span>{' '}
-            In-memory workspace · Export to keep.
+            {saveStatus === 'saved'
+              ? 'Saved in this tab · Export to keep'
+              : saveStatus === 'saving'
+                ? 'Saving locally…'
+                : saveStatus === 'invalid'
+                  ? 'Review mapping to save locally'
+                  : saveStatus === 'unavailable'
+                    ? 'Local save unavailable · Export to keep'
+                    : 'Opening local workspace…'}
           </span>
         </footer>
       </section>
+      <Dialog open={pasteOpen} onOpenChange={setPasteOpen}>
+        <DialogContent className="export-dialog">
+          <DialogTitle>Restore a copied project</DialogTitle>
+          <DialogDescription>
+            Paste a Mixlab project JSON. It is validated and restored entirely
+            on your device.
+          </DialogDescription>
+          <Textarea
+            aria-label="Project JSON"
+            value={projectText}
+            onChange={(e) => setProjectText(e.target.value)}
+            placeholder="Paste your project JSON here…"
+            style={{ minHeight: 240, fontFamily: 'monospace', fontSize: 12 }}
+          />
+          <Button disabled={!projectText.trim() || busy} onClick={pasteProject}>
+            Restore project <ArrowRight />
+          </Button>
+        </DialogContent>
+      </Dialog>
       <Dialog open={exportOpen} onOpenChange={setExportOpen}>
         <DialogContent className="export-dialog">
           <DialogTitle>Take your work with you.</DialogTitle>
@@ -1654,6 +1757,9 @@ export default function Home() {
               <Download />
             </Button>
           </div>
+          <Button variant="ghost" onClick={() => void copyProject()}>
+            <FileJson /> Copy project JSON
+          </Button>
           {traces.length > 0 && (
             <div className="trace-exports">
               <h3>Arrow traces · {traces.length} files</h3>
@@ -1690,12 +1796,13 @@ export default function Home() {
           <p>
             The real PyMC-Marketing model runs in a local Python/WebAssembly
             worker, with nuts-rs providing NUTS sampling. Data and results stay
-            in browser memory unless you export them.
+            on this device, with a session backup saved in this tab.
           </p>
           <p>
             First use downloads approximately 120 MB of runtime assets. Chains
-            run sequentially. Reloading closes the workspace, so export your
-            work before leaving.
+            run sequentially. The guided workspace restores after reload when
+            the local save succeeds. Export before closing the tab; live Python
+            sessions are not restored.
           </p>
           <p>
             Our example uses synthetic marketing data, rescaled from the
