@@ -1,3 +1,4 @@
+import type { SensitivityResult } from './sensitivity';
 export type RawTable = {
   name: string;
   headers: string[];
@@ -43,6 +44,7 @@ export const defaultConfig: Config = {
 };
 export type Interval = { low: number; median: number; high: number };
 export type Posterior = {
+  sensitivity?: SensitivityResult;
   alpha: number[][];
   lam: number[][];
   beta: number[][];

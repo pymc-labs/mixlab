@@ -34,19 +34,24 @@ export async function fit(
   onUpdate: (p: ProgressState) => void,
   signal: AbortSignal,
 ): Promise<{ posterior: Posterior; traces: Trace[] }> {
-  const [modelResponse, analysisResponse] = await Promise.all([
-    fetch('/python/model.py', { signal }),
-    fetch('/python/analyze.py', { signal }),
-  ]).catch((error) => {
-    if (signal.aborted) throw error;
-    throw Error(
-      'Could not reach the Mixlab server to load the model files. Check that this site or local preview is still running, then retry the fit.',
-    );
-  });
-  if (!modelResponse.ok || !analysisResponse.ok)
+  const [modelResponse, analysisResponse, sensitivityResponse] =
+    await Promise.all([
+      fetch('/python/model.py', { signal }),
+      fetch('/python/analyze.py', { signal }),
+      fetch('/python/sensitivity.py', { signal }),
+    ]).catch((error) => {
+      if (signal.aborted) throw error;
+      throw Error(
+        'Could not reach the Mixlab server to load the model files. Check that this site or local preview is still running, then retry the fit.',
+      );
+    });
+  if (!modelResponse.ok || !analysisResponse.ok || !sensitivityResponse.ok)
     throw Error('Model files could not be loaded. Reload and try again.');
   const model = await modelResponse.text(),
-    analysis = await analysisResponse.text();
+    analysis =
+      (await sensitivityResponse.text()) +
+      '\n' +
+      (await analysisResponse.text());
   const progress: ProgressState = {
     phase: 'Loading browser runtime',
     percent: null,

@@ -2145,3 +2145,60 @@ footer > span {
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+.fitting-subtabs { margin-bottom: 22px; }
+.sensitivity-workspace { display: grid; gap: 20px; }
+.sensitivity-controls, .sensitivity-score-panel, .sensitivity-empty { padding: 24px; }
+.sensitivity-heading { display: flex; justify-content: space-between; gap: 20px; align-items: start; }
+.sensitivity-workspace h3, .sensitivity-empty h3 { font-size: 19px; margin: 0 0 8px; }
+.sensitivity-workspace p, .sensitivity-empty p { font-size: 14px; line-height: 1.6; color: var(--muted-foreground); }
+.sensitivity-empty p { margin: 14px 0 20px; }
+.sensitivity-inputs { display: grid; grid-template-columns: minmax(150px, .7fr) auto minmax(240px, 1.5fr); gap: 24px; margin: 24px 0; align-items: start; }
+.sensitivity-inputs label, .sensitivity-field-label { display: block; margin-bottom: 12px; font-size: 14px; }
+.sensitivity-inputs [data-slot='select-trigger'] { width: 100%; }
+.sensitivity-power label { display: flex; justify-content: space-between; }
+.sensitivity-power output { font-variant-numeric: tabular-nums; color: var(--primary); font-weight: 600; }
+.sensitivity-power > div:last-child { display: flex; justify-content: space-between; gap: 8px; margin-top: 12px; color: var(--muted-foreground); font-size: 12px; }
+.sensitivity-power button { text-decoration: underline; text-underline-offset: 3px; }
+.sensitivity-status { padding: 20px; display: flex; align-items: center; gap: 16px; background: #1d2a1e; border: 1px solid #3d5135; border-radius: 12px; }
+.sensitivity-status > svg { flex-shrink: 0; color: var(--primary); }
+.sensitivity-status strong { font-size: 15px; }
+.sensitivity-status p { margin: 5px 0 0; }
+.sensitivity-caution { background: #30291c; border-color: #6f5933; }
+.sensitivity-caution > svg { color: #edb866; }
+.sensitivity-health { display: flex; margin-left: auto; gap: 24px; flex-shrink: 0; }
+.sensitivity-health span { display: flex; flex-direction: column; gap: 4px; font-size: 14px; }
+.sensitivity-health b { font-size: 23px; font-weight: 500; }
+.sensitivity-health small { color: var(--muted-foreground); font-size: 12px; }
+.sensitivity-plots { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+.sensitivity-plot { min-width: 0; overflow: hidden; }
+.sensitivity-plot-heading { padding: 22px 22px 0; }
+.sensitivity-plot-heading h3 { margin-top: 8px; }
+.sensitivity-key { width: 9px; height: 9px; display: inline-block; border-radius: 50%; margin-right: 5px; }
+.sensitivity-key.original { background: #b3a5ff; }
+.sensitivity-key.perturbed { background: #b5f268; margin-left: 15px; }
+.sensitivity-chart { height: 320px; margin: 18px 0 0; }
+.sensitivity-caption { padding: 0 22px 20px; margin: 0; }
+.sensitivity-summary { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; padding: 10px 4px; }
+.sensitivity-summary span { font-size: 14px; color: var(--muted-foreground); }
+.sensitivity-summary strong { display: block; margin-top: 8px; font-size: 22px; font-weight: 500; color: var(--foreground); font-variant-numeric: tabular-nums; }
+.sensitivity-table-scroll { overflow-x: auto; }
+.sensitivity-score-panel table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 14px; text-align: left; }
+.sensitivity-score-panel th, .sensitivity-score-panel td { padding: 12px; border-bottom: 1px solid var(--border); }
+.sensitivity-score-panel th { color: var(--muted-foreground); font-weight: 500; }
+.sensitivity-score-panel tr[data-selected='true'] { background: #283724; }
+.sensitivity-score-panel td button { display: flex; align-items: center; gap: 12px; text-align: left; }
+.sensitivity-score-panel a { text-decoration: underline; text-underline-offset: 3px; }
+@media (max-width: 1200px) {
+  .sensitivity-inputs { grid-template-columns: 1fr 1fr; }
+  .sensitivity-power { grid-column: 1 / -1; }
+  .sensitivity-plots { grid-template-columns: minmax(0, 1fr); }
+  .sensitivity-status { flex-wrap: wrap; }
+  .sensitivity-health { margin-left: 36px; }
+}
+@media (max-width: 600px) {
+  .sensitivity-summary { grid-template-columns: 1fr 1fr; }
+  .sensitivity-inputs { grid-template-columns: minmax(0, 1fr); }
+  .sensitivity-controls, .sensitivity-score-panel { padding: 18px; }
+  .sensitivity-chart { height: 290px; }
+}

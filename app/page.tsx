@@ -3,6 +3,7 @@ import { usePythonWorkspace } from '../hooks/use-python-workspace';
 import { summarizeAgentData } from '../lib/agent-data';
 import { Investigation } from '../components/investigation';
 import { validateAction, type AgentAction } from '../lib/agent';
+import { PriorSensitivity } from '../components/prior-sensitivity';
 import { AllocationPlanner } from '../components/allocation-planner';
 import { PriorEditor } from '../components/prior-editor';
 import { useDeferredValue, useEffect, useMemo, useRef, useState } from 'react';
@@ -194,6 +195,7 @@ function ThinPosterior(p: Posterior): Posterior {
 }
 
 export default function Home() {
+  const [fittingView, setFittingView] = useState('sampling');
   const [focusNote, setFocusNote] = useState('');
   const [focusTick, setFocusTick] = useState(0);
   function focusWorkspace(view: string) {
@@ -392,6 +394,7 @@ export default function Home() {
     setNotice('');
     setProgress(emptyProgress);
     setTab('fitting');
+    setFittingView('sampling');
     const ctrl = new AbortController();
     controller.current = ctrl;
     try {
@@ -1357,318 +1360,359 @@ export default function Home() {
                   exploring results.
                 </p>
               </div>
-              <div className="fitting-layout">
-                <section className="panel model-controls">
-                  <div className="model-step">
-                    <span>01</span>
-                    <div>
-                      <h3>Sampling budget</h3>
-                      <p>More draws improve precision when chains mix well.</p>
-                    </div>
-                  </div>
-                  <div className="two-fields">
-                    <div>
-                      <label htmlFor="chains">Chains</label>
-                      <Picker
-                        id="chains"
-                        value={String(config.chains)}
-                        options={['2', '4']}
-                        disabled={busy}
-                        onChange={(v) => changeConfig('chains', Number(v))}
-                      />
-                    </div>
-                    <div>
-                      <label htmlFor="draws">Draws per chain</label>
-                      <Picker
-                        id="draws"
-                        value={String(config.draws)}
-                        options={['500', '1000', '1500']}
-                        disabled={busy}
-                        onChange={(v) => changeConfig('draws', Number(v))}
-                      />
-                    </div>
-                    <div>
-                      <label htmlFor="tune">Warmup per chain</label>
-                      <Picker
-                        id="tune"
-                        value={String(config.tune)}
-                        options={['750', '1000', '1500']}
-                        disabled={busy}
-                        onChange={(v) => changeConfig('tune', Number(v))}
-                      />
-                    </div>
-                    <div>
-                      <label htmlFor="accept">Target acceptance</label>
-                      <Picker
-                        id="accept"
-                        value={String(config.targetAccept)}
-                        options={['0.9', '0.95', '0.99']}
-                        disabled={busy}
-                        onChange={(v) =>
-                          changeConfig('targetAccept', Number(v))
-                        }
-                      />
-                    </div>
-                  </div>
-                  <label className="seed-label" htmlFor="seed">
-                    Random seed
-                  </label>
-                  <Input
-                    id="seed"
-                    className="seed-input"
-                    type="number"
-                    min={0}
-                    max={2147483000}
-                    value={config.seed}
-                    disabled={busy}
-                    onChange={(e) => {
-                      const n = Number(e.target.value);
-                      if (Number.isInteger(n) && n >= 0 && n <= 2147483000)
-                        changeConfig('seed', n);
-                    }}
-                  />
-                  <p className="tiny">
-                    {number(config.chains * (config.draws + config.tune))} total
-                    iterations · Keep this browser tab open while fitting.
-                  </p>
-                </section>
-                <section className="panel run-panel">
-                  <span className="orbital">
-                    {busy ? (
-                      <LoaderCircle className="spin" size={26} />
-                    ) : (
-                      <FlaskConical size={27} />
-                    )}
-                  </span>
-                  <div className="eyebrow">
-                    {busy
-                      ? 'BAYESIAN INFERENCE, LIVE'
-                      : 'FROM DATA TO EVIDENCE'}
-                  </div>
-                  <h2>{busy ? 'Fitting your model' : posterior ? 'Fit complete' : 'Fit your model'}</h2>
-                  {busy ? (
-                    <>
-                      <p aria-live="polite">{progress.phase}</p>
-                      <div className="live-progress">
-                        <Progress
-                          aria-label="Overall sampling progress"
-                          value={progress.percent}
-                        />
+              <Tabs
+                value={fittingView}
+                onValueChange={(v) => setFittingView(String(v))}
+              >
+                <TabsList
+                  className="fitting-subtabs"
+                  aria-label="Fitting and diagnostic views"
+                >
+                  <TabsTrigger value="sampling">
+                    Sampling & convergence
+                  </TabsTrigger>
+                  <TabsTrigger value="sensitivity">
+                    Prior sensitivity
+                  </TabsTrigger>
+                </TabsList>
+                <TabsContent value="sampling">
+                  <div className="fitting-layout">
+                    <section className="panel model-controls">
+                      <div className="model-step">
+                        <span>01</span>
                         <div>
-                          <span>
-                            {progress.percent === null
-                              ? 'Preparing…'
-                              : `${Math.round(progress.percent)}%`}
-                          </span>
-                          <span>
-                            {progress.chain
-                              ? `Chain ${progress.chain} / ${config.chains}`
-                              : 'First load may take a minute'}
-                          </span>
+                          <h3>Sampling budget</h3>
+                          <p>
+                            More draws improve precision when chains mix well.
+                          </p>
                         </div>
                       </div>
-                      {progress.alpha.length > 0 ? (
+                      <div className="two-fields">
+                        <div>
+                          <label htmlFor="chains">Chains</label>
+                          <Picker
+                            id="chains"
+                            value={String(config.chains)}
+                            options={['2', '4']}
+                            disabled={busy}
+                            onChange={(v) => changeConfig('chains', Number(v))}
+                          />
+                        </div>
+                        <div>
+                          <label htmlFor="draws">Draws per chain</label>
+                          <Picker
+                            id="draws"
+                            value={String(config.draws)}
+                            options={['500', '1000', '1500']}
+                            disabled={busy}
+                            onChange={(v) => changeConfig('draws', Number(v))}
+                          />
+                        </div>
+                        <div>
+                          <label htmlFor="tune">Warmup per chain</label>
+                          <Picker
+                            id="tune"
+                            value={String(config.tune)}
+                            options={['750', '1000', '1500']}
+                            disabled={busy}
+                            onChange={(v) => changeConfig('tune', Number(v))}
+                          />
+                        </div>
+                        <div>
+                          <label htmlFor="accept">Target acceptance</label>
+                          <Picker
+                            id="accept"
+                            value={String(config.targetAccept)}
+                            options={['0.9', '0.95', '0.99']}
+                            disabled={busy}
+                            onChange={(v) =>
+                              changeConfig('targetAccept', Number(v))
+                            }
+                          />
+                        </div>
+                      </div>
+                      <label className="seed-label" htmlFor="seed">
+                        Random seed
+                      </label>
+                      <Input
+                        id="seed"
+                        className="seed-input"
+                        type="number"
+                        min={0}
+                        max={2147483000}
+                        value={config.seed}
+                        disabled={busy}
+                        onChange={(e) => {
+                          const n = Number(e.target.value);
+                          if (Number.isInteger(n) && n >= 0 && n <= 2147483000)
+                            changeConfig('seed', n);
+                        }}
+                      />
+                      <p className="tiny">
+                        {number(config.chains * (config.draws + config.tune))}{' '}
+                        total iterations · Keep this browser tab open while
+                        fitting.
+                      </p>
+                    </section>
+                    <section className="panel run-panel">
+                      <span className="orbital">
+                        {busy ? (
+                          <LoaderCircle className="spin" size={26} />
+                        ) : (
+                          <FlaskConical size={27} />
+                        )}
+                      </span>
+                      <div className="eyebrow">
+                        {busy
+                          ? 'BAYESIAN INFERENCE, LIVE'
+                          : 'FROM DATA TO EVIDENCE'}
+                      </div>
+                      <h2>
+                        {busy
+                          ? 'Fitting your model'
+                          : posterior
+                            ? 'Fit complete'
+                            : 'Fit your model'}
+                      </h2>
+                      {busy ? (
                         <>
-                          <Histogram values={progress.alpha} />
-                          <p className="tiny">
-                            Live carryover posterior ·{' '}
-                            {label(mapping.channels[0])}
-                            <br />
-                            {number(progress.retained)} retained draws
-                          </p>
+                          <p aria-live="polite">{progress.phase}</p>
+                          <div className="live-progress">
+                            <Progress
+                              aria-label="Overall sampling progress"
+                              value={progress.percent}
+                            />
+                            <div>
+                              <span>
+                                {progress.percent === null
+                                  ? 'Preparing…'
+                                  : `${Math.round(progress.percent)}%`}
+                              </span>
+                              <span>
+                                {progress.chain
+                                  ? `Chain ${progress.chain} / ${config.chains}`
+                                  : 'First load may take a minute'}
+                              </span>
+                            </div>
+                          </div>
+                          {progress.alpha.length > 0 ? (
+                            <>
+                              <Histogram values={progress.alpha} />
+                              <p className="tiny">
+                                Live carryover posterior ·{' '}
+                                {label(mapping.channels[0])}
+                                <br />
+                                {number(progress.retained)} retained draws
+                              </p>
+                            </>
+                          ) : (
+                            <p className="tiny">
+                              The browser downloads ~120 MB on first use, then
+                              compiles your model. You can keep exploring.
+                            </p>
+                          )}
+                          <Button
+                            className="stop-button"
+                            variant="outline"
+                            onClick={() => controller.current?.abort()}
+                          >
+                            <X /> Stop run
+                          </Button>
                         </>
                       ) : (
-                        <p className="tiny">
-                          The browser downloads ~120 MB on first use, then
-                          compiles your model. You can keep exploring.
-                        </p>
+                        <>
+                          <p>
+                            {posterior
+                              ? 'Review convergence below, then explore your results or refine the model.'
+                              : 'Sample the posterior using your current model assumptions and sampling budget.'}
+                          </p>
+                          <div className="run-facts">
+                            <span>
+                              Carryover window <span>{config.lag} weeks</span>
+                            </span>
+                            <span>
+                              Posterior draws{' '}
+                              <span>
+                                {number(config.chains * config.draws)} ·{' '}
+                                {config.chains} chains
+                              </span>
+                            </span>
+                            <span>
+                              Where it runs <span>This browser</span>
+                            </span>
+                          </div>
+                          {runAction}
+                          {posterior && (
+                            <Button
+                              variant="outline"
+                              onClick={() => setTab('overview')}
+                            >
+                              View results <ArrowRight />
+                            </Button>
+                          )}
+                          <Button
+                            className="text-button"
+                            variant="ghost"
+                            disabled={busy}
+                            onClick={() => setTab('model')}
+                          >
+                            <SlidersHorizontal /> Adjust model assumptions
+                          </Button>
+                          {!posterior && (
+                            <small>Runtime downloads once · ~120 MB</small>
+                          )}
+                        </>
                       )}
-                      <Button
-                        className="stop-button"
-                        variant="outline"
-                        onClick={() => controller.current?.abort()}
-                      >
-                        <X /> Stop run
-                      </Button>
-                    </>
-                  ) : (
-                    <>
-                      <p>
-                        {posterior
-                          ? 'Review convergence below, then explore your results or refine the model.'
-                          : 'Sample the posterior using your current model assumptions and sampling budget.'}
-                      </p>
-                      <div className="run-facts">
+                    </section>
+                  </div>
+                  {posterior && (
+                    <section
+                      className={`panel diagnostics ${good ? '' : 'needs-review'}`}
+                    >
+                      <div>
+                        <span className="diagnostic-icon">
+                          {good ? <CheckCheck /> : <TriangleAlert />}
+                        </span>
+                        <div>
+                          <h3>
+                            {good
+                              ? 'Convergence checks passed'
+                              : 'Inspect before interpreting'}
+                          </h3>
+                          <p>
+                            {good
+                              ? 'These checks support numerical reliability; they do not establish causal identification.'
+                              : 'Try more warmup/draws or stronger priors. Diagnostics are not yet sufficient for reliable interpretation.'}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="diagnostic-values">
                         <span>
-                          Carryover window <span>{config.lag} weeks</span>
+                          Max R̂{' '}
+                          <strong>
+                            {posterior.diagnostics.maxRhat?.toFixed(4) ??
+                              'Unavailable'}
+                          </strong>
+                          <small>≤ 1.01</small>
                         </span>
                         <span>
-                          Posterior draws{' '}
-                          <span>
-                            {number(config.chains * config.draws)} ·{' '}
-                            {config.chains} chains
-                          </span>
+                          Min bulk ESS{' '}
+                          <strong>
+                            {posterior.diagnostics.minEss === null
+                              ? 'Unavailable'
+                              : number(posterior.diagnostics.minEss)}
+                          </strong>
+                          <small>≥ 400</small>
                         </span>
                         <span>
-                          Where it runs <span>This browser</span>
+                          Min tail ESS{' '}
+                          <strong>
+                            {posterior.diagnostics.minTailEss === null
+                              ? 'Unavailable'
+                              : number(posterior.diagnostics.minTailEss)}
+                          </strong>
+                          <small>≥ 400</small>
+                        </span>
+                        <span>
+                          Divergences{' '}
+                          <strong>{posterior.diagnostics.divergences}</strong>
+                          <small>0 expected</small>
                         </span>
                       </div>
-                      {runAction}
-                      {posterior && (
-                        <Button
-                          variant="outline"
-                          onClick={() => setTab('overview')}
-                        >
-                          View results <ArrowRight />
-                        </Button>
-                      )}
-                      <Button
-                        className="text-button"
-                        variant="ghost"
-                        disabled={busy}
-                        onClick={() => setTab('model')}
-                      >
-                        <SlidersHorizontal /> Adjust model assumptions
-                      </Button>
-                      {!posterior && (
-                        <small>Runtime downloads once · ~120 MB</small>
-                      )}
-                    </>
+                    </section>
                   )}
-                </section>
-              </div>
-              {posterior && (
-                <section
-                  className={`panel diagnostics ${good ? '' : 'needs-review'}`}
-                >
-                  <div>
-                    <span className="diagnostic-icon">
-                      {good ? <CheckCheck /> : <TriangleAlert />}
-                    </span>
-                    <div>
+                  {!posterior && (
+                    <section className="panel fitting-empty" aria-live="polite">
+                      <Activity size={24} />
                       <h3>
-                        {good
-                          ? 'Convergence checks passed'
-                          : 'Inspect before interpreting'}
+                        {busy
+                          ? 'Diagnostics will appear after sampling'
+                          : 'No fitted model yet'}
                       </h3>
                       <p>
-                        {good
-                          ? 'These checks support numerical reliability; they do not establish causal identification.'
-                          : 'Try more warmup/draws or stronger priors. Diagnostics are not yet sufficient for reliable interpretation.'}
+                        Run the model to inspect R̂, bulk and tail effective
+                        sample sizes, and divergences.
                       </p>
-                    </div>
-                  </div>
-                  <div className="diagnostic-values">
-                    <span>
-                      Max R̂{' '}
-                      <strong>
-                        {posterior.diagnostics.maxRhat?.toFixed(4) ??
-                          'Unavailable'}
-                      </strong>
-                      <small>≤ 1.01</small>
-                    </span>
-                    <span>
-                      Min bulk ESS{' '}
-                      <strong>
-                        {posterior.diagnostics.minEss === null
-                          ? 'Unavailable'
-                          : number(posterior.diagnostics.minEss)}
-                      </strong>
-                      <small>≥ 400</small>
-                    </span>
-                    <span>
-                      Min tail ESS{' '}
-                      <strong>
-                        {posterior.diagnostics.minTailEss === null
-                          ? 'Unavailable'
-                          : number(posterior.diagnostics.minTailEss)}
-                      </strong>
-                      <small>≥ 400</small>
-                    </span>
-                    <span>
-                      Divergences{' '}
-                      <strong>{posterior.diagnostics.divergences}</strong>
-                      <small>0 expected</small>
-                    </span>
-                  </div>
-                </section>
-              )}
-              {!posterior && (
-                <section className="panel fitting-empty" aria-live="polite">
-                  <Activity size={24} />
-                  <h3>
-                    {busy
-                      ? 'Diagnostics will appear after sampling'
-                      : 'No fitted model yet'}
-                  </h3>
-                  <p>
-                    Run the model to inspect R̂, bulk and tail effective sample
-                    sizes, and divergences.
-                  </p>
-                  {!data && (
-                    <Button variant="outline" onClick={() => setTab('data')}>
-                      Review data <ArrowRight />
-                    </Button>
-                  )}
-                </section>
-              )}
-              {comparableFits.length > 0 && (
-                <section
-                  className="fit-history"
-                  aria-label="Completed fit comparisons"
-                >
-                  <div>
-                    <strong>Evidence from this session</strong>
-                    <p>
-                      Completed fits stay separate from your current draft. Keep
-                      up to four; export a project for a durable backup.
-                    </p>
-                  </div>
-                  <div className="fit-cards">
-                    {comparableFits.map((f) => (
-                      <article key={f.id}>
-                        <strong>
-                          Fit {f.id}
-                          {posterior === f.posterior ? ' · current' : ''}
-                        </strong>
-                        <p>
-                          {f.config.lag}-week carryover · prior scale{' '}
-                          {f.config.priorScale} · seasonality{' '}
-                          {f.config.seasonality ? 'on' : 'off'}
-                        </p>
-                        <p>
-                          R-hat{' '}
-                          {f.posterior.diagnostics.maxRhat?.toFixed(3) ??
-                            'unavailable'}{' '}
-                          · {f.posterior.diagnostics.divergences} divergences
-                        </p>
-                        {mapping.channels.map((channel, i) => (
-                          <p key={channel}>
-                            {label(channel)}:{' '}
-                            {compact(f.posterior.contributions[i].median)}{' '}
-                            <span>
-                              ({compact(f.posterior.contributions[i].low)}–
-                              {compact(f.posterior.contributions[i].high)})
-                            </span>
-                          </p>
-                        ))}
+                      {!data && (
                         <Button
                           variant="outline"
-                          disabled={busy}
-                          onClick={() => {
-                            invalidate();
-                            setConfig(f.config);
-                            setPosterior(f.posterior);
-                            setTab('fitting');
-                          }}
+                          onClick={() => setTab('data')}
                         >
-                          Open this fit
+                          Review data <ArrowRight />
                         </Button>
-                      </article>
-                    ))}
-                  </div>
-                </section>
-              )}
+                      )}
+                    </section>
+                  )}
+                  {comparableFits.length > 0 && (
+                    <section
+                      className="fit-history"
+                      aria-label="Completed fit comparisons"
+                    >
+                      <div>
+                        <strong>Evidence from this session</strong>
+                        <p>
+                          Completed fits stay separate from your current draft.
+                          Keep up to four; export a project for a durable
+                          backup.
+                        </p>
+                      </div>
+                      <div className="fit-cards">
+                        {comparableFits.map((f) => (
+                          <article key={f.id}>
+                            <strong>
+                              Fit {f.id}
+                              {posterior === f.posterior ? ' · current' : ''}
+                            </strong>
+                            <p>
+                              {f.config.lag}-week carryover · prior scale{' '}
+                              {f.config.priorScale} · seasonality{' '}
+                              {f.config.seasonality ? 'on' : 'off'}
+                            </p>
+                            <p>
+                              R-hat{' '}
+                              {f.posterior.diagnostics.maxRhat?.toFixed(3) ??
+                                'unavailable'}{' '}
+                              · {f.posterior.diagnostics.divergences}{' '}
+                              divergences
+                            </p>
+                            {mapping.channels.map((channel, i) => (
+                              <p key={channel}>
+                                {label(channel)}:{' '}
+                                {compact(f.posterior.contributions[i].median)}{' '}
+                                <span>
+                                  ({compact(f.posterior.contributions[i].low)}–
+                                  {compact(f.posterior.contributions[i].high)})
+                                </span>
+                              </p>
+                            ))}
+                            <Button
+                              variant="outline"
+                              disabled={busy}
+                              onClick={() => {
+                                invalidate();
+                                setConfig(f.config);
+                                setPosterior(f.posterior);
+                                setTab('fitting');
+                              }}
+                            >
+                              Open this fit
+                            </Button>
+                          </article>
+                        ))}
+                      </div>
+                    </section>
+                  )}
+                </TabsContent>
+                <TabsContent value="sensitivity">
+                  <PriorSensitivity
+                    key={datasetIdentity}
+                    posterior={posterior}
+                    channels={mapping.channels}
+                    busy={busy}
+                    onConfigure={() => setFittingView('sampling')}
+                  />
+                </TabsContent>
+              </Tabs>
             </TabsContent>
             <TabsContent value="scenarios">
               <div className="section-intro">
