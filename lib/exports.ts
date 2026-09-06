@@ -323,6 +323,8 @@ export function readProject(text: string): SavedProject {
       !Number.isInteger(n) ||
       n !== c.chains * c.draws ||
       n > 6000 ||
+      (posterior.predictiveMean !== undefined &&
+        !vector(posterior.predictiveMean, n)) ||
       !matrix(posterior.alpha) ||
       !matrix(posterior.beta) ||
       !matrix(posterior.lam) ||
@@ -374,12 +376,19 @@ export function readProject(text: string): SavedProject {
     )
       throw Error('The saved sensitivity analysis is malformed.');
   }
+  const channelSpend = checked.data.channels.map((_, j) =>
+    checked.data!.x.reduce((sum, row) => sum + row[j], 0),
+  );
+  const totalSpend = channelSpend.reduce((sum, v) => sum + v, 0);
   const multipliers =
     Array.isArray(p.scenarioMultipliers) &&
     p.scenarioMultipliers.length === m.channels.length &&
     p.scenarioMultipliers.every(
-      (v: unknown) =>
-        typeof v === 'number' && Number.isFinite(v) && v >= 0 && v <= 2,
+      (v: unknown, i: number) =>
+        typeof v === 'number' &&
+        Number.isFinite(v) &&
+        v >= 0 &&
+        v <= Math.max(2, totalSpend / channelSpend[i]) + 1e-9,
     )
       ? p.scenarioMultipliers
       : [];
