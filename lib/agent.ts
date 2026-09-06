@@ -266,10 +266,8 @@ export const agentTools = [
         channel: { type: 'integer', minimum: 0, maximum: 7 },
         multiplier: { type: 'number', minimum: 0, maximum: 2 },
       },
-      anyOf: Object.entries(actionFields).map(([kind, fields]) => ({
-        properties: { kind: { const: kind } },
-        required: ['kind', ...fields],
-      })),
+      // Claude rejects top-level anyOf/oneOf/allOf. Per-kind requirements
+      // remain in the description and are enforced locally by validateAction.
       required: ['kind'],
       additionalProperties: false,
     },
@@ -299,14 +297,28 @@ export function claudeProvider(key: string, model: string): AgentProvider {
           system: agentInstructions(context),
         }),
       });
-      if (!response.ok)
+      if (!response.ok) {
+        let detail = '';
+        try {
+          const errorBody = (await response.json()) as {
+            error?: { message?: unknown };
+          } | null;
+          if (typeof errorBody?.error?.message === 'string')
+            detail = errorBody.error.message
+              .split(key)
+              .join('[redacted]')
+              .slice(0, 1500);
+        } catch {
+          /* Some gateways return non-JSON errors. */
+        }
         throw Error(
           response.status === 401
             ? 'The API key was not accepted.'
             : response.status === 429
               ? 'Claude usage limit reached. Try again later.'
-              : `Claude request failed (${response.status}). Check your model and connection.`,
+              : `Claude request failed (${response.status}). ${detail || 'Check your model and connection.'}`,
         );
+      }
       const body = (await response.json()) as {
         stop_reason?: string;
         content?: Block[];

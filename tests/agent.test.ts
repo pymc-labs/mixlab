@@ -278,3 +278,53 @@ test('invalid actions provide recovery guidance and never silently ignore argume
     }),
   );
 });
+
+void test('Claude request uses supported top-level tool schemas', async () => {
+  const original = globalThis.fetch;
+  globalThis.fetch = (async (_url, options) => {
+    const body = JSON.parse(options!.body as string);
+    for (const tool of body.tools) {
+      assert.equal(tool.input_schema.type, 'object');
+      for (const keyword of ['anyOf', 'oneOf', 'allOf'])
+        assert.equal(Object.hasOwn(tool.input_schema, keyword), false);
+    }
+    return new Response(
+      JSON.stringify({
+        content: [{ type: 'text', text: 'Ready' }],
+        stop_reason: 'end_turn',
+      }),
+    );
+  }) as typeof fetch;
+  try {
+    await claudeProvider('key', 'model').respond(
+      [],
+      {},
+      new AbortController().signal,
+    );
+  } finally {
+    globalThis.fetch = original;
+  }
+});
+
+void test('Claude surfaces request rejection details without exposing the key', async () => {
+  const original = globalThis.fetch;
+  globalThis.fetch = (async () =>
+    new Response(
+      JSON.stringify({
+        error: { message: 'Unsupported schema for secret-test-key' },
+      }),
+      { status: 400 },
+    )) as typeof fetch;
+  try {
+    await assert.rejects(
+      claudeProvider('secret-test-key', 'model').respond(
+        [],
+        {},
+        new AbortController().signal,
+      ),
+      /Claude request failed \(400\).*Unsupported schema for \[redacted\]/,
+    );
+  } finally {
+    globalThis.fetch = original;
+  }
+});
