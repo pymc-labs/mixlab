@@ -1,0 +1,8 @@
+name: mixlab-notebooks
+channels:
+  - https://repo.prefix.dev/emscripten-forge-4x
+  - https://repo.prefix.dev/conda-forge
+dependencies:
+  - python=3.13
+  - xeus-python=0.19.0
+  - ipython

@@ -1,0 +1,1557 @@
+{
+  "version": 1,
+  "upstream": "https://github.com/pymc-labs/nuts-rs-wasm",
+  "environment": "pymc-marketing-wasm",
+  "archive": {
+    "url": "https://github.com/twiecki/mixlab/releases/download/runtime-v1/mixlab-runtime.tar.gz",
+    "sha256": "93f6d5dcc4a45148adb9b2562c1501ff86dae11c84c138afecfc1db6f2cf09df",
+    "bytes": 104008316
+  },
+  "files": [
+    {
+      "path": "comlink.worker.js",
+      "sha256": "e494e1b2347af8c5d88ad18c939409744cc64ece43af637775f57cfc01733b64",
+      "bytes": 4707703
+    },
+    {
+      "path": "marketing-backport.json",
+      "sha256": "3b9339dbda3b2bc7d6ffa4b5c6f4010c708f31f64c38f8c8c573386a10af32e6",
+      "bytes": 470
+    },
+    {
+      "path": "nuts-worker-loader.js",
+      "sha256": "3ca10814fd5b5ba551ee15633a22609b8602e0feb2fdaa92da7b6cc386db8e2b",
+      "bytes": 1045
+    },
+    {
+      "path": "pytensor-backport.json",
+      "sha256": "49cd8299c57afb628d922f75b4e377da7044c8572646dfb945fb8b7882476277",
+      "bytes": 490
+    },
+    {
+      "path": "resolved-environment.json",
+      "sha256": "470cedfc3f47bcdee32add3d2b2f246f01f37696edcc3946367b4e468987f46b",
+      "bytes": 43439
+    },
+    {
+      "path": "third-party-licenses/annotated-types-0.8.0-pyhd8ed1ab_0/LICENSE",
+      "sha256": "fe1049884b1a0d9342901e88e07f32925d24b3121d9972b6a6805fb9824b095d",
+      "bytes": 1083
+    },
+    {
+      "path": "third-party-licenses/annotated-types-0.8.0-pyhd8ed1ab_0/source.json",
+      "sha256": "38cf1c29509bd76b17ee6389db95115efdb82b1bcdc78ab148a5010f997129c0",
+      "bytes": 210
+    },
+    {
+      "path": "third-party-licenses/asttokens-3.0.2-pyhd8ed1ab_0/LICENSE",
+      "sha256": "62fb8a3a9621dc2388174caaabe9c2317b694bb9a1d46c98bcf5655b68f51be3",
+      "bytes": 11359
+    },
+    {
+      "path": "third-party-licenses/asttokens-3.0.2-pyhd8ed1ab_0/source.json",
+      "sha256": "94ec6445c059969b76b975cb4b333684027bd6f4377fc0eaefd9da61bc85a9fa",
+      "bytes": 205
+    },
+    {
+      "path": "third-party-licenses/backcall-0.2.0-pyh9f0ad1d_0/LICENSE",
+      "sha256": "d422f8ce77312733c07f5fec8ccbe61d58d539774f7a66f37e4bc54740d86020",
+      "bytes": 1490
+    },
+    {
+      "path": "third-party-licenses/backcall-0.2.0-pyh9f0ad1d_0/source.json",
+      "sha256": "98d98a62db6c267f3dd2dc59a779e223ac235ab90bdf498c11eaa84b66f2b799",
+      "bytes": 207
+    },
+    {
+      "path": "third-party-licenses/brotli-python-1.2.0-py313ha26e73d_2/LICENSE",
+      "sha256": "3d180008e36922a4e8daec11c34c7af264fed5962d07924aea928c38e8663c94",
+      "bytes": 1084
+    },
+    {
+      "path": "third-party-licenses/brotli-python-1.2.0-py313ha26e73d_2/source.json",
+      "sha256": "13285e3c536e1b9bf0c7693be9662c50aa88bca7cbfd80b81dcaf871eb1b21a0",
+      "bytes": 233
+    },
+    {
+      "path": "third-party-licenses/cachetools-6.2.6-pyhd8ed1ab_0/source.json",
+      "sha256": "21b3a89a9222f2f477d83dca5c1f5461cfde18a87831843e5d9e0d1aa9add813",
+      "bytes": 183
+    },
+    {
+      "path": "third-party-licenses/certifi-2026.7.22-pyhd8ed1ab_0/certifi/LICENSE",
+      "sha256": "e93716da6b9c0d5a4a1df60fe695b370f0695603d21f6f83f053e42cfc10caf7",
+      "bytes": 989
+    },
+    {
+      "path": "third-party-licenses/certifi-2026.7.22-pyhd8ed1ab_0/source.json",
+      "sha256": "2232148b45aeb9e0c1c43c713cc27ce9e1df3a1159fa0d63b9f15719076cf622",
+      "bytes": 210
+    },
+    {
+      "path": "third-party-licenses/charset-normalizer-3.5.1-pyhd8ed1ab_0/LICENSE",
+      "sha256": "6d0d41bfe170ac6c7dc248c9a63e254d0fb45a60d50a8257d0af92c6e249b887",
+      "bytes": 1071
+    },
+    {
+      "path": "third-party-licenses/charset-normalizer-3.5.1-pyhd8ed1ab_0/data/NOTICE.md",
+      "sha256": "0cb3efcfd8f7a02a337e98dc3de4b0b57424d7208a332b26e7deb8cb94c13922",
+      "bytes": 490
+    },
+    {
+      "path": "third-party-licenses/charset-normalizer-3.5.1-pyhd8ed1ab_0/source.json",
+      "sha256": "fea18d3fb82f1ef4c622873ee90b1beae960b4cdbb0db7c98c5ec458ac4a9b86",
+      "bytes": 238
+    },
+    {
+      "path": "third-party-licenses/cloudpickle-3.1.2-pyhcf101f3_1/LICENSE.txt",
+      "sha256": "86dc4bc79c9fa4d5dc3ae5558441d5bb8b8736403e70997cf9ae8f671ab5d0ca",
+      "bytes": 1541
+    },
+    {
+      "path": "third-party-licenses/cloudpickle-3.1.2-pyhcf101f3_1/source.json",
+      "sha256": "87b51c3359bdb7d6b4a304bf0c96f9bb423ae23fb5757b2b80b05315f287a83b",
+      "bytes": 215
+    },
+    {
+      "path": "third-party-licenses/contourpy-1.3.3-py313hffb8c6e_4/LICENSE",
+      "sha256": "34170979fc64f4f5e6dfa66ef27dec314ffffc5852000c60f4836ec1dfbf156e",
+      "bytes": 1534
+    },
+    {
+      "path": "third-party-licenses/contourpy-1.3.3-py313hffb8c6e_4/source.json",
+      "sha256": "3807650841e2cde3b214e57bb0cc11fd24ca2c5d25f9900eaee83a4a1c930014",
+      "bytes": 234
+    },
+    {
+      "path": "third-party-licenses/cycler-0.12.1-pyhcf101f3_2/LICENSE",
+      "sha256": "f1218143d766da3fea66f13396b7f15df46a83303f29bf96ba6e98eb4d42f408",
+      "bytes": 1497
+    },
+    {
+      "path": "third-party-licenses/cycler-0.12.1-pyhcf101f3_2/source.json",
+      "sha256": "84fb7589a7a9fea56d29ad195b1039242369eada193f4a77013644c2c0175f25",
+      "bytes": 203
+    },
+    {
+      "path": "third-party-licenses/decorator-5.3.1-pyhd8ed1ab_0/source.json",
+      "sha256": "87f89f12f8deaeac45adae0f998d8b53d32ec9c07b32ca3766ea6786e5563280",
+      "bytes": 190
+    },
+    {
+      "path": "third-party-licenses/emscripten-abi-4.0.9-h267e887_9/LICENSE.txt",
+      "sha256": "ade0cde45d85897f0264b37e651256428b77b45ef0363d5b97be8fecb4b6805a",
+      "bytes": 5091
+    },
+    {
+      "path": "third-party-licenses/emscripten-abi-4.0.9-h267e887_9/source.json",
+      "sha256": "e94c6e25aa0804e3a917e93b904e47dac67c536bde4988891179dbe36a4e5be8",
+      "bytes": 218
+    },
+    {
+      "path": "third-party-licenses/executing-2.2.1-pyhd8ed1ab_0/source.json",
+      "sha256": "020dd22a115316b12657684f1f40ffbc78f2c95fcc77bc2ae1d337f136543865",
+      "bytes": 181
+    },
+    {
+      "path": "third-party-licenses/expat-2.6.4-hb2bca66_0/COPYING",
+      "sha256": "122f2c27000472a201d337b9b31f7eb2b52d091b02857061a8880371612d9534",
+      "bytes": 1144
+    },
+    {
+      "path": "third-party-licenses/expat-2.6.4-hb2bca66_0/source.json",
+      "sha256": "377ee42bad72e2cb7d2132f372f2e65a5718a9ab975ea9d14480c5e22f2f9cc0",
+      "bytes": 207
+    },
+    {
+      "path": "third-party-licenses/filelock-3.32.5-pyhd8ed1ab_0/LICENSE",
+      "sha256": "608c89d5060ae9921adccf3236695bc654a9946e12323ef6c021dfa04e294d48",
+      "bytes": 1088
+    },
+    {
+      "path": "third-party-licenses/filelock-3.32.5-pyhd8ed1ab_0/source.json",
+      "sha256": "107fae5d1b752a73ab456b74235e8edd526885e06734c96164ddafdf226b6470",
+      "bytes": 204
+    },
+    {
+      "path": "third-party-licenses/fonttools-4.39.4-py313h6d8a2ba_2/LICENSE",
+      "sha256": "6787208f83f659ccbc2223b2fde952ffa6f7e8aca62f1a8a2bf5bc51bb1b2383",
+      "bytes": 1072
+    },
+    {
+      "path": "third-party-licenses/fonttools-4.39.4-py313h6d8a2ba_2/source.json",
+      "sha256": "9778f26226cbb3b6cd8ceca172f3b945f597f4cc928bde7516cd623560fc8f38",
+      "bytes": 227
+    },
+    {
+      "path": "third-party-licenses/graphviz-15.1.0-h0c76a5c_0/LICENSE",
+      "sha256": "0becf16567beb77fa252b7664631dd177c8f9a1889e48995b45379c7130e5303",
+      "bytes": 14198
+    },
+    {
+      "path": "third-party-licenses/graphviz-15.1.0-h0c76a5c_0/source.json",
+      "sha256": "6847db4d8a293735dcbab06ef0cac5b5be0be14576d6e8d8cb966421f6ea664e",
+      "bytes": 219
+    },
+    {
+      "path": "third-party-licenses/graphviz-python-15.1.0-py313h0c76a5c_0/LICENSE",
+      "sha256": "0becf16567beb77fa252b7664631dd177c8f9a1889e48995b45379c7130e5303",
+      "bytes": 14198
+    },
+    {
+      "path": "third-party-licenses/graphviz-python-15.1.0-py313h0c76a5c_0/source.json",
+      "sha256": "f7c607e088bf7e584fc8c9fd0ab87d86884b0571f8164d0c2eacf89b9427fb8b",
+      "bytes": 243
+    },
+    {
+      "path": "third-party-licenses/h5netcdf-1.8.1-pyhd8ed1ab_0/source.json",
+      "sha256": "16b90eaab51250e338c2e0f61a0da089c4b8e520284c2d468b5c428b06a73260",
+      "bytes": 188
+    },
+    {
+      "path": "third-party-licenses/h5py-3.15.1-np23py313h1a64791_2/licenses/license.txt",
+      "sha256": "facf43e03193cf4cf8d8bcdd67ce04fc61ef6948dd06672a4e5da579e64a3948",
+      "bytes": 1739
+    },
+    {
+      "path": "third-party-licenses/h5py-3.15.1-np23py313h1a64791_2/source.json",
+      "sha256": "4c2587254628427131447d44f9d7ffb19413c2c45f8cd42e5a40c6fd554e52bb",
+      "bytes": 247
+    },
+    {
+      "path": "third-party-licenses/hdf5-1.14.6-ha7c90dc_0/COPYING",
+      "sha256": "587b532c4c27b64ecff3192d6189e149231934a00c753a401d4559231af7f7a7",
+      "bytes": 5517
+    },
+    {
+      "path": "third-party-licenses/hdf5-1.14.6-ha7c90dc_0/source.json",
+      "sha256": "770edccc52cf7fc2ba3bc4036c79bfc9c6e1d6ae875cf1b9d80b60ccdc239eeb",
+      "bytes": 216
+    },
+    {
+      "path": "third-party-licenses/idna-3.19-pyhcf101f3_0/LICENSE.md",
+      "sha256": "1a9a4f0e3d479a27240ddd59a9137a66ab4a0f9dfdc8ca6188cc0bfd85187f04",
+      "bytes": 1541
+    },
+    {
+      "path": "third-party-licenses/idna-3.19-pyhcf101f3_0/source.json",
+      "sha256": "9dc50da02bcd30901783ef1af9cf5cde3310883db4fc83e154789f256b826df9",
+      "bytes": 198
+    },
+    {
+      "path": "third-party-licenses/ipython-9.9.0-py313h6d8a2ba_0/LICENSE",
+      "sha256": "e0e390748ed440ab893ca1f135a88a920aaf5409dbb90a5b427c75c5e51268fb",
+      "bytes": 1720
+    },
+    {
+      "path": "third-party-licenses/ipython-9.9.0-py313h6d8a2ba_0/source.json",
+      "sha256": "d657d2d5feafe12acd64e32953ffcdcc5f6e864ad33d4e4eace2d37b14367018",
+      "bytes": 230
+    },
+    {
+      "path": "third-party-licenses/joblib-1.6.0-py313h57e9779_0/LICENSE.txt",
+      "sha256": "42612911c1872c5e4b43f6ae0e8ee59467cd350332241cf72ce90640264fae6a",
+      "bytes": 1527
+    },
+    {
+      "path": "third-party-licenses/joblib-1.6.0-py313h57e9779_0/source.json",
+      "sha256": "7b5186538d90d5f77878932f9a216751286a4188e7b97605982f6f9f6c4f935a",
+      "bytes": 232
+    },
+    {
+      "path": "third-party-licenses/kiwisolver-1.5.1-py313hb42c9ef_0/LICENSE",
+      "sha256": "529c40e5f67f2f88904657a9f7879ae2f8dc76bc9bfef9cb10d988b48804ed61",
+      "bytes": 3289
+    },
+    {
+      "path": "third-party-licenses/kiwisolver-1.5.1-py313hb42c9ef_0/source.json",
+      "sha256": "455de085a4bd0bf89dc4449a31912596a46db18354a6cfda35c83e6e71d50fa0",
+      "bytes": 236
+    },
+    {
+      "path": "third-party-licenses/lazy-loader-0.5-pyhd8ed1ab_0/source.json",
+      "sha256": "f992ed5ac266bef82834a331e756dbb4e630d2c3d38bbc3952dd874e36ba66aa",
+      "bytes": 190
+    },
+    {
+      "path": "third-party-licenses/lazy_loader-0.5-pyhd8ed1ab_0/source.json",
+      "sha256": "c0f258634c33116ae3c6b027498e0f355339eefcfb7cf1968736cc8e747099a2",
+      "bytes": 190
+    },
+    {
+      "path": "third-party-licenses/libwebp-1.6.0-h8b79025_0/COPYING",
+      "sha256": "5aec868f669e384a22372a4e8a1a6cd7d44c64cd451f960ca69cc170d1e13acf",
+      "bytes": 1496
+    },
+    {
+      "path": "third-party-licenses/libwebp-1.6.0-h8b79025_0/source.json",
+      "sha256": "d5540c5c549aac6da97fba676cffe4faf8739cfaccacdaf78259e85f09e8e1d7",
+      "bytes": 220
+    },
+    {
+      "path": "third-party-licenses/libyaml-0.2.5-h8b79025_0/License",
+      "sha256": "c40112449f254b9753045925248313e9270efa36d226b22d82d4cc6c43c57f29",
+      "bytes": 1101
+    },
+    {
+      "path": "third-party-licenses/libyaml-0.2.5-h8b79025_0/source.json",
+      "sha256": "34cad228c82fe2e4d8b6b7b0b692b488eeba4697bbe6345a527edd1d2b06cfcb",
+      "bytes": 211
+    },
+    {
+      "path": "third-party-licenses/llvmlite-0.48.0-py313hb6bfdb0_8/LICENSE",
+      "sha256": "5d0772f4dc4cb16e6bee2419bfa57c0a129808400e341b87fd9f87cbe6a5963d",
+      "bytes": 1285
+    },
+    {
+      "path": "third-party-licenses/llvmlite-0.48.0-py313hb6bfdb0_8/source.json",
+      "sha256": "ac2cb5464035874f67d8b027a2b69ff097a9f69ffa929bced2d0fda2742f790f",
+      "bytes": 234
+    },
+    {
+      "path": "third-party-licenses/manifest.json",
+      "sha256": "334d1ab419ff207b2c8e03eb939ade1468b5e2d2daf05ef4c8d8fbe1b197dc26",
+      "bytes": 24430
+    },
+    {
+      "path": "third-party-licenses/markdown-it-py-4.2.0-pyhd8ed1ab_0/source.json",
+      "sha256": "e6d1341387fcede2b9826b231ed0056ffd2c1725bf4641e0e8510409753a6cfa",
+      "bytes": 191
+    },
+    {
+      "path": "third-party-licenses/matplotlib-3.11.1-pyh400597f_0/LICENSE/LICENSE",
+      "sha256": "5a1a81ea301728c8bba2933da832c0cd62229daf20893a024ab3d53244468dbc",
+      "bytes": 4830
+    },
+    {
+      "path": "third-party-licenses/matplotlib-3.11.1-pyh400597f_0/LICENSE/LICENSE_AMSFONTS",
+      "sha256": "155141d59877f338f6e1c0805de9b79964dce71fe5d2a56c44e38b2c0f7e35ee",
+      "bytes": 12675
+    },
+    {
+      "path": "third-party-licenses/matplotlib-3.11.1-pyh400597f_0/LICENSE/LICENSE_BAKOMA",
+      "sha256": "93adb2b53c02b7ce06b26bff41358c21248f42fed287b633ec4c31038377cdbb",
+      "bytes": 1440
+    },
+    {
+      "path": "third-party-licenses/matplotlib-3.11.1-pyh400597f_0/LICENSE/LICENSE_COLORBREWER",
+      "sha256": "01173653fe745ce2124ec156d78b460582d2a719d2d9212804267e95fd2c97e7",
+      "bytes": 695
+    },
+    {
+      "path": "third-party-licenses/matplotlib-3.11.1-pyh400597f_0/LICENSE/LICENSE_COURIERTEN",
+      "sha256": "ac81f717aaff9456b88010fc55382a8dff199e4c4bcc5d61e040c3f7063beb43",
+      "bytes": 802
+    },
+    {
+      "path": "third-party-licenses/matplotlib-3.11.1-pyh400597f_0/LICENSE/LICENSE_FREETYPE",
+      "sha256": "2e3bbb7d7c5c396368dd0853a790ec29ce5b8647163dde42a0493fb0d6556b2b",
+      "bytes": 2074
+    },
+    {
+      "path": "third-party-licenses/matplotlib-3.11.1-pyh400597f_0/LICENSE/LICENSE_HARFBUZZ",
+      "sha256": "ba8f810f2455c2f08e2d56bb49b72f37fcf68f1f4fade38977cfd7372050ad64",
+      "bytes": 1971
+    },
+    {
+      "path": "third-party-licenses/matplotlib-3.11.1-pyh400597f_0/LICENSE/LICENSE_JSXTOOLS_RESIZE_OBSERVER",
+      "sha256": "597756adcb51f243ef4fb386920377f61d012ace0904364e1a8ee9aaec6afc84",
+      "bytes": 6799
+    },
+    {
+      "path": "third-party-licenses/matplotlib-3.11.1-pyh400597f_0/LICENSE/LICENSE_LAST_RESORT_FONT",
+      "sha256": "1440f519e51f27adb9b4825580e922c38b9e326523843d6cf876a7d312a916e0",
+      "bytes": 4418
+    },
+    {
+      "path": "third-party-licenses/matplotlib-3.11.1-pyh400597f_0/LICENSE/LICENSE_LIBRAQM",
+      "sha256": "f75d910a294fd6882e319c90a028d150eca07206f15327cc83629ce28f75a303",
+      "bytes": 1180
+    },
+    {
+      "path": "third-party-licenses/matplotlib-3.11.1-pyh400597f_0/LICENSE/LICENSE_SHEENBIDI",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "bytes": 11358
+    },
+    {
+      "path": "third-party-licenses/matplotlib-3.11.1-pyh400597f_0/LICENSE/LICENSE_SOLARIZED",
+      "sha256": "12d5327fbc4df845a86883de99ed5fdf4198445d56dbacdf5fad8f0efdc97513",
+      "bytes": 1121
+    },
+    {
+      "path": "third-party-licenses/matplotlib-3.11.1-pyh400597f_0/LICENSE/LICENSE_STIX",
+      "sha256": "bab3d31dfef07f483624f2f65f2711e76065b8e7273278b1c071ede1041c9959",
+      "bytes": 5476
+    },
+    {
+      "path": "third-party-licenses/matplotlib-3.11.1-pyh400597f_0/LICENSE/LICENSE_YORICK",
+      "sha256": "cab753d38c093651e8deb5abb684e3ed68020e0e418034f94d79e890dc7ae84d",
+      "bytes": 2313
+    },
+    {
+      "path": "third-party-licenses/matplotlib-3.11.1-pyh400597f_0/source.json",
+      "sha256": "f58db37fa4f254c9ac35ace9b4fc1ca3f9532afc10bfcff50560ca7e2db48852",
+      "bytes": 662
+    },
+    {
+      "path": "third-party-licenses/matplotlib-base-3.11.1-np23py313h878ade0_0/LICENSE/LICENSE",
+      "sha256": "5a1a81ea301728c8bba2933da832c0cd62229daf20893a024ab3d53244468dbc",
+      "bytes": 4830
+    },
+    {
+      "path": "third-party-licenses/matplotlib-base-3.11.1-np23py313h878ade0_0/LICENSE/LICENSE_AMSFONTS",
+      "sha256": "155141d59877f338f6e1c0805de9b79964dce71fe5d2a56c44e38b2c0f7e35ee",
+      "bytes": 12675
+    },
+    {
+      "path": "third-party-licenses/matplotlib-base-3.11.1-np23py313h878ade0_0/LICENSE/LICENSE_BAKOMA",
+      "sha256": "93adb2b53c02b7ce06b26bff41358c21248f42fed287b633ec4c31038377cdbb",
+      "bytes": 1440
+    },
+    {
+      "path": "third-party-licenses/matplotlib-base-3.11.1-np23py313h878ade0_0/LICENSE/LICENSE_COLORBREWER",
+      "sha256": "01173653fe745ce2124ec156d78b460582d2a719d2d9212804267e95fd2c97e7",
+      "bytes": 695
+    },
+    {
+      "path": "third-party-licenses/matplotlib-base-3.11.1-np23py313h878ade0_0/LICENSE/LICENSE_COURIERTEN",
+      "sha256": "ac81f717aaff9456b88010fc55382a8dff199e4c4bcc5d61e040c3f7063beb43",
+      "bytes": 802
+    },
+    {
+      "path": "third-party-licenses/matplotlib-base-3.11.1-np23py313h878ade0_0/LICENSE/LICENSE_FREETYPE",
+      "sha256": "2e3bbb7d7c5c396368dd0853a790ec29ce5b8647163dde42a0493fb0d6556b2b",
+      "bytes": 2074
+    },
+    {
+      "path": "third-party-licenses/matplotlib-base-3.11.1-np23py313h878ade0_0/LICENSE/LICENSE_HARFBUZZ",
+      "sha256": "ba8f810f2455c2f08e2d56bb49b72f37fcf68f1f4fade38977cfd7372050ad64",
+      "bytes": 1971
+    },
+    {
+      "path": "third-party-licenses/matplotlib-base-3.11.1-np23py313h878ade0_0/LICENSE/LICENSE_JSXTOOLS_RESIZE_OBSERVER",
+      "sha256": "597756adcb51f243ef4fb386920377f61d012ace0904364e1a8ee9aaec6afc84",
+      "bytes": 6799
+    },
+    {
+      "path": "third-party-licenses/matplotlib-base-3.11.1-np23py313h878ade0_0/LICENSE/LICENSE_LAST_RESORT_FONT",
+      "sha256": "1440f519e51f27adb9b4825580e922c38b9e326523843d6cf876a7d312a916e0",
+      "bytes": 4418
+    },
+    {
+      "path": "third-party-licenses/matplotlib-base-3.11.1-np23py313h878ade0_0/LICENSE/LICENSE_LIBRAQM",
+      "sha256": "f75d910a294fd6882e319c90a028d150eca07206f15327cc83629ce28f75a303",
+      "bytes": 1180
+    },
+    {
+      "path": "third-party-licenses/matplotlib-base-3.11.1-np23py313h878ade0_0/LICENSE/LICENSE_SHEENBIDI",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "bytes": 11358
+    },
+    {
+      "path": "third-party-licenses/matplotlib-base-3.11.1-np23py313h878ade0_0/LICENSE/LICENSE_SOLARIZED",
+      "sha256": "12d5327fbc4df845a86883de99ed5fdf4198445d56dbacdf5fad8f0efdc97513",
+      "bytes": 1121
+    },
+    {
+      "path": "third-party-licenses/matplotlib-base-3.11.1-np23py313h878ade0_0/LICENSE/LICENSE_STIX",
+      "sha256": "bab3d31dfef07f483624f2f65f2711e76065b8e7273278b1c071ede1041c9959",
+      "bytes": 5476
+    },
+    {
+      "path": "third-party-licenses/matplotlib-base-3.11.1-np23py313h878ade0_0/LICENSE/LICENSE_YORICK",
+      "sha256": "cab753d38c093651e8deb5abb684e3ed68020e0e418034f94d79e890dc7ae84d",
+      "bytes": 2313
+    },
+    {
+      "path": "third-party-licenses/matplotlib-base-3.11.1-np23py313h878ade0_0/source.json",
+      "sha256": "6fe49cb7214dbb10d6833b72b6eb3e63ed631f6e0d555d8390824a2c41f17d4a",
+      "bytes": 697
+    },
+    {
+      "path": "third-party-licenses/matplotlib-inline-0.2.2-pyhd8ed1ab_0/source.json",
+      "sha256": "40c7252bafb46a70945eeedc9069959e45dad12ca26c78c7ccb1d04c4ef33ea8",
+      "bytes": 206
+    },
+    {
+      "path": "third-party-licenses/mdurl-0.1.2-pyhd8ed1ab_1/source.json",
+      "sha256": "a8c18f343b5e66dbf258521cf417b652fca6c15e1c11ef3e05ebdd261097c59e",
+      "bytes": 173
+    },
+    {
+      "path": "third-party-licenses/narwhals-2.25.0-pyhcf101f3_0/LICENSE.md",
+      "sha256": "811445f30147b8f0c9d444c9025fd528f9532c54b7b83f6e2368473dc91cfdf0",
+      "bytes": 1082
+    },
+    {
+      "path": "third-party-licenses/narwhals-2.25.0-pyhcf101f3_0/source.json",
+      "sha256": "da204917b6cee73dd931220d2646a298d906a5512b589a7f8c2740a0d6b9a7b8",
+      "bytes": 201
+    },
+    {
+      "path": "third-party-licenses/nlohmann_json-abi-3.12.0-h0f90c79_2/LICENSE.MIT",
+      "sha256": "46a65cffd1ea955132d95a8dd921640714a8d6b537d2e4e482d31145ae95b603",
+      "bytes": 1076
+    },
+    {
+      "path": "third-party-licenses/nlohmann_json-abi-3.12.0-h0f90c79_2/source.json",
+      "sha256": "58b6a40df313c733331fafd2d60f7b3e55ce1beb841892923cf735231ba6f506",
+      "bytes": 216
+    },
+    {
+      "path": "third-party-licenses/numba-0.66.0-py313h02b136b_6/LICENSE",
+      "sha256": "3a70e0a21cad03147246f6363d07bf76fae216c72779707f4ae5db06bcacf067",
+      "bytes": 1286
+    },
+    {
+      "path": "third-party-licenses/numba-0.66.0-py313h02b136b_6/source.json",
+      "sha256": "e50c6cdd3521c7c24910821173d38d5145f684f81fc019f36834da960206e4ec",
+      "bytes": 228
+    },
+    {
+      "path": "third-party-licenses/numpy-2.4.6-py313hcf5bae3_0/LICENSE.txt",
+      "sha256": "1be1df33863f97a7bc1c4d67980bd6c69c9a6fef0a5ee76e6ad6cb91e56e8491",
+      "bytes": 1543
+    },
+    {
+      "path": "third-party-licenses/numpy-2.4.6-py313hcf5bae3_0/source.json",
+      "sha256": "ccbf798c5bd64d475d2fa5830b0b7583041093637fd202e9a5b70c178bfd8844",
+      "bytes": 230
+    },
+    {
+      "path": "third-party-licenses/openblas-0.3.34-h69b678e_3/LICENSE",
+      "sha256": "190b5a9c8d9723fe958ad33916bd7346d96fab3c5ea90832bb02d854f620fcff",
+      "bytes": 1548
+    },
+    {
+      "path": "third-party-licenses/openblas-0.3.34-h69b678e_3/source.json",
+      "sha256": "a894e323159acb036082215453870b85057eb7615ef76c35f17dacf1859baee1",
+      "bytes": 224
+    },
+    {
+      "path": "third-party-licenses/packaging-26.3-pyhc364b38_0/LICENSE",
+      "sha256": "cad1ef5bd340d73e074ba614d26f7deaca5c7940c3d8c34852e65c4909686c48",
+      "bytes": 197
+    },
+    {
+      "path": "third-party-licenses/packaging-26.3-pyhc364b38_0/source.json",
+      "sha256": "df278d164c0de0fb38fa79b221dc4744d9d191787f70bd83c953d877a6b23240",
+      "bytes": 203
+    },
+    {
+      "path": "third-party-licenses/pandas-3.0.5-np23py313h1e705a5_0/LICENSE",
+      "sha256": "9850f6b5bdef7346503065807b878deb8058b976c5c329f4c4d23bf4796ce9ae",
+      "bytes": 1634
+    },
+    {
+      "path": "third-party-licenses/pandas-3.0.5-np23py313h1e705a5_0/source.json",
+      "sha256": "51d56c39453e73e8f03e5b6438e61d20b1f7a8585f1e52f4643be9cd7a72d912",
+      "bytes": 236
+    },
+    {
+      "path": "third-party-licenses/patsy-1.0.3-py313h1804a44_0/LICENSE.txt",
+      "sha256": "3f24a323933d367910f328abfb21f8d17891ef3867d941015de7293a5ba84ebc",
+      "bytes": 4313
+    },
+    {
+      "path": "third-party-licenses/patsy-1.0.3-py313h1804a44_0/source.json",
+      "sha256": "c22628b8fa28ddd7f2041d04032bc3a8e4b02823045070aae10f8b34a119451e",
+      "bytes": 242
+    },
+    {
+      "path": "third-party-licenses/pexpect-4.9.0-pyhd8ed1ab_1/source.json",
+      "sha256": "b1059830172cc1a6fcdf919af0a32e49923c6903de94bac598d6d0a228b17082",
+      "bytes": 177
+    },
+    {
+      "path": "third-party-licenses/pickleshare-0.7.5-pyhd8ed1ab_1004/source.json",
+      "sha256": "8b8bd02b57bb98a6e5756d451ae05a1342c8190332a0d69c90f9bb359ec05de6",
+      "bytes": 191
+    },
+    {
+      "path": "third-party-licenses/pillow-12.3.0-py313h6414d15_0/LICENSE",
+      "sha256": "15181e7363dca9aed78b79bebebc7fde7f1814b8bd311ea3b87ae8ccadfc185b",
+      "bytes": 1457
+    },
+    {
+      "path": "third-party-licenses/pillow-12.3.0-py313h6414d15_0/source.json",
+      "sha256": "28ff9e276e853b78453e0f53f5a1e383fe9b61704eae209b375fa37267a2927d",
+      "bytes": 222
+    },
+    {
+      "path": "third-party-licenses/pip-26.2.1-pyh145f28c_0/LICENSE.txt",
+      "sha256": "634300a669d49aeae65b12c6c48c924c51a4cdf3d1ff086dc3456dc8bcaa2104",
+      "bytes": 1093
+    },
+    {
+      "path": "third-party-licenses/pip-26.2.1-pyh145f28c_0/source.json",
+      "sha256": "7a9aa5ea8666df17ea2f7d011f845fd18a650c9cf2a07a6d64ee6a30caad36a9",
+      "bytes": 192
+    },
+    {
+      "path": "third-party-licenses/prompt-toolkit-3.0.53-pyha770c72_0/LICENSE",
+      "sha256": "303574d9bdd85c757d6025017942bf17baeedf2778f62bd7f425d07d880f4c4a",
+      "bytes": 1493
+    },
+    {
+      "path": "third-party-licenses/prompt-toolkit-3.0.53-pyha770c72_0/source.json",
+      "sha256": "edfe90635bc91b428ecbffecc844a823d6a69b01e044aca54f05c6797f9d8e9b",
+      "bytes": 219
+    },
+    {
+      "path": "third-party-licenses/ptyprocess-0.7.0-pyhd8ed1ab_1/source.json",
+      "sha256": "fb9ac4a38cd71700743e65a5529024bd4947bf1172015ffcb05bcf92f138b46d",
+      "bytes": 183
+    },
+    {
+      "path": "third-party-licenses/pure_eval-0.2.3-pyhd8ed1ab_1/source.json",
+      "sha256": "090cabf27f81c30a9fdedb778894dce558cab78cfddea7f0eb0529387837342b",
+      "bytes": 181
+    },
+    {
+      "path": "third-party-licenses/pydantic-2.13.4-pyhcf101f3_0/LICENSE",
+      "sha256": "a9e186f3ca16b5eef84318e7a701721351a00cb7b8ae3a4394b67b49e3529ef3",
+      "bytes": 1129
+    },
+    {
+      "path": "third-party-licenses/pydantic-2.13.4-pyhcf101f3_0/source.json",
+      "sha256": "41355ef3bf8e267d2e00865d8e3bb06a0a3953424cc18d94d31dd862445abffa",
+      "bytes": 198
+    },
+    {
+      "path": "third-party-licenses/pydantic-core-2.46.4-py313h1e85631_0/LICENSE",
+      "sha256": "2afdd30d54b4d62b6f488a6bcc1546e84ec5061f13f4209c03d012348783795a",
+      "bytes": 1080
+    },
+    {
+      "path": "third-party-licenses/pydantic-core-2.46.4-py313h1e85631_0/source.json",
+      "sha256": "2242271ddb0d9c60e19c114ac897f102ccd85d5fc16de5c6dd5087e7c4639dfc",
+      "bytes": 235
+    },
+    {
+      "path": "third-party-licenses/pygments-2.21.0-pyhcf101f3_0/LICENSE",
+      "sha256": "a9d66f1d526df02e29dce73436d34e56e8632f46c275bbdffc70569e882f9f17",
+      "bytes": 1331
+    },
+    {
+      "path": "third-party-licenses/pygments-2.21.0-pyhcf101f3_0/source.json",
+      "sha256": "3673fd8ea067663baa52c00df5839da4607750aa0d4af307a6cf18b861615195",
+      "bytes": 207
+    },
+    {
+      "path": "third-party-licenses/pyjs-rt-4.0.6-py313h06ab7c0_0/LICENSE",
+      "sha256": "1f256ecad192880510e84ad60474eab7589218784b9a50bc7ceee34c2b91f1d5",
+      "bytes": 16725
+    },
+    {
+      "path": "third-party-licenses/pyjs-rt-4.0.6-py313h06ab7c0_0/source.json",
+      "sha256": "169c86e22fa4ce345947ee3312d19f157f81883a68e54e33bb83040751c4c8d6",
+      "bytes": 230
+    },
+    {
+      "path": "third-party-licenses/pyodide-http-0.2.2-pyhcf101f3_0/LICENSE",
+      "sha256": "991c32d84f07c9626b834dd037942414605546f69170f7b2ac8206abdadc48b0",
+      "bytes": 1068
+    },
+    {
+      "path": "third-party-licenses/pyodide-http-0.2.2-pyhcf101f3_0/source.json",
+      "sha256": "2b2457917ab3650a0b78f7057a4005979573eb08f56a1ea651730fa6a53d3452",
+      "bytes": 204
+    },
+    {
+      "path": "third-party-licenses/pyparsing-3.3.2-pyhcf101f3_0/LICENSE",
+      "sha256": "a5425f9dc14ac74d4c5f0b679e941f2442e32cca7452a4418d5b1a49893ebe4e",
+      "bytes": 1062
+    },
+    {
+      "path": "third-party-licenses/pyparsing-3.3.2-pyhcf101f3_0/source.json",
+      "sha256": "bdd74b1ca713ec21c306645337f815f0da2d4b075f0d2028f70fb12d40915890",
+      "bytes": 198
+    },
+    {
+      "path": "third-party-licenses/pysocks-1.7.1-py313h1804a44_3/LICENSE",
+      "sha256": "7027e214e014eb78b7adcc1ceda5aca713a79fc4f6a0c52c9da5b3e707e6ffe9",
+      "bytes": 1401
+    },
+    {
+      "path": "third-party-licenses/pysocks-1.7.1-py313h1804a44_3/source.json",
+      "sha256": "a22abba7b811079efea6a0b70f3919c200d3cc28a40490e1653462e15dc43f40",
+      "bytes": 230
+    },
+    {
+      "path": "third-party-licenses/python-3.13.1-h_2efca29_11_cp313/LICENSE",
+      "sha256": "78b12c3a81360b357002334f0e70ea0e92eebf7a9b358805c03c48484945f3bb",
+      "bytes": 13809
+    },
+    {
+      "path": "third-party-licenses/python-3.13.1-h_2efca29_11_cp313/source.json",
+      "sha256": "a100968570b9ddca07ccdd76ee2180ec2521c648d5b288383777fc8c8a553b67",
+      "bytes": 234
+    },
+    {
+      "path": "third-party-licenses/python-dateutil-2.9.0.post0-pyhe01879c_2/LICENSE",
+      "sha256": "ba00f51a0d92823b5a1cde27d8b5b9d2321e67ed8da9bc163eff96d5e17e577e",
+      "bytes": 2889
+    },
+    {
+      "path": "third-party-licenses/python-dateutil-2.9.0.post0-pyhe01879c_2/source.json",
+      "sha256": "84e27d0dce5e193cbd9784e5860a573d40f7fd6fd81cf87026c3558974c4da89",
+      "bytes": 229
+    },
+    {
+      "path": "third-party-licenses/python-tzdata-2026.3-pyhd8ed1ab_0/LICENSE",
+      "sha256": "df58f69ea88683035d720b5375bcef0cf5aeaa98a1d098d572e0992c378deb46",
+      "bytes": 625
+    },
+    {
+      "path": "third-party-licenses/python-tzdata-2026.3-pyhd8ed1ab_0/source.json",
+      "sha256": "7a480518bd5324688e8d36269fda147f0d45c3d2187dbc477fd6e808cb51964e",
+      "bytes": 215
+    },
+    {
+      "path": "third-party-licenses/python_abi-3.13-9_cp313/LICENSE",
+      "sha256": "44ef42d743263ebacf7f3d175a940c62959d75af9afd05ef016861e9b4bf2859",
+      "bytes": 1488
+    },
+    {
+      "path": "third-party-licenses/python_abi-3.13-9_cp313/source.json",
+      "sha256": "d4a78d548c4c717a1df171203efd58bf33a8465340d94d0598e75378d6acd7e4",
+      "bytes": 197
+    },
+    {
+      "path": "third-party-licenses/pytz-2026.3.post1-pyhcf101f3_0/LICENSE.txt",
+      "sha256": "be8b1a37ebe26c592a90f6c0eb33103a7f383ce2f4d7498c0af9a526990a07b8",
+      "bytes": 1088
+    },
+    {
+      "path": "third-party-licenses/pytz-2026.3.post1-pyhcf101f3_0/source.json",
+      "sha256": "2e0fa2a92266b33af5620495af2aadd968dbb15ddc192e1e620f742397811757",
+      "bytes": 206
+    },
+    {
+      "path": "third-party-licenses/pyyaml-6.0-py313h1804a44_3/LICENSE",
+      "sha256": "8d3928f9dc4490fd635707cb88eb26bd764102a7282954307d3e5167a577e8a4",
+      "bytes": 1101
+    },
+    {
+      "path": "third-party-licenses/pyyaml-6.0-py313h1804a44_3/source.json",
+      "sha256": "dbbbc280e1d7d1a3e6e037d49984bcc946fa55ea5efdda9fc6eb4df47c0a1593",
+      "bytes": 215
+    },
+    {
+      "path": "third-party-licenses/qhull-2020.2-h0b0027f_1/COPYING.txt",
+      "sha256": "106d55c931fd6a84822e5345d900273d059f1c27310d02567ccb313c5d18c55d",
+      "bytes": 1720
+    },
+    {
+      "path": "third-party-licenses/qhull-2020.2-h0b0027f_1/source.json",
+      "sha256": "61b5638bdef38148f019b3f06fb9d5abab1565ea7ad4d22799d1d59ab77e2fc1",
+      "bytes": 226
+    },
+    {
+      "path": "third-party-licenses/requests-2.34.2-pyhcf101f3_0/LICENSE",
+      "sha256": "09e8a9bcec8067104652c168685ab0931e7868f9c8284b66f5ae6edae5f1130b",
+      "bytes": 10142
+    },
+    {
+      "path": "third-party-licenses/requests-2.34.2-pyhcf101f3_0/source.json",
+      "sha256": "e072071fc9a7eeb021536e1fb14d5fc6a9dc4943dfadd4ba66eae801e2591549",
+      "bytes": 205
+    },
+    {
+      "path": "third-party-licenses/rich-15.0.0-pyhcf101f3_0/dist/LICENSE",
+      "sha256": "deed7c17a4318158190a3ea239cc879a5a50271cebb98ae7025f48fbe58dca15",
+      "bytes": 1056
+    },
+    {
+      "path": "third-party-licenses/rich-15.0.0-pyhcf101f3_0/source.json",
+      "sha256": "63fe08c28dcbc2c5968e799dc34862f9b54255351f530ec49da3361aa23c87eb",
+      "bytes": 195
+    },
+    {
+      "path": "third-party-licenses/scikit-learn-1.9.0-np23py313hb9816c2_0/COPYING",
+      "sha256": "50d6a9d340f19ab355609917993114daf5f47e3161067bcf34955bbd05cd9cb0",
+      "bytes": 1532
+    },
+    {
+      "path": "third-party-licenses/scikit-learn-1.9.0-np23py313hb9816c2_0/source.json",
+      "sha256": "14c3bfa0201b8fe34680535b282edc01a9ee5c77dfd45c5641ca575ea81d2d55",
+      "bytes": 248
+    },
+    {
+      "path": "third-party-licenses/scipy-1.18.0-np23py313h1a2f9be_2/LICENSE.txt",
+      "sha256": "221e59f5e910fd7f94e44f0dac77436a11338c285c6346232e4a850a50da0e94",
+      "bytes": 1531
+    },
+    {
+      "path": "third-party-licenses/scipy-1.18.0-np23py313h1a2f9be_2/source.json",
+      "sha256": "ab7141804e4709ee76345790c5261452ebfb771cf88c66aa5d989d1d3663184b",
+      "bytes": 240
+    },
+    {
+      "path": "third-party-licenses/seaborn-0.13.2-hd8ed1ab_3/source.json",
+      "sha256": "f3010017eeaff9c5e1f9e071b5132f9080146d58efbb7e344e4e950f70120ef7",
+      "bytes": 184
+    },
+    {
+      "path": "third-party-licenses/seaborn-base-0.13.2-pyhd8ed1ab_3/source.json",
+      "sha256": "c561040aba0c3ac742aa197eb389470acfd163a84a4633974502bd124d30b525",
+      "bytes": 198
+    },
+    {
+      "path": "third-party-licenses/setuptools-84.0.0-pyh332efcf_0/LICENSE",
+      "sha256": "86da0f01aeae46348a3c3d465195dc1ceccde79f79e87769a64b8da04b2a4741",
+      "bytes": 1023
+    },
+    {
+      "path": "third-party-licenses/setuptools-84.0.0-pyh332efcf_0/source.json",
+      "sha256": "5e5511349dabed5215efb444b624279e9cb373b48db46816e76982cd93cf1a26",
+      "bytes": 202
+    },
+    {
+      "path": "third-party-licenses/six-1.17.0-pyhe01879c_1/LICENSE",
+      "sha256": "4375ba20e2b9c6c4e7cad2940a628fd90e95cc3d50ee92aae755715d8ba1fbd0",
+      "bytes": 1066
+    },
+    {
+      "path": "third-party-licenses/six-1.17.0-pyhe01879c_1/source.json",
+      "sha256": "6c47fae377014c94df937954c29de6bfaac87fc6d30f1b2c7e8825ca11eefe70",
+      "bytes": 188
+    },
+    {
+      "path": "third-party-licenses/stack_data-0.6.3-pyhd8ed1ab_1/source.json",
+      "sha256": "729c25c32287b975af725b835c87a768aff19c91eaccd9b4c7fecb92fa18e2e9",
+      "bytes": 183
+    },
+    {
+      "path": "third-party-licenses/statsmodels-0.14.6-np23py313hd8db738_2/LICENSE.txt",
+      "sha256": "1ca78e1dec9dcebc55f3b96a862317f23e76422c5fc943568d955aad1f6b5fad",
+      "bytes": 1636
+    },
+    {
+      "path": "third-party-licenses/statsmodels-0.14.6-np23py313hd8db738_2/source.json",
+      "sha256": "a3d40983a5c98e60f352703ce1a0897e89723e82ef0e3c185ec1c1ea4522b261",
+      "bytes": 252
+    },
+    {
+      "path": "third-party-licenses/threadpoolctl-3.6.0-pyhecae5ae_0/source.json",
+      "sha256": "d1bab85c0641b8e31f985190f5e24c13eea4cb9732b181d1ffffeb6123879dbf",
+      "bytes": 198
+    },
+    {
+      "path": "third-party-licenses/tqdm-4.70.0-pyh8f84b5b_0/LICENCE",
+      "sha256": "fcff87c3a47ce8028a8512aa182d4fcf0ad1c90544ee75cf9b343684cac194de",
+      "bytes": 1985
+    },
+    {
+      "path": "third-party-licenses/tqdm-4.70.0-pyh8f84b5b_0/source.json",
+      "sha256": "0c7e9a02076cfb3fba9738f3d3f8ee008110dec04b4c48c61867b50823be58b8",
+      "bytes": 202
+    },
+    {
+      "path": "third-party-licenses/traitlets-5.16.1-pyhcf101f3_0/LICENSE",
+      "sha256": "2f51727d9063b54856773cb51388bdb79f2936ee4a1b692ef553d8c4201311ab",
+      "bytes": 1536
+    },
+    {
+      "path": "third-party-licenses/traitlets-5.16.1-pyhcf101f3_0/source.json",
+      "sha256": "9d23fc5feb087275aa034ef247964d26df27b522e60ff0367ee0eca94a9ffe54",
+      "bytes": 209
+    },
+    {
+      "path": "third-party-licenses/typing-extensions-4.16.0-h69aa097_0/LICENSE",
+      "sha256": "3b2f81fe21d181c499c59a256c8e1968455d6689d269aa85373bfb6af41da3bf",
+      "bytes": 13936
+    },
+    {
+      "path": "third-party-licenses/typing-extensions-4.16.0-h69aa097_0/source.json",
+      "sha256": "55472e66a729fe06ab0141b6688e56a59a9cd7f3e81037e84cfc59ad6e7040c0",
+      "bytes": 216
+    },
+    {
+      "path": "third-party-licenses/typing-inspection-0.4.4-pyhcf101f3_0/LICENSE",
+      "sha256": "804b59b25f2c31bd278f9202a19ae49a3945aa2664387e2d0a128c7cacc61ec3",
+      "bytes": 1090
+    },
+    {
+      "path": "third-party-licenses/typing-inspection-0.4.4-pyhcf101f3_0/source.json",
+      "sha256": "107e953259d023e332e8d12088895c12173d1ce407edaf347a7ddc99562c163d",
+      "bytes": 214
+    },
+    {
+      "path": "third-party-licenses/typing_extensions-4.16.0-pyhcf101f3_0/LICENSE",
+      "sha256": "3b2f81fe21d181c499c59a256c8e1968455d6689d269aa85373bfb6af41da3bf",
+      "bytes": 13936
+    },
+    {
+      "path": "third-party-licenses/typing_extensions-4.16.0-pyhcf101f3_0/source.json",
+      "sha256": "8b61c72e5b145ac2281dbb108e80716e1c6e8e83b75e1411965234e415d4de21",
+      "bytes": 220
+    },
+    {
+      "path": "third-party-licenses/urllib3-2.2.2-pyhd8ed1ab_0/source.json",
+      "sha256": "467e7050603e5e3b20566c82e878dbdf80840501e33ee69744c93ba2796b4ab8",
+      "bytes": 177
+    },
+    {
+      "path": "third-party-licenses/wcwidth-0.8.3-pyhcf101f3_0/LICENSE",
+      "sha256": "70b98a95a2144eb70af8017fa8c6d95ce247e40867436e8bc649e137fe13d21a",
+      "bytes": 1322
+    },
+    {
+      "path": "third-party-licenses/wcwidth-0.8.3-pyhcf101f3_0/source.json",
+      "sha256": "78c914d3dd1f59354886838fbe6918faf6718f8e726bfd26fc3a10d16bbb1733",
+      "bytes": 194
+    },
+    {
+      "path": "third-party-licenses/xarray-2026.7.0-pyhc364b38_0/LICENSE",
+      "sha256": "533d735a2bbc40eccebe20014c38a2bf6fb1afd488398d2c508006496099af17",
+      "bytes": 10268
+    },
+    {
+      "path": "third-party-licenses/xarray-2026.7.0-pyhc364b38_0/source.json",
+      "sha256": "a2b5ac31b11cc6cd4d66546ac24bbbd24993f1bfc22243e5dd7a73884eb77a7d",
+      "bytes": 205
+    },
+    {
+      "path": "third-party-licenses/xarray-einstats-0.11.0-pyhd8ed1ab_0/LICENSE",
+      "sha256": "4bfb7aac0285a6b8519fc92193ccdaf7bcd9630d2d40f611adf77e67b89af0a1",
+      "bytes": 11485
+    },
+    {
+      "path": "third-party-licenses/xarray-einstats-0.11.0-pyhd8ed1ab_0/source.json",
+      "sha256": "d3e6125b6a8ef4ec0e6f0009f39ad64fbf1fd0196e7daa23a2b974a9b3787859",
+      "bytes": 219
+    },
+    {
+      "path": "third-party-licenses/xeus-6.0.5-h0b0027f_0/LICENSE",
+      "sha256": "5af745fbb986c03cb332f04c69940719b3624809569b59f87e1990cb2bc1fcc3",
+      "bytes": 1552
+    },
+    {
+      "path": "third-party-licenses/xeus-6.0.5-h0b0027f_0/source.json",
+      "sha256": "bec2e9671e1d82df279716f9eebdef7c0d87ccf88467bde04587a0330776db4e",
+      "bytes": 214
+    },
+    {
+      "path": "third-party-licenses/xeus-python-0.19.0-py313he5686da_3/LICENSE",
+      "sha256": "e76c9f7b48ac3b26abd685f9fd4d1d3130105e3e0e7153c536fed974521abbe8",
+      "bytes": 1500
+    },
+    {
+      "path": "third-party-licenses/xeus-python-0.19.0-py313he5686da_3/source.json",
+      "sha256": "d638beb53760f3ff610659b2f1513f2e7b05d9557aa89862fc05498bb862a1ff",
+      "bytes": 240
+    },
+    {
+      "path": "third-party-licenses/xeus-python-shell-0.8.1-pyh332efcf_0/LICENSE",
+      "sha256": "d2fdf013343aea6bd9afb6636f8c19589328cb8b9c2609a8053795af0a083c37",
+      "bytes": 1518
+    },
+    {
+      "path": "third-party-licenses/xeus-python-shell-0.8.1-pyh332efcf_0/source.json",
+      "sha256": "4e7f0020a361c7f0d9fa141b7915345202c7c16fa8bb3580b2582b0fe0681c8b",
+      "bytes": 223
+    },
+    {
+      "path": "third-party-licenses/xeus-python-shell-lite-0.8.1-pyhd8ed1ab_0/LICENSE",
+      "sha256": "d2fdf013343aea6bd9afb6636f8c19589328cb8b9c2609a8053795af0a083c37",
+      "bytes": 1518
+    },
+    {
+      "path": "third-party-licenses/xeus-python-shell-lite-0.8.1-pyhd8ed1ab_0/source.json",
+      "sha256": "c993e3e42c03631e57fa903c47ef33c68f5bdf35c1b47557da3677acd60ef681",
+      "bytes": 233
+    },
+    {
+      "path": "third-party-licenses/xeus-python-shell-raw-0.8.1-pyhd8ed1ab_0/LICENSE",
+      "sha256": "d2fdf013343aea6bd9afb6636f8c19589328cb8b9c2609a8053795af0a083c37",
+      "bytes": 1518
+    },
+    {
+      "path": "third-party-licenses/xeus-python-shell-raw-0.8.1-pyhd8ed1ab_0/source.json",
+      "sha256": "26ecb16d7e07371d0ebf0999a79e70cd274c10c2f0a74bfa5bb1b428190ee26c",
+      "bytes": 231
+    },
+    {
+      "path": "third-party-licenses/zlib-1.3.2-h8b79025_0/LICENSE",
+      "sha256": "e32ff4e00d9d94930537635291da39e7e612703334bf6fde8c7f1686fe8a45a2",
+      "bytes": 1002
+    },
+    {
+      "path": "third-party-licenses/zlib-1.3.2-h8b79025_0/source.json",
+      "sha256": "200035a9c296872800c8bec0ae2a720b68959df7b5b27f51390b52d62aa72962",
+      "bytes": 206
+    },
+    {
+      "path": "unpack-YMEPRZT6.wasm",
+      "sha256": "bd0641af1248a767dedcd8cefb4a76017641eaf54ee62221c264271c77d4ecf8",
+      "bytes": 1520252
+    },
+    {
+      "path": "worker-loader.js",
+      "sha256": "77dfb1bf85b78a834ca07c467881b5cd52486adea500291cdd9901b35e9eeffc",
+      "bytes": 487
+    },
+    {
+      "path": "xeus/kernels.json",
+      "sha256": "94e6f194baf90a31163d41855e218543f152501673a9307535435d1c520017dc",
+      "bytes": 58
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/bin/xpython.js",
+      "sha256": "5c8401b7f9ae6372946876f779213b4cbe1254381cddfcaca458074b79983c2e",
+      "bytes": 721425
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/bin/xpython.wasm",
+      "sha256": "f94486a5cc789a73f087aa80a2002fac3a28634005bad86e621ac5ef6a395888",
+      "bytes": 15727483
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/empack_env_meta.json",
+      "sha256": "f45a3f5663c813a34beb337068ad7417ec9c6b8a9c7bb90de156801d95586ec7",
+      "bytes": 43438
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/annotated-types-0.8.0-pyhd8ed1ab_0.tar.gz",
+      "sha256": "484420d64eebdab9466455fc0f2dba5e5184d0868f6709f341cc91cd862bed02",
+      "bytes": 12332
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/arviz-1.3.0-pip.tar.gz",
+      "sha256": "478cd86d894b29d1224166e65f8e932242edfafc7a4a6b1ccdfba65b44a5e037",
+      "bytes": 8873
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/arviz_base-1.3.0-pip.tar.gz",
+      "sha256": "824343107fe3ea1f88e6d9bd8c5755fb0af7a516b1e729547ce4f3037a99f9e9",
+      "bytes": 1413970
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/arviz_plots-1.3.0-pip.tar.gz",
+      "sha256": "196dbcb275de30a6240682a8d0b35e46914687f191938f4d6575a6439cce7c2b",
+      "bytes": 174540
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/arviz_stats-1.3.0-pip.tar.gz",
+      "sha256": "08fdc9585d541f0c48b0a03a400a138afcaa7daad065b5e8e6182fa47dac90eb",
+      "bytes": 168746
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/asttokens-3.0.2-pyhd8ed1ab_0.tar.gz",
+      "sha256": "f4f158cc4baf383fc5b30cd9cc879c621220373844691e91ab083cf320867536",
+      "bytes": 24901
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/backcall-0.2.0-pyh9f0ad1d_0.tar.gz",
+      "sha256": "e2c17a1a74d5e5e6386d4775d686c90a279434dbcc2e6148c1c1a475fce6f0e2",
+      "bytes": 10852
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/better_optimize-0.4.2-pip.tar.gz",
+      "sha256": "65d8fd4efad681f4698581248c4a9a3e096e13c4e2eea16ac1b713f3889fb2ab",
+      "bytes": 34281
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/brotli-python-1.2.0-py313ha26e73d_2.tar.gz",
+      "sha256": "388d4e8362cacda415c4f8211c1e6abe58c8818607f5a7325969f71da632ae29",
+      "bytes": 313901
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/cachetools-6.2.6-pyhd8ed1ab_0.tar.gz",
+      "sha256": "01253770648ec3eb7ed793727cffa2dba0760604b4547f98b3d44347f18bf0e3",
+      "bytes": 10557
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/certifi-2026.7.22-pyhd8ed1ab_0.tar.gz",
+      "sha256": "6e31f12f9007476e5662cf4e70d70a0a3735acc1b42a5e51c40d010335ced1df",
+      "bytes": 136471
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/charset-normalizer-3.5.1-pyhd8ed1ab_0.tar.gz",
+      "sha256": "4074b90ee438b87643ac39113dbb74b50eafe5c1e61892b37c9c7169d77e5dd2",
+      "bytes": 64556
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/cloudpickle-3.1.2-pyhcf101f3_1.tar.gz",
+      "sha256": "f6ff680abb91ff835eda3b976190eec28d05f5b1e82633f27209ffd170d6da31",
+      "bytes": 22066
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/contourpy-1.3.3-py313hffb8c6e_4.tar.gz",
+      "sha256": "0745a3bc29a875b892f3cc127ee60e8661e14838630c19ad5b333804c6a41fc8",
+      "bytes": 120513
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/cycler-0.12.1-pyhcf101f3_2.tar.gz",
+      "sha256": "8b43ee3081e1a0efd3b6c5220ef1afad9e5ef85c8f7abf984c7ea637b3923537",
+      "bytes": 7713
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/decorator-5.3.1-pyhd8ed1ab_0.tar.gz",
+      "sha256": "6ace4b6cd231b900e270d4c739a571deaf50d0afd84c4e6b150398ef0fbf924f",
+      "bytes": 9319
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/emscripten-abi-4.0.9-h267e887_9.tar.gz",
+      "sha256": "8b59d24d501b4853743b8528cf7835cd35e8d07510a9397b93e3a30a4f8b2794",
+      "bytes": 386
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/executing-2.2.1-pyhd8ed1ab_0.tar.gz",
+      "sha256": "ff9d2b04e3509f6f161dd64adb2d8a40354ff14499b08bbcf6a28e60a8539273",
+      "bytes": 26655
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/expat-2.6.4-hb2bca66_0.tar.gz",
+      "sha256": "4faf7f200be87b1472c3ad0b834d08d3ac848564fb4e043a83225e1807064909",
+      "bytes": 116728
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/filelock-3.32.5-pyhd8ed1ab_0.tar.gz",
+      "sha256": "421466cd9e6d3239f3d6dd7c79cd22765fb437be1217e4313433f4136776f9c9",
+      "bytes": 89687
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/fonttools-4.39.4-py313h6d8a2ba_2.tar.gz",
+      "sha256": "1e42b111cc4e016863670e3091c36ce81cd1dbd7936e726f1fdd8a5fc741ca7b",
+      "bytes": 1211793
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/graphviz-15.1.0-h0c76a5c_0.tar.gz",
+      "sha256": "9e965ccbfcf3d16e493a66ff6eda04c3521d52c9fd80165cb18784bdf809c011",
+      "bytes": 1732050
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/graphviz-python-15.1.0-py313h0c76a5c_0.tar.gz",
+      "sha256": "0a81d2806d75ab0095e6c2cf71de4a05d47c93b4c2e7fffdc3a217a8708c59b0",
+      "bytes": 1026092
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/h5netcdf-1.8.1-pyhd8ed1ab_0.tar.gz",
+      "sha256": "1cfe95437f544168de7050d3d4dddc8e7f43fab2acac4ff9f0cb78ce74a26f9d",
+      "bytes": 35545
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/h5py-3.15.1-np23py313h1a64791_2.tar.gz",
+      "sha256": "0cc19ab0d78e2fb3ebf0e1cf5c60c784c7107b6cc8b2d43f45ff722e034524d1",
+      "bytes": 899338
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/hdf5-1.14.6-ha7c90dc_0.tar.gz",
+      "sha256": "7d75e16c39e622965b95cb2cb85239e1efce27ffb2cbc08566071ace7e6cdeab",
+      "bytes": 1297798
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/idna-3.19-pyhcf101f3_0.tar.gz",
+      "sha256": "dececd1b92555e5361374a9db974f240033aa3f43e6bf6b392cf69fce0bee291",
+      "bytes": 69641
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/ipython-9.9.0-py313h6d8a2ba_0.tar.gz",
+      "sha256": "c73ff24099662fc5b98134c1be0866e04c89a1465a316d29d73517114df30c60",
+      "bytes": 556196
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/joblib-1.6.0-py313h57e9779_0.tar.gz",
+      "sha256": "a50083a01712255f50f3b720df0b7a9716e740f3a36e94ee201d7539225f8718",
+      "bytes": 157036
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/kiwisolver-1.5.1-py313hb42c9ef_0.tar.gz",
+      "sha256": "56c607d46bd7c2ac6516d0769a01a3bdbc522c903674b68f7c90cb5b397bb9b8",
+      "bytes": 33461
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/lazy-loader-0.5-pyhd8ed1ab_0.tar.gz",
+      "sha256": "b9255ec78841fae15bb7050f5b388e2935a5d906660d145835904e0cc6e9d268",
+      "bytes": 7957
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/lazy_loader-0.5-pyhd8ed1ab_0.tar.gz",
+      "sha256": "49b2b38eb59386deda1dfbe04cd26140c2058a9559f09dd4e377fb0fab213f3f",
+      "bytes": 401
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/libwebp-1.6.0-h8b79025_0.tar.gz",
+      "sha256": "642a542b617deb10385008b3cc62f10f0d3aca76660727f61e9a7f5cd6ecdfad",
+      "bytes": 296635
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/libyaml-0.2.5-h8b79025_0.tar.gz",
+      "sha256": "3406e1e9386d648101b22cc7bb6ab24d83d3c00fafeb0a451c69ac7decc538a3",
+      "bytes": 235878
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/llvmlite-0.48.0-py313hb6bfdb0_8.tar.gz",
+      "sha256": "ebdffc2108aa791e2b5e35a702dff25225495ed52aee2e4904c17585e517bbf2",
+      "bytes": 13087169
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/markdown-it-py-4.2.0-pyhd8ed1ab_0.tar.gz",
+      "sha256": "dcfbfcb89a069c99cf71e296a51a5f8b98fdf54d2a9f6de941cac197f1f47826",
+      "bytes": 67812
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/matplotlib-3.11.1-pyh400597f_0.tar.gz",
+      "sha256": "8cc3229b2de7b44c984cce842fb5e805a31fd7b092fc2d42afd937f715eb1812",
+      "bytes": 752
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/matplotlib-base-3.11.1-np23py313h878ade0_0.tar.gz",
+      "sha256": "d74c2dffa62740cf5b48f2d0c1ff194e6336c83da40710ac387227955ad17640",
+      "bytes": 7375098
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/matplotlib-inline-0.2.2-pyhd8ed1ab_0.tar.gz",
+      "sha256": "90d3ba29a4290606d36732e68cb18e455cc7cd9dc54036d815ef7720c2f2225c",
+      "bytes": 8678
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/mdurl-0.1.2-pyhd8ed1ab_1.tar.gz",
+      "sha256": "3c0e98d6c7f09a522c7eac6d1ee0ecc007d33a05a570407776508e1989e3cded",
+      "bytes": 8570
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/narwhals-2.25.0-pyhcf101f3_0.tar.gz",
+      "sha256": "8ec4ae6a52c910686c4c83c2f7cd5e032e0113de758f491627f6c6c23b77fa4d",
+      "bytes": 397744
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/nlohmann_json-abi-3.12.0-h0f90c79_2.tar.gz",
+      "sha256": "86ee7dc40116adc5e304cdf943a8128a4c519a947b6e8ebae8ec4f554e1a9c14",
+      "bytes": 386
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/numba-0.66.0-py313h02b136b_6.tar.gz",
+      "sha256": "7f8ec4c52fae79dc56204007854743273e7a05cc2b6736bee7d13bc28c8f6b87",
+      "bytes": 1466612
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/numpy-2.4.6-py313hcf5bae3_0.tar.gz",
+      "sha256": "9e93bd9f74ba7961188c70c2084c90cf35cc7681aa44d16792638afae1cfbe51",
+      "bytes": 3305463
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/openblas-0.3.34-h69b678e_3.tar.gz",
+      "sha256": "4981e4f93afb2f88578bc34878430d118b034e6404db834ca1fe64bbf4ba9089",
+      "bytes": 16044988
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/packaging-26.3-pyhc364b38_0.tar.gz",
+      "sha256": "c999306515be1cde29dde07189600fdda877ca23549db027889f7eea0803edfe",
+      "bytes": 121358
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/pandas-3.0.5-np23py313h1e705a5_0.tar.gz",
+      "sha256": "3c3e3fd6cd02dccb783c33624c53ab838165c0f1be268e304a62733df0daf0be",
+      "bytes": 4659349
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/patsy-1.0.3-py313h1804a44_0.tar.gz",
+      "sha256": "2d510d0fae356af6d1ab752eee0a0e8599a63b7582cb1e73358c4f9314583176",
+      "bytes": 111332
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/pexpect-4.9.0-pyhd8ed1ab_1.tar.gz",
+      "sha256": "d8d30420c583d8d8bc8a2da58731cd08fa9f4de1db836dba6131d53d9943b4d1",
+      "bytes": 54702
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/pickleshare-0.7.5-pyhd8ed1ab_1004.tar.gz",
+      "sha256": "6f36957a2788ac6db369cb2d7dc6f4cdab5720e3be1825957454a3d3d71f927d",
+      "bytes": 5938
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/pillow-12.3.0-py313h6414d15_0.tar.gz",
+      "sha256": "341b329bacba3ee0ca09efdb4441d38265f93e5c55c29e6801602b09528087f2",
+      "bytes": 822980
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/pip-26.2.1-pyh145f28c_0.tar.gz",
+      "sha256": "0b0057210d053101da9f12882f7f82099f8696c26c9e45dd74fd6890a477a62e",
+      "bytes": 357740
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/preliz-0.27.1-pip.tar.gz",
+      "sha256": "155f7aea4a055bd68da840ae23d3a118cdeb6bdaef8a8634cd23979e16121d66",
+      "bytes": 119035
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/prompt-toolkit-3.0.53-pyha770c72_0.tar.gz",
+      "sha256": "ac19d31becab6963d04966c2e7dc48f5107df5611b9f3bc1c957a59a2fc18818",
+      "bytes": 333716
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/ptyprocess-0.7.0-pyhd8ed1ab_1.tar.gz",
+      "sha256": "a53ed9aed64cf64fe2d805b3024b96fa76171eb4a74482d5d94e0e596e8d9524",
+      "bytes": 13843
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/pure_eval-0.2.3-pyhd8ed1ab_1.tar.gz",
+      "sha256": "6833a671421452c70d020695862fbb6852ed0aa798c08c5d5c70fe3ad4fcfc6b",
+      "bytes": 10778
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/pydantic-2.13.4-pyhcf101f3_0.tar.gz",
+      "sha256": "fd790a9fb39b3fbd086576df1edea65007f214477252d05588f5c08462a2cbe5",
+      "bytes": 430670
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/pydantic-core-2.46.4-py313h1e85631_0.tar.gz",
+      "sha256": "76c0670ef8b363b8c3adac77cd2d2fa620e22dca3c32497d7becd7e46c39e4da",
+      "bytes": 1292580
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/pygments-2.21.0-pyhcf101f3_0.tar.gz",
+      "sha256": "6e4fd4c6e29c487164736f7d3bbe9f016b10873d8528aeeb08128040ef9b2740",
+      "bytes": 1098410
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/pyjs-rt-4.0.6-py313h06ab7c0_0.tar.gz",
+      "sha256": "f435e018fb63de78005daa1e6a9c8bae437873eefc23e011af86e96900d87b6f",
+      "bytes": 11571
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/pymc-6.2.0-pip.tar.gz",
+      "sha256": "fc82433b2a12a85030eb0965ca63f8c65ad55629eecc6e30cf76be5d22f98d0e",
+      "bytes": 497947
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/pymc_extras-0.14.0-pip.tar.gz",
+      "sha256": "89f1c4301cecf9ae18ec3d27578109112531509fdd7ff5db4d93a3400acd6ec8",
+      "bytes": 271546
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/pymc_marketing-1.1.0+wasm.1-pip.tar.gz",
+      "sha256": "8c3292b9743ab8dca60255851e0befea2b7a781048f598a1982ae82447fe3957",
+      "bytes": 629840
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/pyodide-http-0.2.2-pyhcf101f3_0.tar.gz",
+      "sha256": "54c44eb0addc8855212128908d42de6f5d3cca2fe53096c0e5078b2d495066c1",
+      "bytes": 8990
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/pyparsing-3.3.2-pyhcf101f3_0.tar.gz",
+      "sha256": "a524783ccfcd64a20dceedb67e79549d7c782d3d5e8191e764b1b57fa3ca56ca",
+      "bytes": 115898
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/pyprojroot-0.3.0-pip.tar.gz",
+      "sha256": "860f8c921b1fdbcd940859eed02350a38c9c665d6155f46290d2f2841baed5fa",
+      "bytes": 6354
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/pysocks-1.7.1-py313h1804a44_3.tar.gz",
+      "sha256": "b4a7bff134de73ceeca454f912342b7b7919964b56435075930f40335f2abb11",
+      "bytes": 16274
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/pytensor-3.2.4+wasm.3-pip.tar.gz",
+      "sha256": "37bc659ae2349e11bc32f0d8238e65411bbb3490b0e8b530086d702fa382801e",
+      "bytes": 1397610
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/pytensor_distributions-0.2.0-pip.tar.gz",
+      "sha256": "57ecebb5b3a0e9d31e1169af1f9a6e99dcff65c5fc505b6a5d7393f3f8681183",
+      "bytes": 46235
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/python-3.13.1-h_2efca29_11_cp313.tar.gz",
+      "sha256": "7900dfc08cc30a2687d632ed39610886936559fd5a058dcadabd3e8f9a256562",
+      "bytes": 6600646
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/python-dateutil-2.9.0.post0-pyhe01879c_2.tar.gz",
+      "sha256": "27d9a607f4263389946f7224a7c91849753d0af11058aecb9e8face2bf711789",
+      "bytes": 226126
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/python-tzdata-2026.3-pyhd8ed1ab_0.tar.gz",
+      "sha256": "59efbdc4b078d3267c23e69b64007f15285f74b89572f09f776e562933219767",
+      "bytes": 195330
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/python_abi-3.13-9_cp313.tar.gz",
+      "sha256": "8796ec39beda3c41636fd04e85313cc17c6bac0ec66f7ef4ef3c063a3193eaa8",
+      "bytes": 367
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/pytz-2026.3.post1-pyhcf101f3_0.tar.gz",
+      "sha256": "c4f0947cb9e9d744bae5b6183da563986f036cff3c85e6878c0a27a84f682c55",
+      "bytes": 327074
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/pyyaml-6.0-py313h1804a44_3.tar.gz",
+      "sha256": "b9a975f47f9b614649a1a304ad4f9aa3139af3f797c7686590848884868473f0",
+      "bytes": 42147
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/qhull-2020.2-h0b0027f_1.tar.gz",
+      "sha256": "76fb32ed805fd565e440e86cc6b265d830e32a5c6863fbf8dd90c0cd6b7ef919",
+      "bytes": 1219358
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/requests-2.34.2-pyhcf101f3_0.tar.gz",
+      "sha256": "4a5bb21ff3115fad91867fa0d046973c4a2854d9cdca789ff5bdf5066464c015",
+      "bytes": 66191
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/rich-15.0.0-pyhcf101f3_0.tar.gz",
+      "sha256": "c222c0587c01abab75fc9a311fa15a1564e95ddc7d8519cd3f9ab113f0153ec8",
+      "bytes": 234792
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/scikit-learn-1.9.0-np23py313hb9816c2_0.tar.gz",
+      "sha256": "9d5b7893e066b2fb4291bd91030b01ed729111862fbc5c49231c54c789ec9686",
+      "bytes": 4436219
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/scipy-1.18.0-np23py313h1a2f9be_2.tar.gz",
+      "sha256": "9b5ffd713e9d83ed4d9e6ff9522afe4cc916ed4e1ae2a2d446caabaf38fd17b5",
+      "bytes": 10344254
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/seaborn-0.13.2-hd8ed1ab_3.tar.gz",
+      "sha256": "493cb39d8d0891caefce5868cdcc431469b2e416e08efe1fbefc768c076cc0d1",
+      "bytes": 397
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/seaborn-base-0.13.2-pyhd8ed1ab_3.tar.gz",
+      "sha256": "38139989b631a470a7c8b13ee8bb0f1b35efe3d7958e443bf84783a0a9bb2204",
+      "bytes": 275502
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/setuptools-84.0.0-pyh332efcf_0.tar.gz",
+      "sha256": "c68a210454e27fa2f02502380becc880664dd57af3d6b4d0e4380668a92dfe4c",
+      "bytes": 694604
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/six-1.17.0-pyhe01879c_1.tar.gz",
+      "sha256": "6ab4d207283ef8d71901dbddc8d22667115e23b534e60e5a1d7dad2bf0f6e103",
+      "bytes": 10885
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/stack_data-0.6.3-pyhd8ed1ab_1.tar.gz",
+      "sha256": "2894cb7bead3fa100af96cd1c2566354a1d50b8dab32acf37157108e1b2a53b1",
+      "bytes": 22246
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/statsmodels-0.14.6-np23py313hd8db738_2.tar.gz",
+      "sha256": "50665cca2ac34855b646b385b8f54936c99fb5723dd5fe121110e848898108c7",
+      "bytes": 3890555
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/threadpoolctl-3.6.0-pyhecae5ae_0.tar.gz",
+      "sha256": "f4931dbcc568b7db6ea4e9da79d47d7d7547d5f8ac4cc8a4c6d07596dfe5faa4",
+      "bytes": 18518
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/tqdm-4.70.0-pyh8f84b5b_0.tar.gz",
+      "sha256": "82c58158db4cdd9b19ec9f7f68707b8e612533c0bd59ebb59ee4a820f92e10f9",
+      "bytes": 70586
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/traitlets-5.16.1-pyhcf101f3_0.tar.gz",
+      "sha256": "1f2eb610a025059ad7a0633e8e4e1032a1c829cc776aadf37c69dd2b7f2e2c50",
+      "bytes": 80670
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/typing-extensions-4.16.0-h69aa097_0.tar.gz",
+      "sha256": "eb5311fc193e15c8d079ab70ea239bd1cdb671dd90aa028bb2b7d875134bb70d",
+      "bytes": 96400
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/typing-inspection-0.4.4-pyhcf101f3_0.tar.gz",
+      "sha256": "a0f8c8f9a0b78b5246dde996c647fae15a703d09b85cd15271f740ca3bf0bde3",
+      "bytes": 12878
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/typing_extensions-4.16.0-pyhcf101f3_0.tar.gz",
+      "sha256": "2efd20f634529ce3a982c76b7a8590feea4a32f776713a0225fd7ef4896d0bd3",
+      "bytes": 45376
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/urllib3-2.2.2-pyhd8ed1ab_0.tar.gz",
+      "sha256": "3255a4950cafd9a999923c146964374e53ec5049002fe1143c55e9c99d7f0103",
+      "bytes": 107024
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/wcwidth-0.8.3-pyhcf101f3_0.tar.gz",
+      "sha256": "0e4520712ca1b8db8302cb89e9cb57d63a9cb129fccc0935f73fda352497bc08",
+      "bytes": 313039
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/xarray-2026.7.0-pyhc364b38_0.tar.gz",
+      "sha256": "9166037d9270e52c85440669c085cd74425aab5d198a940bc07c7b09467512af",
+      "bytes": 799478
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/xarray-einstats-0.11.0-pyhd8ed1ab_0.tar.gz",
+      "sha256": "dc07000ff12e5df6172b3838eea02b46ab729bcba729bcef75f4bc43330ede59",
+      "bytes": 34364
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/xeus-6.0.5-h0b0027f_0.tar.gz",
+      "sha256": "682d0c83f85ff873fcba9486c418ccd7bf41b8f8bc83a52499a9c856ad61bd92",
+      "bytes": 380386
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/xeus-python-0.19.0-py313he5686da_3.tar.gz",
+      "sha256": "91b36aeaadeccf0e093b1ab790ef1bcf80690657d9c4e86979197ca67ae6e754",
+      "bytes": 6548
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/xeus-python-shell-0.8.1-pyh332efcf_0.tar.gz",
+      "sha256": "199e656f22d27ecd1b1355a65b273213e456aadc7ae3f52bade089b67581f772",
+      "bytes": 421
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/xeus-python-shell-lite-0.8.1-pyhd8ed1ab_0.tar.gz",
+      "sha256": "117cddece346fe5816d3987247f77fc273dcd2a3207b1ba1e0665392bcc5bb7e",
+      "bytes": 435
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/xeus-python-shell-raw-0.8.1-pyhd8ed1ab_0.tar.gz",
+      "sha256": "fbfc8daf4232260481b9ca1174000e7234332f19f0cbe44fa5264592ccb75d0e",
+      "bytes": 6775
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/kernel_packages/zlib-1.3.2-h8b79025_0.tar.gz",
+      "sha256": "f9847b697dafc70bd2d35aaa41bd8484d97fb2b38d6a9ecc8eb0dc9b8af05bba",
+      "bytes": 935026
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/libxeus.so",
+      "sha256": "f471c93b47391c01c99ae08f813c8b3eef0ba0b76ed28d788df1c64404327453",
+      "bytes": 289063
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/xpython/kernel.json",
+      "sha256": "c22f6a9138fa2f55e5f5dd476a9ffc547054f92f9d6c487526e5a30fda3e9ae3",
+      "bytes": 399
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/xpython/libxeus.so",
+      "sha256": "f471c93b47391c01c99ae08f813c8b3eef0ba0b76ed28d788df1c64404327453",
+      "bytes": 289063
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/xpython/logo-32x32.png",
+      "sha256": "1e8879381b265054f844110c847a4a6fffa330b52cb13593eb44969deb4a433a",
+      "bytes": 947
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/xpython/logo-64x64.png",
+      "sha256": "e3b7a9abc771afd18a6b7ac7e067ddc1c0d412adae7b2980f14ea8389e15e431",
+      "bytes": 1864
+    },
+    {
+      "path": "xeus/pymc-marketing-wasm/xpython/logo-svg.svg",
+      "sha256": "80732b94f2b0b9372eefdc2a227558773558cf99934ce38710f1a231ed16a4d4",
+      "bytes": 1729
+    }
+  ]
+}

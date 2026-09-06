@@ -1,0 +1,1616 @@
+{
+  "name": "Synthetic retail example",
+  "rows": [
+    {
+      "date": "2018-04-02",
+      "revenue": 79693.24,
+      "paid_search": 5734.44,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 0.0
+    },
+    {
+      "date": "2018-04-09",
+      "revenue": 75257.44,
+      "paid_search": 2022.99,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 1.0
+    },
+    {
+      "date": "2018-04-16",
+      "revenue": 89339.35,
+      "paid_search": 5263.2,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 2.0
+    },
+    {
+      "date": "2018-04-23",
+      "revenue": 77284.39,
+      "paid_search": 1285.17,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 3.0
+    },
+    {
+      "date": "2018-04-30",
+      "revenue": 88832.51,
+      "paid_search": 6961.41,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 4.0
+    },
+    {
+      "date": "2018-05-07",
+      "revenue": 73547.93,
+      "paid_search": 849.08,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 5.0
+    },
+    {
+      "date": "2018-05-14",
+      "revenue": 101350.93,
+      "paid_search": 7636.48,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 6.0
+    },
+    {
+      "date": "2018-05-21",
+      "revenue": 121581.98,
+      "paid_search": 6010.56,
+      "paid_social": 12316.95,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 7.0
+    },
+    {
+      "date": "2018-05-28",
+      "revenue": 99084.11,
+      "paid_search": 4555.27,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 8.0
+    },
+    {
+      "date": "2018-06-04",
+      "revenue": 117313.53,
+      "paid_search": 16884.98,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 9.0
+    },
+    {
+      "date": "2018-06-11",
+      "revenue": 101932.66,
+      "paid_search": 7653.69,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 10.0
+    },
+    {
+      "date": "2018-06-18",
+      "revenue": 99830.85,
+      "paid_search": 6536.57,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 11.0
+    },
+    {
+      "date": "2018-06-25",
+      "revenue": 93771.7,
+      "paid_search": 7946.9,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 12.0
+    },
+    {
+      "date": "2018-07-02",
+      "revenue": 130726.91,
+      "paid_search": 7616.01,
+      "paid_social": 13498.62,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 13.0
+    },
+    {
+      "date": "2018-07-09",
+      "revenue": 100619.67,
+      "paid_search": 5911.06,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 14.0
+    },
+    {
+      "date": "2018-07-16",
+      "revenue": 92773.82,
+      "paid_search": 16594.93,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 15.0
+    },
+    {
+      "date": "2018-07-23",
+      "revenue": 84190.92,
+      "paid_search": 5544.28,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 16.0
+    },
+    {
+      "date": "2018-07-30",
+      "revenue": 97520.17,
+      "paid_search": 16370.73,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 17.0
+    },
+    {
+      "date": "2018-08-06",
+      "revenue": 78123.43,
+      "paid_search": 4512.58,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 18.0
+    },
+    {
+      "date": "2018-08-13",
+      "revenue": 70997.24,
+      "paid_search": 4256.52,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 19.0
+    },
+    {
+      "date": "2018-08-20",
+      "revenue": 80508.68,
+      "paid_search": 7256.48,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 20.0
+    },
+    {
+      "date": "2018-08-27",
+      "revenue": 64466.13,
+      "paid_search": 2649.2,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 21.0
+    },
+    {
+      "date": "2018-09-03",
+      "revenue": 81593.06,
+      "paid_search": 6534.74,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 22.0
+    },
+    {
+      "date": "2018-09-10",
+      "revenue": 83128.71,
+      "paid_search": 2647.2,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 23.0
+    },
+    {
+      "date": "2018-09-17",
+      "revenue": 73337.54,
+      "paid_search": 1704.07,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 24.0
+    },
+    {
+      "date": "2018-09-24",
+      "revenue": 77070.98,
+      "paid_search": 4666.42,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 25.0
+    },
+    {
+      "date": "2018-10-01",
+      "revenue": 70629.44,
+      "paid_search": 1034.71,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 26.0
+    },
+    {
+      "date": "2018-10-08",
+      "revenue": 70777.65,
+      "paid_search": 371.64,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 27.0
+    },
+    {
+      "date": "2018-10-15",
+      "revenue": 85223.49,
+      "paid_search": 2981.45,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 28.0
+    },
+    {
+      "date": "2018-10-22",
+      "revenue": 92090.34,
+      "paid_search": 3852.13,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 29.0
+    },
+    {
+      "date": "2018-10-29",
+      "revenue": 129699.52,
+      "paid_search": 6489.32,
+      "paid_social": 11208.72,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 30.0
+    },
+    {
+      "date": "2018-11-05",
+      "revenue": 101817.45,
+      "paid_search": 2202.63,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 31.0
+    },
+    {
+      "date": "2018-11-12",
+      "revenue": 130008.81,
+      "paid_search": 17256.31,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 32.0
+    },
+    {
+      "date": "2018-11-19",
+      "revenue": 128694.04,
+      "paid_search": 5795.5,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 33.0
+    },
+    {
+      "date": "2018-11-26",
+      "revenue": 145761.91,
+      "paid_search": 4558.21,
+      "paid_social": 11949.38,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 34.0
+    },
+    {
+      "date": "2018-12-03",
+      "revenue": 104981.91,
+      "paid_search": 1152.22,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 35.0
+    },
+    {
+      "date": "2018-12-10",
+      "revenue": 85694.74,
+      "paid_search": 425.8,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 36.0
+    },
+    {
+      "date": "2018-12-17",
+      "revenue": 118489.94,
+      "paid_search": 3296.96,
+      "paid_social": 13840.36,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 37.0
+    },
+    {
+      "date": "2018-12-24",
+      "revenue": 155417.98,
+      "paid_search": 16655.44,
+      "paid_social": 12186.65,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 38.0
+    },
+    {
+      "date": "2018-12-31",
+      "revenue": 132015.59,
+      "paid_search": 17939.85,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 39.0
+    },
+    {
+      "date": "2019-01-07",
+      "revenue": 120078.46,
+      "paid_search": 7230.41,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 40.0
+    },
+    {
+      "date": "2019-01-14",
+      "revenue": 113213.07,
+      "paid_search": 3127.42,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 41.0
+    },
+    {
+      "date": "2019-01-21",
+      "revenue": 117454.84,
+      "paid_search": 17196.71,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 42.0
+    },
+    {
+      "date": "2019-01-28",
+      "revenue": 121874.04,
+      "paid_search": 6406.01,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 43.0
+    },
+    {
+      "date": "2019-02-04",
+      "revenue": 79884.32,
+      "paid_search": 16.73,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 44.0
+    },
+    {
+      "date": "2019-02-11",
+      "revenue": 96348.39,
+      "paid_search": 7880.68,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 45.0
+    },
+    {
+      "date": "2019-02-18",
+      "revenue": 155901.96,
+      "paid_search": 17531.57,
+      "paid_social": 13648.13,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 46.0
+    },
+    {
+      "date": "2019-02-25",
+      "revenue": 128944.43,
+      "paid_search": 17602.27,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 47.0
+    },
+    {
+      "date": "2019-03-04",
+      "revenue": 110813.58,
+      "paid_search": 4466.55,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 48.0
+    },
+    {
+      "date": "2019-03-11",
+      "revenue": 98996.65,
+      "paid_search": 7301.17,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 49.0
+    },
+    {
+      "date": "2019-03-18",
+      "revenue": 127597.97,
+      "paid_search": 4482.74,
+      "paid_social": 12636.02,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 50.0
+    },
+    {
+      "date": "2019-03-25",
+      "revenue": 95280.34,
+      "paid_search": 954.94,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 51.0
+    },
+    {
+      "date": "2019-04-01",
+      "revenue": 84157.03,
+      "paid_search": 1193.79,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 52.0
+    },
+    {
+      "date": "2019-04-08",
+      "revenue": 88256.41,
+      "paid_search": 1654.77,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 53.0
+    },
+    {
+      "date": "2019-04-15",
+      "revenue": 86939.9,
+      "paid_search": 5123.75,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 54.0
+    },
+    {
+      "date": "2019-04-22",
+      "revenue": 132533.97,
+      "paid_search": 6729.22,
+      "paid_social": 13921.24,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 55.0
+    },
+    {
+      "date": "2019-04-29",
+      "revenue": 104624.96,
+      "paid_search": 5598.61,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 56.0
+    },
+    {
+      "date": "2019-05-06",
+      "revenue": 77825.64,
+      "paid_search": 194.76,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 57.0
+    },
+    {
+      "date": "2019-05-13",
+      "revenue": 136316.4,
+      "paid_search": 5865.38,
+      "paid_social": 0.0,
+      "event_1": 1.0,
+      "event_2": 0.0,
+      "trend": 58.0
+    },
+    {
+      "date": "2019-05-20",
+      "revenue": 100952.19,
+      "paid_search": 7742.89,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 59.0
+    },
+    {
+      "date": "2019-05-27",
+      "revenue": 105846.31,
+      "paid_search": 7959.42,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 60.0
+    },
+    {
+      "date": "2019-06-03",
+      "revenue": 104774.65,
+      "paid_search": 4840.54,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 61.0
+    },
+    {
+      "date": "2019-06-10",
+      "revenue": 99884.2,
+      "paid_search": 6919.32,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 62.0
+    },
+    {
+      "date": "2019-06-17",
+      "revenue": 91278.86,
+      "paid_search": 5468.05,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 63.0
+    },
+    {
+      "date": "2019-06-24",
+      "revenue": 90025.3,
+      "paid_search": 3997.66,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 64.0
+    },
+    {
+      "date": "2019-07-01",
+      "revenue": 112692.77,
+      "paid_search": 17713.57,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 65.0
+    },
+    {
+      "date": "2019-07-08",
+      "revenue": 96469.65,
+      "paid_search": 3206.91,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 66.0
+    },
+    {
+      "date": "2019-07-15",
+      "revenue": 81061.59,
+      "paid_search": 2751.53,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 67.0
+    },
+    {
+      "date": "2019-07-22",
+      "revenue": 89788.03,
+      "paid_search": 7790.62,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 68.0
+    },
+    {
+      "date": "2019-07-29",
+      "revenue": 123935.12,
+      "paid_search": 6853.25,
+      "paid_social": 13411.75,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 69.0
+    },
+    {
+      "date": "2019-08-05",
+      "revenue": 76498.4,
+      "paid_search": 2408.6,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 70.0
+    },
+    {
+      "date": "2019-08-12",
+      "revenue": 79054.57,
+      "paid_search": 3936.89,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 71.0
+    },
+    {
+      "date": "2019-08-19",
+      "revenue": 119161.1,
+      "paid_search": 5832.62,
+      "paid_social": 12404.66,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 72.0
+    },
+    {
+      "date": "2019-08-26",
+      "revenue": 120077.83,
+      "paid_search": 6600.18,
+      "paid_social": 11787.06,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 73.0
+    },
+    {
+      "date": "2019-09-02",
+      "revenue": 90132.14,
+      "paid_search": 2705.38,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 74.0
+    },
+    {
+      "date": "2019-09-09",
+      "revenue": 142157.37,
+      "paid_search": 16760.23,
+      "paid_social": 12775.51,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 75.0
+    },
+    {
+      "date": "2019-09-16",
+      "revenue": 113723.88,
+      "paid_search": 5385.58,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 76.0
+    },
+    {
+      "date": "2019-09-23",
+      "revenue": 94748.96,
+      "paid_search": 2868.27,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 77.0
+    },
+    {
+      "date": "2019-09-30",
+      "revenue": 140219.04,
+      "paid_search": 8087.09,
+      "paid_social": 13877.26,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 78.0
+    },
+    {
+      "date": "2019-10-07",
+      "revenue": 96603.8,
+      "paid_search": 165.3,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 79.0
+    },
+    {
+      "date": "2019-10-14",
+      "revenue": 95427.25,
+      "paid_search": 4331.11,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 80.0
+    },
+    {
+      "date": "2019-10-21",
+      "revenue": 119976.6,
+      "paid_search": 713.79,
+      "paid_social": 13381.45,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 81.0
+    },
+    {
+      "date": "2019-10-28",
+      "revenue": 116580.36,
+      "paid_search": 1229.07,
+      "paid_social": 12838.62,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 82.0
+    },
+    {
+      "date": "2019-11-04",
+      "revenue": 117653.52,
+      "paid_search": 3693.15,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 83.0
+    },
+    {
+      "date": "2019-11-11",
+      "revenue": 149410.94,
+      "paid_search": 7283.52,
+      "paid_social": 11326.61,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 84.0
+    },
+    {
+      "date": "2019-11-18",
+      "revenue": 134911.75,
+      "paid_search": 7904.15,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 85.0
+    },
+    {
+      "date": "2019-11-25",
+      "revenue": 119797.72,
+      "paid_search": 3750.92,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 86.0
+    },
+    {
+      "date": "2019-12-02",
+      "revenue": 95131.0,
+      "paid_search": 637.85,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 87.0
+    },
+    {
+      "date": "2019-12-09",
+      "revenue": 166248.15,
+      "paid_search": 17396.54,
+      "paid_social": 12174.42,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 88.0
+    },
+    {
+      "date": "2019-12-16",
+      "revenue": 139097.04,
+      "paid_search": 5832.53,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 89.0
+    },
+    {
+      "date": "2019-12-23",
+      "revenue": 165005.85,
+      "paid_search": 7212.05,
+      "paid_social": 12891.94,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 90.0
+    },
+    {
+      "date": "2019-12-30",
+      "revenue": 116731.65,
+      "paid_search": 2959.65,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 91.0
+    },
+    {
+      "date": "2020-01-06",
+      "revenue": 114851.42,
+      "paid_search": 4593.68,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 92.0
+    },
+    {
+      "date": "2020-01-13",
+      "revenue": 118378.83,
+      "paid_search": 6963.22,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 93.0
+    },
+    {
+      "date": "2020-01-20",
+      "revenue": 106763.81,
+      "paid_search": 7812.83,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 94.0
+    },
+    {
+      "date": "2020-01-27",
+      "revenue": 136312.75,
+      "paid_search": 5194.4,
+      "paid_social": 13914.69,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 95.0
+    },
+    {
+      "date": "2020-02-03",
+      "revenue": 114660.42,
+      "paid_search": 5754.28,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 96.0
+    },
+    {
+      "date": "2020-02-10",
+      "revenue": 99069.91,
+      "paid_search": 3666.36,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 97.0
+    },
+    {
+      "date": "2020-02-17",
+      "revenue": 107365.08,
+      "paid_search": 6471.86,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 98.0
+    },
+    {
+      "date": "2020-02-24",
+      "revenue": 84441.98,
+      "paid_search": 380.02,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 99.0
+    },
+    {
+      "date": "2020-03-02",
+      "revenue": 93006.77,
+      "paid_search": 5111.32,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 100.0
+    },
+    {
+      "date": "2020-03-09",
+      "revenue": 105435.45,
+      "paid_search": 7726.89,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 101.0
+    },
+    {
+      "date": "2020-03-16",
+      "revenue": 116945.14,
+      "paid_search": 2800.35,
+      "paid_social": 13113.19,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 102.0
+    },
+    {
+      "date": "2020-03-23",
+      "revenue": 128682.5,
+      "paid_search": 1927.23,
+      "paid_social": 12731.11,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 103.0
+    },
+    {
+      "date": "2020-03-30",
+      "revenue": 116713.45,
+      "paid_search": 8045.24,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 104.0
+    },
+    {
+      "date": "2020-04-06",
+      "revenue": 108483.34,
+      "paid_search": 6354.22,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 105.0
+    },
+    {
+      "date": "2020-04-13",
+      "revenue": 136110.06,
+      "paid_search": 7299.03,
+      "paid_social": 11296.36,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 106.0
+    },
+    {
+      "date": "2020-04-20",
+      "revenue": 136177.01,
+      "paid_search": 17911.84,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 107.0
+    },
+    {
+      "date": "2020-04-27",
+      "revenue": 113682.06,
+      "paid_search": 3519.94,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 108.0
+    },
+    {
+      "date": "2020-05-04",
+      "revenue": 118403.54,
+      "paid_search": 7579.9,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 109.0
+    },
+    {
+      "date": "2020-05-11",
+      "revenue": 90167.74,
+      "paid_search": 700.43,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 110.0
+    },
+    {
+      "date": "2020-05-18",
+      "revenue": 96453.03,
+      "paid_search": 4945.72,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 111.0
+    },
+    {
+      "date": "2020-05-25",
+      "revenue": 105610.57,
+      "paid_search": 6993.93,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 112.0
+    },
+    {
+      "date": "2020-06-01",
+      "revenue": 104303.84,
+      "paid_search": 7167.2,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 113.0
+    },
+    {
+      "date": "2020-06-08",
+      "revenue": 153496.53,
+      "paid_search": 16743.0,
+      "paid_social": 12515.67,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 114.0
+    },
+    {
+      "date": "2020-06-15",
+      "revenue": 142854.74,
+      "paid_search": 4677.28,
+      "paid_social": 12148.5,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 115.0
+    },
+    {
+      "date": "2020-06-22",
+      "revenue": 103599.83,
+      "paid_search": 3506.78,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 116.0
+    },
+    {
+      "date": "2020-06-29",
+      "revenue": 93751.16,
+      "paid_search": 4648.16,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 117.0
+    },
+    {
+      "date": "2020-07-06",
+      "revenue": 92462.0,
+      "paid_search": 5439.41,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 118.0
+    },
+    {
+      "date": "2020-07-13",
+      "revenue": 70777.29,
+      "paid_search": 1862.95,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 119.0
+    },
+    {
+      "date": "2020-07-20",
+      "revenue": 71604.7,
+      "paid_search": 1443.06,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 120.0
+    },
+    {
+      "date": "2020-07-27",
+      "revenue": 87224.19,
+      "paid_search": 7487.58,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 121.0
+    },
+    {
+      "date": "2020-08-03",
+      "revenue": 90708.02,
+      "paid_search": 7131.12,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 122.0
+    },
+    {
+      "date": "2020-08-10",
+      "revenue": 87520.56,
+      "paid_search": 7979.19,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 123.0
+    },
+    {
+      "date": "2020-08-17",
+      "revenue": 69206.57,
+      "paid_search": 1149.99,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 124.0
+    },
+    {
+      "date": "2020-08-24",
+      "revenue": 82387.64,
+      "paid_search": 4625.3,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 125.0
+    },
+    {
+      "date": "2020-08-31",
+      "revenue": 89005.72,
+      "paid_search": 7500.9,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 126.0
+    },
+    {
+      "date": "2020-09-07",
+      "revenue": 88117.88,
+      "paid_search": 3408.2,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 127.0
+    },
+    {
+      "date": "2020-09-14",
+      "revenue": 129930.02,
+      "paid_search": 218.1,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 1.0,
+      "trend": 128.0
+    },
+    {
+      "date": "2020-09-21",
+      "revenue": 88843.51,
+      "paid_search": 5529.68,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 129.0
+    },
+    {
+      "date": "2020-09-28",
+      "revenue": 106192.93,
+      "paid_search": 5028.23,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 130.0
+    },
+    {
+      "date": "2020-10-05",
+      "revenue": 99296.44,
+      "paid_search": 2805.47,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 131.0
+    },
+    {
+      "date": "2020-10-12",
+      "revenue": 95340.83,
+      "paid_search": 4522.68,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 132.0
+    },
+    {
+      "date": "2020-10-19",
+      "revenue": 120142.14,
+      "paid_search": 7481.45,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 133.0
+    },
+    {
+      "date": "2020-10-26",
+      "revenue": 146836.38,
+      "paid_search": 2707.44,
+      "paid_social": 11759.74,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 134.0
+    },
+    {
+      "date": "2020-11-02",
+      "revenue": 112233.29,
+      "paid_search": 753.22,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 135.0
+    },
+    {
+      "date": "2020-11-09",
+      "revenue": 113515.28,
+      "paid_search": 5268.78,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 136.0
+    },
+    {
+      "date": "2020-11-16",
+      "revenue": 127816.29,
+      "paid_search": 7049.23,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 137.0
+    },
+    {
+      "date": "2020-11-23",
+      "revenue": 111358.87,
+      "paid_search": 1781.47,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 138.0
+    },
+    {
+      "date": "2020-11-30",
+      "revenue": 117007.77,
+      "paid_search": 4832.51,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 139.0
+    },
+    {
+      "date": "2020-12-07",
+      "revenue": 123008.46,
+      "paid_search": 6542.72,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 140.0
+    },
+    {
+      "date": "2020-12-14",
+      "revenue": 109628.89,
+      "paid_search": 3336.54,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 141.0
+    },
+    {
+      "date": "2020-12-21",
+      "revenue": 139425.23,
+      "paid_search": 1187.59,
+      "paid_social": 13442.57,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 142.0
+    },
+    {
+      "date": "2020-12-28",
+      "revenue": 122350.86,
+      "paid_search": 6382.23,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 143.0
+    },
+    {
+      "date": "2021-01-04",
+      "revenue": 94516.82,
+      "paid_search": 2869.61,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 144.0
+    },
+    {
+      "date": "2021-01-11",
+      "revenue": 103267.71,
+      "paid_search": 3275.57,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 145.0
+    },
+    {
+      "date": "2021-01-18",
+      "revenue": 88045.06,
+      "paid_search": 2101.45,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 146.0
+    },
+    {
+      "date": "2021-01-25",
+      "revenue": 112585.58,
+      "paid_search": 5828.04,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 147.0
+    },
+    {
+      "date": "2021-02-01",
+      "revenue": 108817.09,
+      "paid_search": 7814.21,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 148.0
+    },
+    {
+      "date": "2021-02-08",
+      "revenue": 94949.67,
+      "paid_search": 1961.78,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 149.0
+    },
+    {
+      "date": "2021-02-15",
+      "revenue": 93023.88,
+      "paid_search": 2904.37,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 150.0
+    },
+    {
+      "date": "2021-02-22",
+      "revenue": 113563.56,
+      "paid_search": 16961.8,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 151.0
+    },
+    {
+      "date": "2021-03-01",
+      "revenue": 106552.86,
+      "paid_search": 1533.66,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 152.0
+    },
+    {
+      "date": "2021-03-08",
+      "revenue": 101855.55,
+      "paid_search": 5864.75,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 153.0
+    },
+    {
+      "date": "2021-03-15",
+      "revenue": 97219.37,
+      "paid_search": 3022.44,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 154.0
+    },
+    {
+      "date": "2021-03-22",
+      "revenue": 106241.18,
+      "paid_search": 6113.2,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 155.0
+    },
+    {
+      "date": "2021-03-29",
+      "revenue": 94332.48,
+      "paid_search": 4552.23,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 156.0
+    },
+    {
+      "date": "2021-04-05",
+      "revenue": 97598.16,
+      "paid_search": 1556.74,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 157.0
+    },
+    {
+      "date": "2021-04-12",
+      "revenue": 104921.93,
+      "paid_search": 6070.09,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 158.0
+    },
+    {
+      "date": "2021-04-19",
+      "revenue": 141185.32,
+      "paid_search": 3055.73,
+      "paid_social": 13063.43,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 159.0
+    },
+    {
+      "date": "2021-04-26",
+      "revenue": 149037.73,
+      "paid_search": 7696.89,
+      "paid_social": 12814.73,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 160.0
+    },
+    {
+      "date": "2021-05-03",
+      "revenue": 141217.06,
+      "paid_search": 16387.82,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 161.0
+    },
+    {
+      "date": "2021-05-10",
+      "revenue": 113747.53,
+      "paid_search": 2564.41,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 162.0
+    },
+    {
+      "date": "2021-05-17",
+      "revenue": 137360.83,
+      "paid_search": 3351.85,
+      "paid_social": 11909.82,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 163.0
+    },
+    {
+      "date": "2021-05-24",
+      "revenue": 117891.38,
+      "paid_search": 5640.68,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 164.0
+    },
+    {
+      "date": "2021-05-31",
+      "revenue": 110190.43,
+      "paid_search": 7188.11,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 165.0
+    },
+    {
+      "date": "2021-06-07",
+      "revenue": 100798.39,
+      "paid_search": 2602.52,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 166.0
+    },
+    {
+      "date": "2021-06-14",
+      "revenue": 102700.87,
+      "paid_search": 2663.55,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 167.0
+    },
+    {
+      "date": "2021-06-21",
+      "revenue": 90713.86,
+      "paid_search": 1257.18,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 168.0
+    },
+    {
+      "date": "2021-06-28",
+      "revenue": 87166.93,
+      "paid_search": 3571.88,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 169.0
+    },
+    {
+      "date": "2021-07-05",
+      "revenue": 129155.97,
+      "paid_search": 6506.79,
+      "paid_social": 12724.02,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 170.0
+    },
+    {
+      "date": "2021-07-12",
+      "revenue": 88516.7,
+      "paid_search": 4326.07,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 171.0
+    },
+    {
+      "date": "2021-07-19",
+      "revenue": 75903.06,
+      "paid_search": 726.73,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 172.0
+    },
+    {
+      "date": "2021-07-26",
+      "revenue": 63857.59,
+      "paid_search": 1214.23,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 173.0
+    },
+    {
+      "date": "2021-08-02",
+      "revenue": 71070.92,
+      "paid_search": 594.44,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 174.0
+    },
+    {
+      "date": "2021-08-09",
+      "revenue": 111310.19,
+      "paid_search": 2981.07,
+      "paid_social": 12086.88,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 175.0
+    },
+    {
+      "date": "2021-08-16",
+      "revenue": 82753.03,
+      "paid_search": 3093.88,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 176.0
+    },
+    {
+      "date": "2021-08-23",
+      "revenue": 89580.83,
+      "paid_search": 5044.63,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 177.0
+    },
+    {
+      "date": "2021-08-30",
+      "revenue": 93519.47,
+      "paid_search": 7899.43,
+      "paid_social": 0.0,
+      "event_1": 0.0,
+      "event_2": 0.0,
+      "trend": 178.0
+    }
+  ]
+}
