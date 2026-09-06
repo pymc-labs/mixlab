@@ -1,0 +1,13 @@
+.git
+.github
+.openai
+.next
+.vinext
+node_modules
+dist
+public/runtime
+.env*
+*.pem
+*.tsbuildinfo
+outputs
+work

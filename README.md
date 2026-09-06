@@ -46,6 +46,18 @@ npm run build
 
 Serve `dist/client` at the root of any static origin supporting WebAssembly MIME types. Runtime assets and the application are served from the same origin. There is no application backend, no database, no inference API, and no app-owned authentication. Sites hosting can put a separate private access layer around the static site.
 
+### Deploy to Fly.io
+
+The public deployment is [pymc-mixlab.fly.dev](https://pymc-mixlab.fly.dev), in the PyMC-Labs organization and Frankfurt region. To deploy the current checkout with an authenticated Fly CLI:
+
+```sh
+npm test
+npm run typecheck
+flyctl deploy --remote-only --ha=false
+```
+
+The Docker build installs locked dependencies, downloads and verifies the pinned runtime, and builds the static website. Nginx serves the app and runtime on port 8080. Fly provides HTTPS and a health check; a single 256 MB machine stops when idle and starts on demand. CSV data and inference stay in the visitor's browser.
+
 ## Notebook.link
 
 The repository includes a minimal `.nblink/environment.yml` using Python, xeus-python, and IPython. Open **`notebooks/mixlab-browser.ipynb`** in [the notebook workspace](https://notebook.link/github.com/twiecki/mixlab).

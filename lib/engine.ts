@@ -26,9 +26,14 @@ export async function fit(
   signal: AbortSignal,
 ): Promise<{ posterior: Posterior; traces: Trace[] }> {
   const [modelResponse, analysisResponse] = await Promise.all([
-    fetch('/python/model.py'),
-    fetch('/python/analyze.py'),
-  ]);
+    fetch('/python/model.py', { signal }),
+    fetch('/python/analyze.py', { signal }),
+  ]).catch((error) => {
+    if (signal.aborted) throw error;
+    throw Error(
+      'Could not reach the Mixlab server to load the model files. Check that this site or local preview is still running, then retry the fit.',
+    );
+  });
   if (!modelResponse.ok || !analysisResponse.ok)
     throw Error('Model files could not be loaded. Reload and try again.');
   const model = await modelResponse.text(),

@@ -1881,3 +1881,98 @@ footer > span {
 .prior-actions button:disabled { opacity: .4; cursor: default; }
 .prior-studio a { text-decoration: underline; }
 @media(max-width: 850px) { .prior-grid { grid-template-columns: 1fr; } .prior-studio { padding: 18px; } }
+
+/* A shared workbench with a persistent conversation alongside it. */
+.with-agent .workspace { margin-right: 390px; padding: 28px; }
+.with-agent .workspace-heading h1 { font-size: clamp(28px, 3vw, 44px); }
+.investigation-agent { position: fixed; right: 0; top: 81px; bottom: 0; width: 390px; display: flex; flex-direction: column; background: #151d18; border-left: 1px solid var(--border); z-index: 20; }
+.agent-heading { display: flex; align-items: center; justify-content: space-between; padding: 16px; border-bottom: 1px solid var(--border); }
+.agent-heading > div { display: flex; align-items: center; gap: 8px; }
+.agent-heading strong { font-size: 16px; }
+.agent-context { padding: 12px 18px; font-size: 12px; color: var(--muted-foreground); border-bottom: 1px solid var(--border); }
+.agent-conversation { flex: 1; overflow-y: auto; padding: 24px 18px; min-height: 120px; }
+.agent-welcome h2 { font-size: 28px; line-height: 1.15; margin: 14px 0; letter-spacing: -.7px; }
+.agent-welcome p, .agent-entry p { font-size: 16px; line-height: 1.6; white-space: pre-wrap; overflow-wrap: anywhere; }
+.agent-welcome p { color: var(--muted-foreground); }
+.agent-starters { display: grid; gap: 10px; margin: 24px 0; }
+.agent-starters button { display: flex; align-items: center; justify-content: space-between; gap: 12px; text-align: left; border: 1px solid #40513e; padding: 14px; border-radius: 10px; font-size: 14px; background: #202c22; }
+.agent-entry { padding: 16px 0; border-bottom: 1px solid var(--border); }
+.agent-entry > strong { font-size: 12px; color: var(--primary); }
+.agent-entry.from-user { background: #253025; padding: 14px; margin-top: 16px; border-radius: 10px; }
+.agent-entry p { margin: 8px 0 0; }
+.agent-proposal { border: 1px solid var(--primary); padding: 16px; border-radius: 10px; margin-top: 20px; }
+.agent-proposal pre { white-space: pre-wrap; overflow-wrap: anywhere; font-size: 14px; margin: 14px 0; }
+.agent-proposal p, .agent-status, .agent-error { font-size: 14px; line-height: 1.5; }
+.agent-error { color: var(--destructive); }
+.agent-composer { padding: 16px; border-top: 1px solid var(--border); }
+.agent-composer textarea { min-height: 82px; resize: vertical; font-size: 16px; }
+.agent-composer > div { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 10px; }
+.agent-composer span { color: var(--muted-foreground); font-size: 12px; }
+.fit-history { border: 1px solid var(--border); padding: 20px; margin-bottom: 24px; border-radius: 12px; }
+.fit-history p { font-size: 14px; color: var(--muted-foreground); margin: 8px 0; }
+.fit-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-top: 16px; }
+.fit-cards article { padding: 16px; background: var(--card); border-radius: 8px; }
+.fit-cards span { font-size: 12px; }
+@media (min-width: 1051px) and (max-width: 1450px) { .with-agent .overview-grid, .with-agent .model-layout, .with-agent .data-layout, .with-agent .prior-grid { grid-template-columns: 1fr; } .with-agent .workspace-heading { align-items: flex-start; flex-direction: column; } }
+@media (max-width: 1050px) { .with-agent .workspace { margin-right: 0; padding: 22px; } .investigation-agent { position: relative; top: auto; width: auto; height: 580px; margin: 20px; border: 1px solid var(--border); border-radius: 12px; } }
+@media (max-width: 600px) { .header-open .source-link { display: none; } .investigation-agent { margin: 12px; } }
+.custom-python { padding: 24px; margin-bottom: 28px; }
+.custom-python h2 { margin: 12px 0; font-size: 26px; }
+.custom-python p { font-size: 14px; line-height: 1.65; color: var(--muted-foreground); margin: 14px 0; }
+.custom-python label { display: block; margin: 20px 0 8px; font-size: 14px; }
+.custom-python textarea { min-height: 130px; font: 14px/1.6 monospace; }
+.custom-python #custom-source { min-height: 360px; }
+.custom-python .heading-actions { flex-wrap: wrap; }
+.custom-output { background: #0d130f; padding: 18px; min-height: 100px; max-height: 420px; overflow: auto; white-space: pre-wrap; font: 14px/1.7 monospace; }
+.agent-proposal pre { max-height: 350px; overflow: auto; }
+
+.prior-scale { display: grid; gap: 12px; margin: 24px 0; font-size: 14px; }
+.prior-scale input { width: 100%; accent-color: #b5f268; }
+.prior-predictive { border-top: 1px solid #303c35; padding-top: 24px; }
+.prior-predictive-heading { display: flex; justify-content: space-between; align-items: start; gap: 16px; flex-wrap: wrap; }
+.prior-predictive-heading h4 { margin: 0 0 8px; font-size: 18px; }
+.prior-predictive-heading label { display: grid; gap: 8px; font-size: 14px; }
+.prior-predictive select { background: #151e19; color: #edf4ef; padding: 10px; border: 1px solid #415247; border-radius: 8px; }
+.prior-predictive svg { display: block; width: 100%; }
+.prior-legend { display: flex; gap: 20px; flex-wrap: wrap; font-size: 14px; color: #a0afa3; margin: 18px 0 8px; }
+.prior-predictive summary { font-size: 14px; cursor: pointer; }
+.workbench-focus { scroll-margin-top: 24px; min-width: 0; }
+.focus-note { display: flex; align-items: center; gap: 8px; padding: 12px 16px; border: 1px solid var(--primary); border-radius: 8px; margin-bottom: 16px; color: var(--primary); font-size: 14px; animation: focus-arrival 1.4s ease-out; }
+.focus-note button { margin-left: auto; }
+.workbench-focus[data-focused='true'] [role='tabpanel'][data-state='active'] { border-left: 2px solid #526c3c; padding-left: 14px; }
+@keyframes focus-arrival { from { background: #3d5429; } to { background: transparent; } }
+.local-privacy { margin: 30px 0 0; color: var(--muted-foreground); font-size: 14px; }
+.local-privacy summary { cursor: pointer; }
+.local-privacy p { max-width: 850px; line-height: 1.65; }
+@media (prefers-reduced-motion: reduce) { .focus-note { animation: none; } }
+/* Keep the assistant beside the workbench on laptop-sized windows. */
+@media (min-width: 851px) and (max-width: 1050px) {
+  .with-agent .workspace { margin-right: 340px; padding: 20px; }
+  .investigation-agent { position: fixed; top: 81px; right: 0; bottom: 0; width: 340px; height: auto; margin: 0; border-radius: 0; }
+  .with-agent .workspace-heading { flex-direction: column; align-items: flex-start; }
+  .with-agent .overview-grid, .with-agent .model-layout, .with-agent .data-layout, .with-agent .prior-grid { grid-template-columns: 1fr; }
+}
+
+
+.agent-markdown { min-width: 0; font-size: 16px; line-height: 1.6; overflow-wrap: anywhere; }
+.agent-markdown p { white-space: normal; margin: 10px 0; }
+.agent-markdown h1, .agent-markdown h2, .agent-markdown h3, .agent-markdown h4, .agent-markdown h5, .agent-markdown h6 { font-size: 17px; font-weight: 650; line-height: 1.4; margin: 20px 0 10px; }
+.agent-markdown strong { font-size: inherit; color: inherit; font-weight: 650; }
+.agent-markdown ul, .agent-markdown ol { padding-left: 24px; margin: 10px 0; }
+.agent-markdown ul { list-style: disc; }
+.agent-markdown ol { list-style: decimal; }
+.agent-markdown li { margin: 5px 0; }
+.agent-markdown a { color: var(--primary); text-decoration: underline; text-underline-offset: 3px; }
+.agent-markdown code { font-size: 0.875em; background: #111b14; padding: 2px 5px; border-radius: 4px; }
+.agent-markdown pre { max-width: 100%; overflow-x: auto; white-space: pre; padding: 12px; background: #111b14; border-radius: 8px; margin: 12px 0; }
+.agent-markdown pre code { padding: 0; background: none; }
+.agent-markdown blockquote { border-left: 3px solid #52634e; padding-left: 14px; color: var(--muted-foreground); margin: 12px 0; }
+.agent-markdown hr { border: 0; border-top: 1px solid var(--border); margin: 18px 0; }
+.agent-table-scroll { max-width: 100%; overflow-x: auto; margin: 12px 0; }
+.agent-markdown table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.agent-markdown th, .agent-markdown td { padding: 8px 10px; border: 1px solid var(--border); text-align: left; vertical-align: top; }
+.agent-markdown th { background: #253025; font-weight: 650; }
+.agent-markdown > :first-child { margin-top: 8px; }
+.agent-markdown > :last-child { margin-bottom: 0; }
+
+.agent-keyboard-hint { font-size: 12px; color: var(--muted-foreground); margin: 8px 0 0; }

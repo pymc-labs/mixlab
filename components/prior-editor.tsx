@@ -3,7 +3,8 @@ import { useEffect, useRef, useState } from 'react';
 import betaWidget from '../vendor/modist/beta.mjs';
 import gammaWidget from '../vendor/modist/gamma.mjs';
 import '../vendor/modist/styles.css';
-import type { Config, ShapePrior } from '../lib/core';
+import { PriorPredictive } from './prior-predictive';
+import type { Dataset, Config, ShapePrior } from '../lib/core';
 
 // Minimal anywidget model contract; all state stays in React on this device.
 function Distribution({
@@ -65,15 +66,23 @@ const valid = (p: ShapePrior) =>
   [p.alpha, p.beta].every((v) => Number.isFinite(v) && v >= 0.001 && v <= 400);
 export function PriorEditor({
   config,
+  data,
   disabled,
   onApply,
 }: {
   config: Config;
+  data: Dataset | null;
   disabled: boolean;
-  onApply: (adstock: ShapePrior, saturation: ShapePrior) => void;
+  onApply: (
+    adstock: ShapePrior,
+    saturation: ShapePrior,
+    priorScale: number,
+  ) => void;
 }) {
   const appliedA = config.adstockPrior ?? { alpha: 1, beta: 3 };
   const appliedS = config.saturationPrior ?? { alpha: 3, beta: 1 };
+  const [priorScale, setPriorScale] = useState(config.priorScale);
+  useEffect(() => setPriorScale(config.priorScale), [config.priorScale]);
   const [adstock, setAdstock] = useState(appliedA);
   const [saturation, setSaturation] = useState(appliedS);
   useEffect(() => {
@@ -81,8 +90,8 @@ export function PriorEditor({
     setSaturation(appliedS);
   }, [appliedA.alpha, appliedA.beta, appliedS.alpha, appliedS.beta]);
   const changed =
-    JSON.stringify([adstock, saturation]) !==
-    JSON.stringify([appliedA, appliedS]);
+    JSON.stringify([adstock, saturation, priorScale]) !==
+    JSON.stringify([appliedA, appliedS, config.priorScale]);
   const okay = valid(adstock) && valid(saturation);
   return (
     <section className="panel prior-studio">
@@ -159,11 +168,40 @@ export function PriorEditor({
             </div>
           ))}
         </div>
+        <label className="prior-scale">
+          Channel effect prior scale · HalfNormal(σ = {priorScale})
+          <input
+            type="range"
+            aria-label="Preview channel effect prior scale"
+            min="0.25"
+            max="4"
+            step="0.25"
+            value={priorScale}
+            onChange={(e) => setPriorScale(Number(e.target.value))}
+          />
+        </label>
+        {okay && data ? (
+          <PriorPredictive
+            data={data}
+            config={{
+              ...config,
+              priorScale,
+              adstockPrior: adstock,
+              saturationPrior: saturation,
+            }}
+          />
+        ) : (
+          <p role="status">
+            {okay
+              ? 'Load and validate a dataset to preview prior predictions against observations.'
+              : 'Enter valid prior parameters to resume the preview.'}
+          </p>
+        )}
         <div className="prior-actions">
           <button
             className="primary"
             disabled={!changed || !okay || disabled}
-            onClick={() => onApply(adstock, saturation)}
+            onClick={() => onApply(adstock, saturation, priorScale)}
           >
             Apply priors to model
           </button>
@@ -171,6 +209,7 @@ export function PriorEditor({
             className="secondary"
             type="button"
             onClick={() => {
+              setPriorScale(2);
               setAdstock({ alpha: 1, beta: 3 });
               setSaturation({ alpha: 3, beta: 1 });
             }}
@@ -196,7 +235,8 @@ export function PriorEditor({
           Modist widgets by Will Dean ↗
         </a>
         . Curve editing expresses assumptions; it does not estimate priors from
-        your data. Channel amplitude remains HalfNormal with the scale in the model settings.
+        your data. The effect scale above is applied to the model together with
+        the curve priors.
       </p>
     </section>
   );
