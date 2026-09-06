@@ -40,6 +40,7 @@ q = y_pred.quantile([.05, .5, .95], dim=['chain', 'draw']).transpose('quantile',
 emit(type='result', posterior=dict(
     alpha=draws('adstock_alpha'), lam=draws('saturation_lam'), beta=draws('saturation_beta'),
     channelScale=channel_scale, targetScale=target_scale,
+    predictiveMean=y_pred.mean('date').transpose('chain', 'draw').values.reshape(-1).tolist(),
     contributions=[dict(low=float(contribution_q[0,i]), median=float(contribution_q[1,i]), high=float(contribution_q[2,i])) for i in range(len(channels))],
     prediction=dict(low=q[0].tolist(), median=q[1].tolist(), high=q[2].tolist()),
     diagnostics=diagnostics,
