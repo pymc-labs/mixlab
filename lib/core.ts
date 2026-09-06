@@ -49,6 +49,8 @@ export type Posterior = {
   channelScale: number[];
   targetScale: number;
   contributions: Interval[];
+  /** Paired posterior predictive average-week draws, including observation noise. */
+  predictiveMean?: number[];
   prediction: { low: number[]; median: number[]; high: number[] };
   diagnostics: {
     maxRhat: number | null;
@@ -389,6 +391,10 @@ export function scenario(
     baseline: interval(base),
     changed: interval(changed),
     delta: interval(delta),
+    predictive: p.predictiveMean
+      ? interval(p.predictiveMean.map((v, i) => v + delta[i]))
+      : null,
+    predictiveBaseline: p.predictiveMean ? interval(p.predictiveMean) : null,
     probabilityPositive: delta.filter((v) => v > 0).length / n,
   };
 }

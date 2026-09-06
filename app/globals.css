@@ -1976,6 +1976,139 @@ footer > span {
 .agent-markdown > :last-child { margin-bottom: 0; }
 
 .agent-keyboard-hint { font-size: 12px; color: var(--muted-foreground); margin: 8px 0 0; }
+
+/* Allocation workspace: prior ticks anchor every decision to the observed mix. */
+.allocation-toolbar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  padding: 18px 27px;
+  border-bottom: 1px solid var(--border);
+}
+.allocation-toolbar strong {
+  font-size: 24px;
+}
+.allocation-toolbar span,
+.allocation-legend {
+  color: var(--muted-foreground);
+  font-size: 14px;
+}
+.allocation-lock {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 14px;
+}
+.allocation-legend {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 18px 27px 0;
+}
+.allocation-channel {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  cursor: pointer;
+  font-size: 15px;
+  text-align: left;
+}
+.allocation-channel.selected {
+  text-decoration: underline;
+  text-underline-offset: 5px;
+}
+.allocation-track {
+  position: relative;
+  margin-top: 23px;
+}
+.allocation-prior {
+  position: absolute;
+  width: 2px;
+  height: 18px;
+  top: -7px;
+  background: var(--foreground);
+  opacity: 0.6;
+  pointer-events: none;
+  z-index: 1;
+}
+.allocation-preferences {
+  padding: 24px 27px;
+  display: grid;
+  gap: 22px;
+  background: color-mix(in srgb, var(--primary) 3%, transparent);
+}
+.allocation-control > div:first-child {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 17px;
+  font-size: 15px;
+}
+.allocation-control output {
+  font-variant-numeric: tabular-nums;
+  color: var(--muted-foreground);
+}
+.allocation-preferences p,
+.allocation-surface p,
+.planner-predictive p {
+  font-size: 14px;
+  color: var(--muted-foreground);
+  line-height: 1.6;
+  margin: 0;
+}
+.allocation-surface {
+  padding: 24px 20px;
+  border-top: 1px solid var(--border);
+}
+.allocation-surface-heading {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+.allocation-surface h3 {
+  margin-top: 5px;
+  font-size: 20px;
+}
+.allocation-surface svg {
+  width: 100%;
+  color: var(--muted-foreground);
+}
+.allocation-surface svg text {
+  fill: currentColor;
+  font-size: 12px;
+}
+.allocation-surface p + p {
+  margin-top: 10px;
+}
+.allocation-surface .allocation-warning {
+  color: var(--foreground);
+}
+.planner-predictive {
+  padding: 24px 0;
+  border-top: 1px solid var(--border);
+}
+.planner-predictive h3 {
+  font-size: 32px;
+  margin: 12px 0;
+}
+.scenario-layout {
+  align-items: start;
+}
+@media (max-width: 600px) {
+  .allocation-toolbar,
+  .allocation-preferences {
+    padding: 20px;
+  }
+  .allocation-channel {
+    max-width: 50%;
+  }
+}
+
 /* Dedicated sampling workspace. */
 .fitting-layout {
   display: grid;

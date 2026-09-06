@@ -3,6 +3,7 @@ import { usePythonWorkspace } from '../hooks/use-python-workspace';
 import { summarizeAgentData } from '../lib/agent-data';
 import { Investigation } from '../components/investigation';
 import { validateAction, type AgentAction } from '../lib/agent';
+import { AllocationPlanner } from '../components/allocation-planner';
 import { PriorEditor } from '../components/prior-editor';
 import { useDeferredValue, useEffect, useMemo, useRef, useState } from 'react';
 import {
@@ -183,6 +184,9 @@ function ThinPosterior(p: Posterior): Posterior {
   );
   return {
     ...p,
+    predictiveMean: p.predictiveMean
+      ? idx.map((i) => p.predictiveMean![i])
+      : undefined,
     alpha: idx.map((i) => p.alpha[i]),
     beta: idx.map((i) => p.beta[i]),
     lam: idx.map((i) => p.lam[i]),
@@ -259,8 +263,7 @@ export default function Home() {
         (_, j) => data.x.reduce((s, r) => s + r[j], 0) / data.x.length,
       )
     : [];
-  const totalSpend = spend.reduce((s, n) => s + n, 0),
-    newSpend = spend.reduce((s, n, i) => s + n * effectiveMultipliers[i], 0);
+  const totalSpend = spend.reduce((s, n) => s + n, 0);
   const good = posterior ? healthy(posterior) : false;
   useEffect(
     () => () => {
@@ -1700,118 +1703,13 @@ export default function Home() {
                     </div>
                   )}
                   <div className="scenario-layout">
-                    <section className="panel budget-panel">
-                      <div className="panel-heading">
-                        <div>
-                          <div className="eyebrow">REWRITE THE INPUTS</div>
-                          <h2>Your channel mix</h2>
-                        </div>
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => setMultipliers([])}
-                        >
-                          <RotateCcw /> Reset
-                        </Button>
-                      </div>
-                      {data.channels.map((c, i) => (
-                        <div className="budget-channel" key={c}>
-                          <div>
-                            <span>
-                              <i style={{ background: colors[i] }} />
-                              {label(c)}
-                            </span>
-                            <strong>
-                              {compact(spend[i] * effectiveMultipliers[i])}
-                              <small> / week</small>
-                            </strong>
-                          </div>
-                          <Slider
-                            aria-label={`${label(c)} budget multiplier`}
-                            value={[Math.round(effectiveMultipliers[i] * 100)]}
-                            min={0}
-                            max={200}
-                            step={5}
-                            onValueChange={(v) => {
-                              const next = [...effectiveMultipliers];
-                              next[i] = (Array.isArray(v) ? v[0] : v) / 100;
-                              setMultipliers(next);
-                            }}
-                          />
-                          <div className="slider-scale">
-                            <span>0%</span>
-                            <output>
-                              {Math.round(effectiveMultipliers[i] * 100)}% of
-                              observed spend
-                            </output>
-                            <span>200%</span>
-                          </div>
-                        </div>
-                      ))}
-                      <div className="budget-total">
-                        <span>
-                          Total weekly spend<strong>{compact(newSpend)}</strong>
-                        </span>
-                        <span>
-                          {newSpend >= totalSpend ? '+' : ''}
-                          {Math.round((newSpend / totalSpend - 1) * 100)}%
-                          <small> vs. observed mix</small>
-                        </span>
-                      </div>
-                      <p className="tiny">
-                        Budgets are independent. Total spend can change.
-                        Multipliers above 100% may extrapolate beyond observed
-                        spend.
-                      </p>
-                    </section>
-                    <section className="panel impact-panel">
-                      <span className="orbital">
-                        <Sparkles size={24} />
-                      </span>
-                      <div className="eyebrow">
-                        EXPECTED CHANGE IN CHANNEL CONTRIBUTION
-                      </div>
-                      <h2>
-                        {simulation
-                          ? (simulation.delta.median >= 0 ? '+' : '') +
-                            compact(simulation.delta.median)
-                          : '—'}
-                        <small> / week</small>
-                      </h2>
-                      <p>
-                        Change in average weekly modeled outcome, on the
-                        original scale.
-                      </p>
-                      <div className="impact-interval">
-                        <span>90% credible interval</span>
-                        <strong>
-                          {simulation
-                            ? `${compact(simulation.delta.low)} to ${compact(simulation.delta.high)}`
-                            : '—'}
-                        </strong>
-                      </div>
-                      <div className="impact-probability">
-                        <span>
-                          {simulation
-                            ? Math.round(simulation.probabilityPositive * 100)
-                            : 0}
-                          %
-                        </span>
-                        <p>
-                          of evaluated posterior draws
-                          <br />
-                          show a positive change
-                        </p>
-                      </div>
-                      <div className="scenario-assumptions">
-                        <LockKeyhole size={15} />
-                        <p>
-                          Same dates, baseline, controls, and seasonality.
-                          Carryover is recomputed for the changed spend. This is
-                          a historical counterfactual, not a forecast.
-                        </p>
-                      </div>
-                    </section>
+                    <AllocationPlanner
+                      data={data}
+                      posterior={thin!}
+                      lag={config.lag}
+                      multipliers={effectiveMultipliers}
+                      onChange={setMultipliers}
+                    />
                   </div>
                   <section className="panel scenario-table">
                     <div className="panel-heading">

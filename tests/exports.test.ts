@@ -108,3 +108,18 @@ test('nonpositive, nonnumeric and excessive Modist priors are rejected on projec
     }
   }
 });
+
+void test('saved full-budget allocation survives import above the old 2x cap', () => {
+  const spend = data.channels.map((_, j) =>
+    data.x.reduce((s, r) => s + r[j], 0),
+  );
+  const total = spend.reduce((a, b) => a + b, 0);
+  const j = spend.indexOf(Math.min(...spend));
+  const weights = spend.map((_, i) => (i === j ? total / spend[i] : 0));
+  assert.ok(weights[j] >= 2);
+  assert.deepEqual(
+    readProject(JSON.stringify({ ...saved, scenarioMultipliers: weights }))
+      .scenarioMultipliers,
+    weights,
+  );
+});
