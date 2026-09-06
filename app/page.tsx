@@ -1,5 +1,6 @@
 'use client';
 import { usePythonWorkspace } from '../hooks/use-python-workspace';
+import { summarizeAgentData } from '../lib/agent-data';
 import { Investigation } from '../components/investigation';
 import { validateAction, type AgentAction } from '../lib/agent';
 import { PriorEditor } from '../components/prior-editor';
@@ -196,15 +197,12 @@ export default function Home() {
     setFocusNote(view);
     setFocusTick((n) => n + 1);
     requestAnimationFrame(() =>
-      document
-        .getElementById('workbench-focus')
-        ?.scrollIntoView({
-          behavior: window.matchMedia('(prefers-reduced-motion: reduce)')
-            .matches
-            ? 'instant'
-            : 'smooth',
-          block: 'start',
-        }),
+      document.getElementById('workbench-focus')?.scrollIntoView({
+        behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches
+          ? 'instant'
+          : 'smooth',
+        block: 'start',
+      }),
     );
   }
   const [agentOpen, setAgentOpen] = useState(true);
@@ -234,6 +232,10 @@ export default function Home() {
     fileInput = useRef<HTMLInputElement>(null),
     projectInput = useRef<HTMLInputElement>(null),
     generation = useRef(0);
+  const agentData = useMemo(
+    () => summarizeAgentData(table, mapping),
+    [table, mapping],
+  );
   const checked = useMemo(() => validate(table, mapping), [table, mapping]);
   const data = checked.data;
   const python = usePythonWorkspace(table, data, config);
@@ -512,6 +514,7 @@ export default function Home() {
   const comparableFits = savedFits.filter((f) => f.dataset === datasetIdentity);
   const agentRevision = JSON.stringify({
     datasetIdentity,
+    view: tab,
     config,
     multipliers: effectiveMultipliers,
     fitted: !!posterior,
@@ -521,6 +524,7 @@ export default function Home() {
   const agentContext = {
     python: {
       draft: python.draft,
+      busy: python.busy,
       status: python.status.startsWith('Complete')
         ? 'complete'
         : 'not complete',
@@ -640,6 +644,7 @@ export default function Home() {
       <div hidden={!agentOpen}>
         <Investigation
           context={agentContext}
+          dataSummary={agentData}
           revision={agentRevision}
           busy={busy || python.busy}
           onAction={agentAction}

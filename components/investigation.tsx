@@ -30,6 +30,7 @@ import {
 
 type Props = {
   context: unknown;
+  dataSummary: unknown;
   revision: string;
   busy: boolean;
   onAction: (a: AgentAction) => Promise<unknown>;
@@ -38,6 +39,7 @@ type Props = {
 type Entry = { role: string; text: string };
 export function Investigation({
   context,
+  dataSummary,
   revision,
   busy,
   onAction,
@@ -59,8 +61,8 @@ export function Investigation({
     revision: string;
     resolve: (ok: boolean) => void;
   } | null>(null);
-  const live = useRef({ context, revision, busy, onAction });
-  live.current = { context, revision, busy, onAction };
+  const live = useRef({ context, dataSummary, revision, busy, onAction });
+  live.current = { context, dataSummary, revision, busy, onAction };
   const conversation = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const container = conversation.current;
@@ -116,6 +118,8 @@ export function Investigation({
             let result: unknown;
             if (call.name === 'inspect_workspace')
               result = live.current.context;
+            else if (call.name === 'inspect_data')
+              result = live.current.dataSummary;
             else if (call.name === 'workspace_action') {
               const action = validateAction(call.input),
                 proposedRevision = live.current.revision;
@@ -160,6 +164,14 @@ export function Investigation({
               type: 'tool_result',
               tool_use_id: call.id,
               content: JSON.stringify(result),
+              is_error:
+                !!result &&
+                typeof result === 'object' &&
+                ('error' in result ||
+                  ('status' in result &&
+                    ['failed', 'cancelled', 'blocked'].includes(
+                      String(result.status),
+                    ))),
             });
           } catch (e) {
             if (ctrl.signal.aborted) throw e;
@@ -388,12 +400,13 @@ export function Investigation({
         <DialogContent>
           <DialogTitle>Connect your AI assistant</DialogTitle>
           <DialogDescription>
-            Your messages, column labels, validation notes, model settings,
-            custom Python source and result summaries are sent directly to{' '}
-            {providerLabel}. Raw CSV rows and posterior draws are excluded
-            automatically. Python output is shared only after a separate review;
-            code may include any values you put into it. Anything you type in
-            chat is sent. API usage is billed to your account.
+            Your messages, column labels, descriptive data statistics and
+            correlations, validation notes, model settings, custom Python source
+            and result summaries are sent directly to {providerLabel}. Raw CSV
+            rows and posterior draws are excluded automatically. Python output
+            is shared only after a separate review; code may include any values
+            you put into it. Anything you type in chat is sent. API usage is
+            billed to your account.
           </DialogDescription>
           <label htmlFor="agent-provider">AI provider</label>
           <Select
