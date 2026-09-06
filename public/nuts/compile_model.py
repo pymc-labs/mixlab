@@ -28,6 +28,7 @@ class BrowserModel:
     callback: object
     function: object
     initial: np.ndarray
+    scratch: np.ndarray
     gradient: np.ndarray
     layout: list
     expand_callback: object
@@ -40,7 +41,7 @@ class BrowserModel:
         """Pointers refer to this Python runtime's WASM memory/function table."""
         return {
             "callback_pointer": int(self.callback.address),
-            "x_pointer": int(self.initial.ctypes.data),
+            "x_pointer": int(self.scratch.ctypes.data),
             "g_pointer": int(self.gradient.ctypes.data),
             "initial": self.initial.tolist(),
             "layout": self.layout,
@@ -74,6 +75,7 @@ def compile_browser_model(model, var_names=None):
         raise ValueError("The model needs at least one free variable")
     initial = np.concatenate([point[v.name].ravel() for v in model.value_vars])
     initial = np.ascontiguousarray(initial, dtype=np.float64)
+    initial.setflags(write=False)
     [logp], q = join_nonshared_inputs(point, [model.logp()], model.value_vars)
     outputs = [logp, pt.grad(logp, q)]
     constants = {
@@ -164,6 +166,7 @@ def compile_browser_model(model, var_names=None):
         callback,
         function,
         initial,
+        initial.copy(),
         np.zeros(n),
         layout,
         expand_callback,

@@ -9,7 +9,15 @@ const manifest = JSON.parse(
 try {
   for (const file of manifest.files) {
     const bytes = await readFile(path.join(root, 'public/runtime', file.path));
-    if (createHash('sha256').update(bytes).digest('hex') !== file.sha256)
+    const expected =
+      file.path === 'nuts-worker-loader.js'
+        ? createHash('sha256')
+            .update(
+              await readFile(path.join(root, 'public/nuts/worker-loader.js')),
+            )
+            .digest('hex')
+        : file.sha256;
+    if (createHash('sha256').update(bytes).digest('hex') !== expected)
       throw Error(`Checksum mismatch: ${file.path}`);
   }
   console.log(

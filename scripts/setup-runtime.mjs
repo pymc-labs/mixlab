@@ -1,12 +1,4 @@
-import {
-  readFile,
-  writeFile,
-  mkdir,
-  cp,
-  rm,
-  mkdtemp,
-  rename,
-} from 'node:fs/promises';
+import { readFile, writeFile, mkdir, cp, rm, mkdtemp } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
@@ -46,7 +38,17 @@ try {
   }
   for (const entry of manifest.files) {
     const bytes = await readFile(path.join(temporary, 'runtime', entry.path));
-    if (createHash('sha256').update(bytes).digest('hex') !== entry.sha256)
+    const digest = createHash('sha256').update(bytes).digest('hex');
+    const matchingBootstrap =
+      fromIndex !== -1 &&
+      entry.path === 'nuts-worker-loader.js' &&
+      digest ===
+        createHash('sha256')
+          .update(
+            await readFile(path.join(root, 'public/nuts/worker-loader.js')),
+          )
+          .digest('hex');
+    if (digest !== entry.sha256 && !matchingBootstrap)
       throw Error(`Runtime file mismatch: ${entry.path}`);
   }
   await mkdir(path.join(root, 'public'), { recursive: true });
@@ -57,6 +59,10 @@ try {
     await mkdir(path.dirname(target), { recursive: true });
     await cp(path.join(temporary, 'runtime', entry.path), target);
   }
+  await cp(
+    path.join(root, 'public/nuts/worker-loader.js'),
+    path.join(root, 'public/runtime/nuts-worker-loader.js'),
+  );
   console.log(`Installed and verified ${manifest.files.length} runtime files.`);
 } finally {
   await rm(temporary, { recursive: true, force: true });
