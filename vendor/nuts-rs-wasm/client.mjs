@@ -102,7 +102,7 @@ export class BrowserSampler {
       check(); this.models.delete(handle);
     });
   }
-  async prepareModel(pythonCode, {varNames = null, files = {}, onPhase} = {}, check) {
+  async prepareModel(pythonCode, {varNames = null, files = {}, onPhase, mutableData = null} = {}, check) {
     if (typeof pythonCode !== 'string') throw TypeError('Model source must be a Python string');
     onPhase?.('Loading browser runtime'); await this.initialize(); check();
     const compiler = await this.fetch(new URL('compile_model.py', this.assets)); check();
@@ -110,7 +110,7 @@ export class BrowserSampler {
     let code = "import os\nos.environ['PYTENSOR_FLAGS']='cxx=,blas__ldflags=,numba__cache=False'\nimport json,time\nfrom pathlib import Path\n";
     for (const [path, contents] of Object.entries(files)) code += `Path(${JSON.stringify(path)}).write_text(${JSON.stringify(contents)})\n`;
     code += compiler + '\n_nuts_started=time.perf_counter()\n' + pythonCode;
-    code += `\n_nuts_compiled=compile_browser_model(model, var_names=json.loads(${JSON.stringify(JSON.stringify(varNames))}))\n`;
+    code += `\n_nuts_compiled=compile_browser_model(model, var_names=json.loads(${JSON.stringify(JSON.stringify(varNames))}), mutable_data=json.loads(${JSON.stringify(JSON.stringify(mutableData))}))\n`;
     code += `\nif '_nuts_models' not in globals(): _nuts_models={}\n_nuts_models[${JSON.stringify(id)}]=(_nuts_compiled, model)\n`;
     code += "_nuts_compile_seconds=time.perf_counter()-_nuts_started\nprint('NUTS_CONFIG '+json.dumps(dict(_nuts_compiled.config(), compile_seconds=_nuts_compile_seconds)),flush=True)\n";
     this.config = null; onPhase?.('Compiling model and transformations'); await this.execute(code); check();
@@ -119,31 +119,43 @@ export class BrowserSampler {
     this.models.set(handle, {epoch: this.epoch, config: this.config});
     return handle;
   }
+  updateData(handle, values) {
+    return this.withOperation({}, async check => {
+      const state = this.models.get(handle);
+      if (!state || state.epoch !== this.epoch || !this.worker) throw Error('Compiled model handle is invalid or expired');
+      await this.execute(`_nuts_models[${JSON.stringify(handle.id)}][0].update_data(json.loads(${JSON.stringify(JSON.stringify(values))}))`);
+      check();
+    });
+  }
   sample(sourceOrHandle, options = {}) {
     return this.withOperation(options, async check => {
       const {chains = 2, tune = 750, draws = 500, seed = 42, targetAccept = .9,
-        onPhase, afterSample = '', resultFormat = 'compatibility', retainUnconstrained = true, bridgeCache = 'callbacks'} = options;
-      if (!['compatibility', 'binary'].includes(resultFormat)) throw Error('resultFormat must be compatibility or binary');
+        onPhase, afterSample = '', resultFormat = 'compatibility', retainUnconstrained = true, bridgeCache = 'callbacks', maxDepth = 10, jitter = 1, initRetries = 10} = options;
+      if (!['compatibility', 'binary', 'stream'].includes(resultFormat)) throw Error('resultFormat must be compatibility, binary or stream');
+      if (resultFormat === 'stream' && afterSample) throw Error('afterSample requires retained results; stream mode does not construct idata');
       const reused = typeof sourceOrHandle !== 'string';
-      if (reused && ('files' in options || 'varNames' in options))
-        throw Error('Data and output selection are frozen; compile a new model to change files or varNames');
+      if (reused && ('files' in options || 'varNames' in options || 'mutableData' in options))
+        throw Error('Please compile a new model to change files, varNames or mutableData; use updateData for selected values');
       const handle = reused ? sourceOrHandle : await this.prepareModel(sourceOrHandle, options, check);
       const model = this.models.get(handle);
       if (!model) throw Error('Compiled model handle belongs to another sampler or is invalid');
       if (model.epoch !== this.epoch || !this.worker) throw Error('Compiled model handle expired after worker termination; compile the model again');
       try {
-        const unpacker = await this.fetch(new URL('results.py', this.assets)); check();
+        if (model.config.data_layout?.length) {
+          await this.execute(`_nuts_models[${JSON.stringify(handle.id)}][0].activate_data()`); check();
+        }
+        const unpacker = resultFormat === 'stream' ? '' : await this.fetch(new URL('results.py', this.assets)); check();
         onPhase?.('Sampling with Rust NUTS');
         const result = await new Promise((resolve, reject) => {
           this.runPending = {resolve, reject};
           this.remote.callGlobalReceiver('nutsBrowser', 'sample', model.config,
-            {chains, tune, draws, seed, targetAccept, resultFormat, retainUnconstrained, bridgeCache}).catch(error => {
+            {chains, tune, draws, seed, targetAccept, resultFormat, retainUnconstrained, bridgeCache, maxDepth, jitter, initRetries}).catch(error => {
               if (this.runPending?.reject === reject) this.runPending = null;
               reject(error);
             });
         });
-        check(); onPhase?.('Preparing posterior results');
-        await this.execute(`_nuts_compiled,model=_nuts_models[${JSON.stringify(handle.id)}]\n_nuts_compile_seconds=${reused ? 0 : model.config.compile_seconds}\n${unpacker}\n_nuts_result=load_worker_result(${JSON.stringify(result.python_result_path)})\n` +
+        check(); if (resultFormat !== 'stream') onPhase?.('Preparing posterior results');
+        if (resultFormat !== 'stream') await this.execute(`_nuts_compiled,model=_nuts_models[${JSON.stringify(handle.id)}]\n_nuts_compile_seconds=${reused ? 0 : model.config.compile_seconds}\n${unpacker}\n_nuts_result=load_worker_result(${JSON.stringify(result.python_result_path)})\n` +
           "idata=to_inference_data(_nuts_result)\n" + afterSample);
         delete result.python_result_path;
         check(); result.compile_seconds = reused ? 0 : model.config.compile_seconds;
