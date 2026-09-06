@@ -1976,3 +1976,39 @@ footer > span {
 .agent-markdown > :last-child { margin-bottom: 0; }
 
 .agent-keyboard-hint { font-size: 12px; color: var(--muted-foreground); margin: 8px 0 0; }
+/* Dedicated sampling workspace. */
+.fitting-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: 22px;
+}
+.fitting-layout .model-step {
+  margin-top: 0;
+}
+.fitting-empty {
+  margin-top: 22px;
+  padding: 28px;
+}
+.fitting-empty h3 {
+  margin: 12px 0 8px;
+}
+.fitting-empty p {
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+.tabbar {
+  flex-wrap: wrap;
+}
+.tabbar [data-slot='tabs-list'] {
+  max-width: 100%;
+  overflow-x: auto;
+}
+.tabbar [data-slot='tabs-trigger'] {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+@media (max-width: 900px) {
+  .fitting-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
