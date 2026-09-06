@@ -4,8 +4,13 @@ NUTS sampling in WebAssembly, using **nuts-rs** with a **PyMC/Numba integration*
 Model evaluation, parameter expansion and sampling execute locally in a browser
 worker. No sampling server and no Nutpie Python extension are required.
 
-Experimental: currently tested with a compatible Xeus/Emscripten runtime, not
-stock Pyodide. You must supply that runtime; it is not bundled in this project.
+Experimental: tested with the Xeus/Emscripten environment distributed in our
+[v0.1.0-alpha.1 prerelease](https://github.com/pymc-labs/nuts-rs-wasm/releases/tag/v0.1.0-alpha.1).
+Download the small **adapter** archive and separate **runtime** archive, extract
+both into one directory and serve it with `python -m http.server 8000`.
+Open http://localhost:8000/ to sample the MMM or download its editable notebook.
+No local PyMC installation is required. See [runtime-profile](runtime-profile/)
+for exact versions, patches, dependency notices and the build recipe.
 
 ## Sample a PyMC model from JavaScript
 
@@ -45,8 +50,9 @@ sampler.close();
 
 `model` must be defined by the Python code. The client loads the runtime, executes
 the code, compiles both callbacks, samples and constructs `idata` as an xarray
-DataTree in that Python runtime. Calls on one sampler are sequential; concurrent
-calls reject. Repeated calls can reuse the runtime. Cancellation rejects with
+DataTree in that Python runtime. Model operations on one sampler are sequential; concurrent
+operations reject. Concurrent `initialize()` calls share the same setup promise.
+Repeated source calls reuse the runtime but compile a fresh model. Cancellation rejects with
 `AbortError`; the next call starts a fresh worker.
 
 Options also include `varNames` (default: free RVs and deterministics), `files`
@@ -54,6 +60,25 @@ Options also include `varNames` (default: free RVs and deterministics), `files`
 `afterSample` (trusted Python code executed with `model`, `idata`, `_nuts_result`,
 and `_nuts_compile_seconds` available). Use `afterSample` for ArviZ diagnostics
 or PyMC posterior prediction, and emit application messages through `onOutput`.
+To reuse compilation explicitly, prepare a handle and sample it repeatedly:
+
+```javascript
+const compiled = await sampler.prepare(pythonCode, {files, varNames});
+const first = await sampler.sample(compiled, {seed: 42, draws: 500});
+const second = await sampler.sample(compiled, {seed: 142, draws: 1000});
+await sampler.release(compiled);
+```
+
+`compile()` is an alias for `prepare()`. A handle freezes the model's shared data
+and selected outputs, retains both Numba callbacks, and starts each fit from the
+same immutable initial position. Recompile after changing model/data/outputs;
+passing `files` or `varNames` to a handle fit rejects. Handles belong to one
+sampler and expire on release, cancellation or worker replacement. Release drops
+the handle references; the runtime may retain JIT code until the worker closes.
+Source-based fits automatically release their temporary compiled callbacks. Each handle
+restores its associated `model` for `afterSample`; other Python globals remain
+shared in the worker.
+
 `sampler.execute(code)` can run Python after a completed sample while the runtime
 is still alive. Do not call it concurrently with sampling.
 
@@ -68,7 +93,7 @@ standalone runtime installer.
   through `model.unobserved_value_vars`. Like Nutpie's `_make_functions`, we
   compile these expressions into a separate expansion callback. There are no
   parameter-name heuristics or hand-written log/logit transforms.
-- **nuts-rs** provides `expanded_draw`, full sampler statistics and the actual
+- **nuts-rs** provides `draw` for discarded warmup, `expanded_draw` for retained draws, full sampler statistics and the actual
   `ArrowConfig` / `ArrowTraceStorage` implementation. Arrow serialization uses
   the standard Rust Arrow IPC writer. We do not implement a new trace format.
 - **Xeus + Comlink** provide the Python worker and its message transport.
@@ -90,13 +115,36 @@ traits and StatsDims. Switch back to upstream once that API is released.
   and leapfrog counts. The Arrow files contain the complete upstream statistics.
 - `sampling_seconds`: Rust call including warmup, expansion, Arrow recording,
   live callbacks and serialization; excludes model compilation and later Python
-  postprocessing. `compile_seconds` covers model construction and compilation.
+  postprocessing. `compile_seconds` covers model construction and compilation
+  performed by this call (zero for a reused handle); `model_compile_seconds`
+  records the original preparation cost.
 
 Live batches contain the same expanded values submitted to Arrow storage. They
-are sent every 10 retained draws; warmup is reported as progress but not stored.
-The current implementation also retains numeric arrays for xarray compatibility,
-so memory use includes both Arrow and numeric views. Large models/traces need
-memory budgeting; Arrow streaming does not yet imply bounded-memory storage.
+are sent every 10 retained draws; warmup is reported as progress but not stored or expanded. Skipping warmup
+expansion preserves seeded draws and adaptation. The first retained Arrow row
+now records the current `transformation_update_id`, because discarded warmup
+no longer advances the upstream statistics cursor; other statistics are preserved.
+Rust exports flat numeric buffers without serializing sample values as JSON.
+The worker stages binary bytes in its local filesystem for NumPy/xarray before
+transferring results; only metadata and file paths are encoded as JSON. Live
+callback buffers are independent of retained final values and may be transferred.
+
+The default `resultFormat: 'compatibility'` preserves the nested JavaScript
+arrays above. Use `resultFormat: 'binary'` to receive flat `Float64Array` values
+for `expanded_samples`, `samples`, and `stats`. `shape` is
+`[chains, draws, expandedWidth]`; `unconstrained_width` describes `samples`.
+Statistics use three values per draw: divergence (0/1), step count, step size.
+Use `retainUnconstrained: false` to omit `samples` and its Rust/Python storage;
+it defaults to `true` for compatibility. Arrow output and `idata` are unchanged
+by either option.
+
+Inside `afterSample`, `_nuts_result` now contains NumPy sample arrays and a
+structured statistics array rather than Python lists/dicts. Existing
+`stats[chain][draw]['diverging']` indexing works; use `.tolist()` when plain lists
+are needed. `idata` retains named dimensions, coordinates and sample statistics.
+All output modes retain complete expanded traces and Arrow storage. The binary
+mode reduces serialization and duplication but does not provide bounded-memory
+streaming. Large models/traces still need memory budgeting.
 
 ## Build, tests and delivery
 
@@ -112,6 +160,10 @@ ARROW_TEST_DIR=/tmp/arrow-test node test_bridge.mjs
 PYTENSOR_FLAGS=cxx=,blas__ldflags=,numba__cache=False OPENBLAS_NUM_THREADS=1 python test_compile.py
 python test_results.py
 ```
+
+For a real worker integration check, serve the repository with a configured
+`runtime/` and open `test_browser.html`. It checks reusable handles, binary
+results, xarray coordinates/deterministics, Arrow buffers and cancellation.
 
 Python tests use PyMC 6.2.0, PyTensor 3.2.4, Numba 0.66.0, xarray and PyArrow.
 Tests cover WASM Gaussian moments, live draw counts, Arrow IPC read-back,
@@ -131,11 +183,12 @@ omit it when the runtime already exports memory. Unknown loaders are rejected.
 The bootstrap must live in the runtime directory because Xeus resolves its
 unpacker WASM relative to the worker URL.
 
-No PyPI/npm release is published automatically; package.json is private.
+The versioned GitHub prerelease distributes static archives and SHA-256 checksums.
+There is no PyPI/npm release; package.json remains private.
 
 The runtime must supply `comlink.worker.js` and
 `xeus/<environment>/xpython/kernel.json`, with the package bundle in Xeus' usual
-layout. It must expose its actual `Module.wasmMemory` and `Module.wasmTable`.
+layout. It must expose its actual `Module.wasmMemory`, `Module.wasmTable`, and `Module.FS` filesystem.
 The tested runtime uses Python 3.13, Numba 0.66, llvmlite 0.48, PyMC 6.2.0,
 locally patched PyTensor 3.2.4 and PyMC-Marketing 1.1.0. The demo's generated Xeus
 loader currently has a local memory-export patch; this is not a stock-runtime
@@ -146,7 +199,11 @@ guarantee. All runtime and artifact URLs must be fetchable by the application.
 Continuous, fully Numba-compilable graphs only. Shared data are frozen when
 compiled; changes require recompilation. Expanded values currently use float64.
 The Rust and Python modules have separate memories; the JS bridge copies inputs
-and outputs. No Python executes per logp or expansion evaluation.
+and outputs. By default it resolves callbacks once per fit (`bridgeCache: 'callbacks'`).
+View caching is experimental and opt-in with `bridgeCache: 'views'`: it reuses
+a bounded set of views, refreshing them when pointers, lengths or either memory
+buffer change. Current MMM measurements do not establish an end-to-end benefit
+from view caching. Use `bridgeCache: 'none'` to disable both caches. No Python executes per logp or expansion evaluation.
 
 Diagonal-mass NUTS, max depth 10, sequential chains, initial positions from PyMC,
 seeds `seed + chain`. No jitter retries, Stan/JAX/flows, multi-worker chains or
@@ -167,3 +224,20 @@ A manual MMM check of the Arrow/high-level API also completed all 1,000 retained
 draws, live plots, prediction and four Arrow downloads: 8.5 s sampling and 29.9 s
 model preparation plus sampling, zero divergences, max R-hat 1.023, min ESS 183.
 Browser cancellation during initialization was checked separately.
+
+## One example, three entry points
+
+`examples/mmm/model.py` and `diagnostics.py` are shared by the web app, browser
+notebook and native/browser benchmarks. `scripts/sync_demo.py SITE_PATH` copies
+those sources and the current adapter artifact into an existing demo checkout.
+The notebook prepares editable Python source and displays `notebook.html`; its
+Numba model compilation, Rust sampling, transformations and Arrow storage run in
+the same browser worker as the app, with no Python-NUTS fallback.
+
+The app offers yearly seasonality on/off and compares actual posterior carryover
+estimates. The five-fit [benchmark](benchmarks/) includes both native expansion
+and Arrow output: median 0.807 s native / 7.999 s WASM for warmup and sampling;
+9.80 / 19.36 s including model preparation and compilation with imports preloaded.
+Median minimum bulk ESS/s was 194.5 / 21.9. These short runs do not establish
+matched posterior precision; raw records, diagnostics and plotting code are
+included. `test_native.py` covers constrained expansion and Arrow read-back.

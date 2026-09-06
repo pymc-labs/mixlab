@@ -10,6 +10,7 @@ Mixlab turns a CSV into an editable PyMC-Marketing model, runs real NUTS inferen
 
 - **Local CSV import:** column roles, missing/nonnumeric values, valid weekly dates, gaps, duplicates, nonnegative spend, variation, and high channel correlation checks.
 - **Real PyMC-Marketing models:** normalized geometric adstock, logistic saturation, editable effect priors, controls, and optional annual seasonality.
+- **Repeated fits:** reuse the prepared model when only sampling settings change; its worker is released after five idle minutes, cancellation, errors, page exit or model/data changes.
 - **Browser NUTS:** four-chain default, configurable sampling budget, live progress and carryover posterior, cancellation, Arrow posterior and sampler-statistic downloads.
 - **Honest results:** observed series, in-sample posterior predictive intervals, channel contributions, R-hat, bulk/tail ESS, and divergences. No simulated fit or fabricated posterior.
 - **Counterfactual lab:** rescale the historical channel spend, recompute the model's exact carryover and saturation, and compare paired posterior contributions and credible intervals.
