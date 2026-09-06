@@ -14,3 +14,5 @@
 `vendor/modist/` contains unmodified Beta and Gamma ESM bundles and CSS from [Will Dean’s Modist](https://github.com/williambdean/modist), pinned to commit `53ed3d23e269a5c2daff70d49620453f58b838a5` (0.5.0). Modist and its bundled jStat mathematics are MIT licensed; both notices are included. Mixlab supplies a local anywidget-compatible state adapter, without requiring a notebook widget manager.
 
 `public/nuts/compile_model.py` has one Mixlab-specific patch: suppress only tqdm’s missing-IProgress warning before Python library imports. The standalone worker has no Jupyter widget manager and uses Mixlab’s progress display. Other warnings remain visible.
+
+The nuts-rs-wasm adapter is pinned to upstream commit `00804272208b949833c04e413d006cdf57115cc4`. Its WASM was rebuilt from that commit with Rust 1.94.0 and the locked dependencies. `bridge-memory.mjs` is included with the other adapter modules. The runtime bootstrap is overlaid from this same adapter during runtime setup; the scientific runtime archive is unchanged.
