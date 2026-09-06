@@ -1,3 +1,4 @@
+import { validDiagnosticPlots } from './diagnostic-data.ts';
 import { validSensitivity } from './sensitivity.ts';
 import {
   canonicalCSV,
@@ -355,6 +356,8 @@ export function readProject(text: string): SavedProject {
       )
     )
       throw Error('The saved predictive intervals are not ordered.');
+    if (!validDiagnosticPlots(posterior.diagnosticPlots, c.chains, c.draws))
+      throw Error('The saved interactive diagnostics are malformed.');
     const d = posterior.diagnostics;
     if (
       !d ||
