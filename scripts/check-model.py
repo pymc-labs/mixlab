@@ -24,12 +24,17 @@ with tempfile.TemporaryDirectory() as temp:
         idata=pm.sample(chains=2,cores=1,tune=150,draws=100,target_accept=.95,random_seed=42,progressbar=False)
     scope.update(idata=idata,_nuts_compile_seconds=compiled,_nuts_result={'sampling_seconds':time.perf_counter()-started-compiled})
     output=io.StringIO()
-    with contextlib.redirect_stdout(output):exec((root/'public/python/analyze.py').read_text(),scope)
+    with contextlib.redirect_stdout(output):
+        exec((root/'public/python/sensitivity.py').read_text(),scope)
+        exec((root/'public/python/analyze.py').read_text(),scope)
     lines=[json.loads(s[13:]) for s in output.getvalue().splitlines() if s.startswith('MIXLAB_EVENT ')]
     posterior=next(e['posterior'] for e in lines if e['type']=='result')
     assert posterior['diagnosticPlots']
     assert all('rankError' not in p and 'essError' not in p for p in posterior['diagnosticPlots'])
     assert all(len(p['chains']) == 2 and len(p['chains'][0]) == 100 for p in posterior['diagnosticPlots'])
+    assert posterior['sensitivity']['status'] == 'available', output.getvalue()
+    assert len(posterior['sensitivity']['groups']['prior']) == 21
+    np.testing.assert_allclose([c['median'] for c in posterior['sensitivity']['groups']['prior'][10]['channels']], [c['median'] for c in posterior['contributions']])
     assert len(posterior['alpha'])==200
     assert len(posterior['channelScale'])==2
     assert len(posterior['prediction']['median'])==len(original)

@@ -1,4 +1,5 @@
 import { validDiagnosticPlots } from './diagnostic-data.ts';
+import { validSensitivity } from './sensitivity.ts';
 import {
   canonicalCSV,
   type Config,
@@ -372,6 +373,11 @@ export function readProject(text: string): SavedProject {
       )
     )
       throw Error('The saved diagnostics are malformed.');
+    if (
+      posterior.sensitivity !== undefined &&
+      !validSensitivity(posterior.sensitivity, k, n)
+    )
+      throw Error('The saved sensitivity analysis is malformed.');
   }
   const channelSpend = checked.data.channels.map((_, j) =>
     checked.data!.x.reduce((sum, row) => sum + row[j], 0),

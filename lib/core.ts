@@ -1,3 +1,4 @@
+import type { SensitivityResult } from './sensitivity';
 export type RawTable = {
   name: string;
   headers: string[];
@@ -54,6 +55,7 @@ export type DiagnosticPlot = {
 };
 export type Posterior = {
   diagnosticPlots?: DiagnosticPlot[];
+  sensitivity?: SensitivityResult;
   alpha: number[][];
   lam: number[][];
   beta: number[][];
