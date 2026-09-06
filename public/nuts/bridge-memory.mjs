@@ -10,7 +10,7 @@ export function createModelBridge(runtime, model, samplerMemory, cache = 'callba
     model_logp(x, g, n) {
       new Float64Array(runtime.wasmMemory.buffer, model.x_pointer, n)
         .set(new Float64Array(samplerMemory().buffer, x, n));
-      const lp = (logp ?? runtime.wasmTable.get(model.callback_pointer))(model.x_pointer, model.g_pointer);
+      const lp = (logp ?? runtime.wasmTable.get(model.callback_pointer))(model.x_pointer, model.g_pointer, model.data_pointer ?? 0);
       new Float64Array(samplerMemory().buffer, g, n)
         .set(new Float64Array(runtime.wasmMemory.buffer, model.g_pointer, n));
       return lp;
@@ -23,7 +23,7 @@ export function createModelBridge(runtime, model, samplerMemory, cache = 'callba
       }
       new Float64Array(runtime.wasmMemory.buffer, model.x_pointer, model.initial.length)
         .set(new Float64Array(samplerMemory().buffer, x, model.initial.length));
-      const status = (expand ?? runtime.wasmTable.get(model.expand_pointer))(model.x_pointer, model.expanded_pointer);
+      const status = (expand ?? runtime.wasmTable.get(model.expand_pointer))(model.x_pointer, model.expanded_pointer, model.data_pointer ?? 0);
       if (status) return status;
       new Float64Array(samplerMemory().buffer, out, n)
         .set(new Float64Array(runtime.wasmMemory.buffer, model.expanded_pointer, n));
@@ -44,7 +44,7 @@ export function createModelBridge(runtime, model, samplerMemory, cache = 'callba
     model_logp(x, g, n) {
       view(0, runtime.wasmMemory, model.x_pointer, n)
         .set(view(1, samplerMemory(), x, n));
-      const lp = (logp ?? runtime.wasmTable.get(model.callback_pointer))(model.x_pointer, model.g_pointer);
+      const lp = (logp ?? runtime.wasmTable.get(model.callback_pointer))(model.x_pointer, model.g_pointer, model.data_pointer ?? 0);
       // Recheck both buffers after callbacks: growth detaches old views.
       view(2, samplerMemory(), g, n)
         .set(view(3, runtime.wasmMemory, model.g_pointer, n));
@@ -57,7 +57,7 @@ export function createModelBridge(runtime, model, samplerMemory, cache = 'callba
       }
       view(6, runtime.wasmMemory, model.x_pointer, model.initial.length)
         .set(view(5, samplerMemory(), x, model.initial.length));
-      const status = (expand ?? runtime.wasmTable.get(model.expand_pointer))(model.x_pointer, model.expanded_pointer);
+      const status = (expand ?? runtime.wasmTable.get(model.expand_pointer))(model.x_pointer, model.expanded_pointer, model.data_pointer ?? 0);
       if (status) return status;
       view(4, samplerMemory(), out, n)
         .set(view(7, runtime.wasmMemory, model.expanded_pointer, n));

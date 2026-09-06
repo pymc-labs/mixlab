@@ -70,14 +70,62 @@ await sampler.release(compiled);
 ```
 
 `compile()` is an alias for `prepare()`. A handle freezes the model's shared data
-and selected outputs, retains both Numba callbacks, and starts each fit from the
-same immutable initial position. Recompile after changing model/data/outputs;
-passing `files` or `varNames` to a handle fit rejects. Handles belong to one
+and selected outputs, retains both Numba callbacks, and retains an immutable base initial position. Fits use independently jittered
+starts by default (see below). Recompile after changing the graph or outputs;
+passing `files`, `varNames` or `mutableData` to a handle fit rejects. Handles belong to one
 sampler and expire on release, cancellation or worker replacement. Release drops
 the handle references; the runtime may retain JIT code until the worker closes.
 Source-based fits automatically release their temporary compiled callbacks. Each handle
 restores its associated `model` for `afterSample`; other Python globals remain
 shared in the worker.
+
+## Initialization, tree depth and data updates
+
+Sampling accepts `maxDepth` (default 10, integer 1–20), `jitter` (default 1,
+nonnegative finite amplitude in unconstrained coordinates), and `initRetries`
+(default 10, integer 0–1000). Each chain samples a uniform displacement in
+`[-jitter, jitter)` for each coordinate, using a separate seeded initialization
+RNG. Invalid starting positions are retried up to `initRetries` additional times;
+exhaustion reports the failing chain. `result.initial_positions` records the actual
+accepted starts. Same seeds and options reproduce the same draws.
+
+Use `jitter: 0` for the previous fixed-start behavior and seeded sampling sequence;
+an invalid fixed start fails immediately because retrying it cannot help.
+Browser and native adapter defaults both enable unit initial jitter, matching
+[current nutpie's PyMC default](https://github.com/pymc-devs/nutpie/blob/main/python/nutpie/compile_pymc.py).
+Native callers can disable it through `set_sampler_options`. These defaults change
+seeded draws relative to the earlier fixed-start adapter. This matches the jitter
+amplitude and enabled default, not nutpie's exact RNG sequence or initialization
+machinery. Step-size jitter is separate: it remains the pinned nuts-rs default
+(`Some(0.1)`), inherited through `DiagNutsSettings::default()`.
+
+Opt into data updates when preparing a model:
+
+```javascript
+const compiled = await sampler.prepare(`
+import numpy as np
+import pymc as pm
+with pm.Model() as model:
+    observed = pm.Data("observed", np.array([1., 2., 3.]))
+    mu = pm.Normal("mu")
+    pm.Normal("y", mu, 1, observed=observed)
+`, {mutableData: ['observed']}); // true selects all named shared data
+await sampler.sample(compiled);
+await sampler.updateData(compiled, {observed: [2., 3., 4.]});
+const updated = await sampler.sample(compiled); // compile_seconds === 0
+await sampler.release(compiled);
+```
+
+Selected data are supplied to both Numba callbacks through one stable float64
+buffer, with graph-level casts to their original dtypes. Updates are validated
+before committing: names, input shapes, original dtype representability, finite
+numeric values, and output shapes must match. Integer data must be exactly
+representable in float64. Shape/coordinate changes require recompilation.
+Unselected shared data remain frozen. Each handle owns its data buffer and
+restores its selected data into its associated PyMC model before sampling, so
+`afterSample` prediction uses those values. Direct `pm.set_data` calls do not
+update compiled callbacks; use `updateData`. Updates cannot overlap sampling,
+and released or cancelled handles reject updates.
 
 `sampler.execute(code)` can run Python after a completed sample while the runtime
 is still alive. Do not call it concurrently with sampling.
@@ -142,9 +190,29 @@ Inside `afterSample`, `_nuts_result` now contains NumPy sample arrays and a
 structured statistics array rather than Python lists/dicts. Existing
 `stats[chain][draw]['diverging']` indexing works; use `.tolist()` when plain lists
 are needed. `idata` retains named dimensions, coordinates and sample statistics.
-All output modes retain complete expanded traces and Arrow storage. The binary
-mode reduces serialization and duplication but does not provide bounded-memory
-streaming. Large models/traces still need memory budgeting.
+Compatibility and binary modes retain complete expanded traces and Arrow storage.
+For fits that consume live batches without retaining a posterior, use stream mode:
+
+```javascript
+const summary = await sampler.sample(compiled, {
+  resultFormat: 'stream',
+  onSamples: ({chain, start, draws, values, layout}) => {
+    // Consume the batch immediately, e.g. update online summaries or a plot.
+  },
+});
+console.log(summary.divergences, summary.initial_positions);
+```
+
+Stream mode keeps only a ten-draw batch in sampler result storage, independently
+of total draws; it skips full numeric buffers, Arrow recording, Python staging,
+and xarray construction. It returns metadata and aggregate counters, with
+`traces: []` and no `samples`, `expanded_samples`, or per-draw `stats`.
+`afterSample` is rejected in this mode because no new `idata` is constructed.
+Existing Python results from earlier fits are not cleared. Live draw values and
+sampling statistics agree with retained mode for identical seeds and options.
+There is no callback backpressure: browser message queues and application-retained
+batches can still grow if consumers cannot keep up. Model/runtime memory and NUTS
+tree storage are separate from this reduction in result storage.
 
 ## Build, tests and delivery
 
@@ -161,7 +229,8 @@ PYTENSOR_FLAGS=cxx=,blas__ldflags=,numba__cache=False OPENBLAS_NUM_THREADS=1 pyt
 python test_results.py
 ```
 
-For a real worker integration check, serve the repository with a configured
+For a real worker integration check (including mutable data, streaming-only output,
+jitter and tree-depth controls), serve the repository with a configured
 `runtime/` and open `test_browser.html`. It checks reusable handles, binary
 results, xarray coordinates/deterministics, Arrow buffers and cancellation.
 
@@ -196,8 +265,8 @@ guarantee. All runtime and artifact URLs must be fetchable by the application.
 
 ## Limits
 
-Continuous, fully Numba-compilable graphs only. Shared data are frozen when
-compiled; changes require recompilation. Expanded values currently use float64.
+Continuous, fully Numba-compilable graphs only. Shared data are frozen by default;
+selected same-shape numeric data can be updated with `mutableData`/`updateData`. Expanded values currently use float64.
 The Rust and Python modules have separate memories; the JS bridge copies inputs
 and outputs. By default it resolves callbacks once per fit (`bridgeCache: 'callbacks'`).
 View caching is experimental and opt-in with `bridgeCache: 'views'`: it reuses
@@ -205,8 +274,8 @@ a bounded set of views, refreshing them when pointers, lengths or either memory
 buffer change. Current MMM measurements do not establish an end-to-end benefit
 from view caching. Use `bridgeCache: 'none'` to disable both caches. No Python executes per logp or expansion evaluation.
 
-Diagonal-mass NUTS, max depth 10, sequential chains, initial positions from PyMC,
-seeds `seed + chain`. No jitter retries, Stan/JAX/flows, multi-worker chains or
+Diagonal-mass NUTS, configurable max depth (default 10), sequential chains, base
+initial positions from PyMC, seeds `seed + chain`. No Stan/JAX/flows, multi-worker chains or
 cooperative cancellation. Terminating a worker cancels all of its Python state.
 Private PyTensor `vm.jit_fn` usage requires compatibility tests. Model code is
 trusted executable Python, not a sandbox for third-party submissions.
@@ -241,3 +310,10 @@ and Arrow output: median 0.807 s native / 7.999 s WASM for warmup and sampling;
 Median minimum bulk ESS/s was 194.5 / 21.9. These short runs do not establish
 matched posterior precision; raw records, diagnostics and plotting code are
 included. `test_native.py` covers constrained expansion and Arrow read-back.
+
+
+The [direct-WASM feasibility report](docs/direct-wasm-calls.md) and bounded
+callback prototype investigate an Emscripten side module with coordinated memory.
+A full Rust/Numba direct backend has not been validated; the current bridge
+remains the sampling path. See [benchmarks](benchmarks/) for separate compilation,
+warmup, result-transfer and callback-cache measurements.

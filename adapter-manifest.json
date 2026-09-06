@@ -1,0 +1,19 @@
+{
+  "upstream": "https://github.com/pymc-labs/nuts-rs-wasm",
+  "commit": "6f95e5d87c632b9d1517ca4442c8abe7c5c09d2c",
+  "rust": "1.94.0",
+  "files": {
+    "COMLINK-LICENSE": "bcf29b4fd3ec2cb5f9d40a0866da446f6da62170d2ccedf4aeca9cf9406dd20c",
+    "LICENSE": "7d3224da3e6bbeffd5d79105149110e5725790e58edd2b958d2428a8a5c4dc65",
+    "README.md": "e722dfd4adf87ab096aa6ce43fc4b35260128b43d0c036e0adb21af9f818b97d",
+    "bridge-memory.mjs": "d350741f9839951ba9805d710fa83e019df4ffa86df1e69e1bdc40c303616c59",
+    "bridge.mjs": "1cda8566a306e87ee531dfb71efa689c6da482fbbd97deb58d0650e7c9b4d870",
+    "client.mjs": "af8a6bfe0a60b5d1271705d5f32ac5edea006c15719439e440b596a1326c8e71",
+    "comlink.mjs": "ba9d0de49a44aa9f42c70d6e98e2f00ef3836ca11b785dccd707917d6a4c719b",
+    "compile_model.py": "87fe48a6d45ff78226e33127cc3dff2bde5b2f09f8302598af452164414cff88",
+    "configure-runtime.mjs": "31585a68a1919134e39901a919db1f9aab9c98c143451cf8b8cdd89a84f04e88",
+    "nuts_browser_adapter.wasm": "edef2489e075d806e571b76344104e6d67133295b4c7fbb3cc584c549630c866",
+    "results.py": "a45da210cebf49466efb00aa3bff62f57c4d84c3fabe552def6759193ceb358c",
+    "worker-loader.js": "71c305302e3d4dbcc2de5786279df7f75cd417d786b2e5aecfb51b9e57571a9d"
+  }
+}
