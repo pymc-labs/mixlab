@@ -1,5 +1,7 @@
 import { interval, type Dataset, type Posterior } from './core.ts';
 
+export const defaultPreferences = { adherence: 1, risk: 0.5 } as const;
+
 export function normalizeWeights(
   values: number[],
   fallback?: number[],
