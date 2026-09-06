@@ -1,3 +1,5 @@
+import runtimeManifest from '../runtime-manifest.json';
+import type { FitArtifact } from './workspace';
 import { createSampler } from '../vendor/nuts-rs-wasm/client.mjs';
 import { createSamplerSession } from './sampler-session.mjs';
 import { wrap } from '../vendor/nuts-rs-wasm/comlink.mjs';
@@ -33,7 +35,7 @@ export async function fit(
   config: Config,
   onUpdate: (p: ProgressState) => void,
   signal: AbortSignal,
-): Promise<{ posterior: Posterior; traces: Trace[] }> {
+): Promise<{ posterior: Posterior; traces: Trace[]; artifact: FitArtifact }> {
   const [modelResponse, analysisResponse, sensitivityResponse] =
     await Promise.all([
       fetch('/python/model.py', { signal }),
@@ -156,5 +158,9 @@ export async function fit(
     throw Error('The sampler finished without complete results. Please retry.');
   }
   (posterior as Posterior).diagnostics.compileSeconds = result.compile_seconds;
-  return { posterior, traces: result.traces };
+  return {
+    posterior,
+    traces: result.traces,
+    artifact: { model, analysis, runtime: runtimeManifest.archive.sha256 },
+  };
 }

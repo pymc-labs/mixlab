@@ -5,7 +5,7 @@ Model evaluation, parameter expansion and sampling execute locally in a browser
 worker. No sampling server and no Nutpie Python extension are required.
 
 Experimental: tested with the Xeus/Emscripten environment distributed in our
-[v0.1.0-alpha.1 prerelease](https://github.com/pymc-labs/nuts-rs-wasm/releases/tag/v0.1.0-alpha.1).
+[v0.1.0 release](https://github.com/pymc-labs/nuts-rs-wasm/releases/tag/v0.1.0).
 Download the small **adapter** archive and separate **runtime** archive, extract
 both into one directory and serve it with `python -m http.server 8000`.
 Open http://localhost:8000/ to sample the MMM or download its editable notebook.
@@ -252,7 +252,7 @@ omit it when the runtime already exports memory. Unknown loaders are rejected.
 The bootstrap must live in the runtime directory because Xeus resolves its
 unpacker WASM relative to the worker URL.
 
-The versioned GitHub prerelease distributes static archives and SHA-256 checksums.
+The versioned GitHub release distributes static archives and SHA-256 checksums.
 There is no PyPI/npm release; package.json remains private.
 
 The runtime must supply `comlink.worker.js` and

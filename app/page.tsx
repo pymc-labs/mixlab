@@ -1,4 +1,12 @@
 'use client';
+import { useWorkspace } from '../hooks/use-workspace';
+import {
+  selectedFit,
+  datasetKey,
+  settingsMatch,
+  parseWorkspace,
+} from '../lib/workspace';
+import { FitHistory } from '../components/fit-history';
 import { usePythonWorkspace } from '../hooks/use-python-workspace';
 import { summarizeAgentData } from '../lib/agent-data';
 import { DiagnosticPlots } from '../components/diagnostic-plots';
@@ -67,17 +75,14 @@ import {
   canonicalCSV,
   colors,
   compact,
-  defaultConfig,
   download,
   healthy,
-  inferMapping,
   label,
   number,
   parseCSV,
   scenario,
   validate,
   type Config,
-  type Dataset,
   type Mapping,
   type Posterior,
   type RawTable,
@@ -89,7 +94,6 @@ import {
   pythonScript,
   notebook,
   labPayload,
-  readProject,
   SOURCE_URL,
   NOTEBOOK_URL,
 } from '@/lib/exports';
@@ -214,27 +218,35 @@ export default function Home() {
     );
   }
   const [agentOpen, setAgentOpen] = useState(true);
-  const [savedFits, setSavedFits] = useState<
-    { id: number; dataset: string; config: Config; posterior: Posterior }[]
-  >([]);
-  const fitId = useRef(0);
-  const [tab, setTab] = useState('overview'),
-    [table, setTable] = useState<RawTable>(example),
-    [mapping, setMapping] = useState<Mapping>(inferMapping(example)),
-    [config, setConfig] = useState<Config>(defaultConfig);
-  const [posterior, setPosterior] = useState<Posterior | null>(null),
-    [traces, setTraces] = useState<Trace[]>([]),
+  const {
+    workspace,
+    act,
+    saveStatus,
+    storageNotice,
+    dismissStorageNotice,
+    markActive,
+  } = useWorkspace(example);
+  const { dataset: table, mapping, config } = workspace.draft;
+  const activeFit = selectedFit(workspace);
+  const posterior = activeFit?.posterior ?? null;
+  const resultConfig = activeFit?.config ?? config;
+  const changedSettings =
+    !!activeFit && !settingsMatch(config, activeFit.config);
+  const multipliers = activeFit
+    ? (workspace.scenarios[activeFit.id] ?? [])
+    : [];
+  const setMultipliers = (values: number[]) =>
+    act({ type: 'scenario', multipliers: values });
+  const [tab, setTab] = useState('overview');
+  const [traces, setTraces] = useState<Trace[]>([]),
     [busy, setBusy] = useState(false),
     [progress, setProgress] = useState<ProgressState>(emptyProgress),
     [error, setError] = useState(''),
     [notice, setNotice] = useState('');
   const [lastYear, setLastYear] = useState(false),
     [exportOpen, setExportOpen] = useState(false),
-    [aboutOpen, setAboutOpen] = useState(false),
-    [multipliers, setMultipliers] = useState<number[]>([]);
-  const [hydrated, setHydrated] = useState(false),
-    [saveStatus, setSaveStatus] = useState('loading'),
-    [pasteOpen, setPasteOpen] = useState(false),
+    [aboutOpen, setAboutOpen] = useState(false);
+  const [pasteOpen, setPasteOpen] = useState(false),
     [projectText, setProjectText] = useState('');
   const controller = useRef<AbortController | null>(null),
     fileInput = useRef<HTMLInputElement>(null),
@@ -254,13 +266,25 @@ export default function Home() {
   const effectiveMultipliers = mapping.channels.map(
       (_, i) => multipliers[i] ?? 1,
     ),
-    deferred = useDeferredValue(effectiveMultipliers.join(','));
+    scenarioInput = `${activeFit?.id ?? ''}|${effectiveMultipliers.join(',')}`,
+    deferred = useDeferredValue(scenarioInput);
   const simulation = useMemo(
     () =>
       data && thin
-        ? scenario(data, thin, config.lag, deferred.split(',').map(Number))
+        ? scenario(
+            data,
+            thin,
+            resultConfig.lag,
+            (deferred.split('|')[0] === scenarioInput.split('|')[0]
+              ? deferred
+              : scenarioInput
+            )
+              .split('|')[1]
+              .split(',')
+              .map(Number),
+          )
         : null,
-    [data, thin, config.lag, deferred],
+    [data, thin, resultConfig.lag, deferred, scenarioInput],
   );
   const spend = data
     ? data.channels.map(
@@ -275,61 +299,13 @@ export default function Home() {
     },
     [],
   );
-  useEffect(() => {
-    try {
-      const raw = sessionStorage.getItem('mixlab-workspace-v1');
-      if (raw) {
-        const saved = readProject(raw);
-        saved.dataset.example =
-          JSON.stringify(saved.dataset.rows) === JSON.stringify(example.rows);
-        setTable(saved.dataset);
-        setMapping(saved.mapping);
-        setConfig(saved.config);
-        setPosterior(saved.posterior);
-        setMultipliers(saved.scenarioMultipliers);
-        setNotice('Your last local session was restored.');
-      }
-    } catch {
-      setNotice(
-        'The previous local session could not be restored. Import an exported project to recover it.',
-      );
-    } finally {
-      setHydrated(true);
-    }
-  }, []);
-  useEffect(() => {
-    if (!hydrated) return;
-    if (!data) {
-      setSaveStatus('invalid');
-      return;
-    }
-    setSaveStatus('saving');
-    const save = () => {
-      try {
-        sessionStorage.setItem('mixlab-workspace-v1', projectJSON());
-        setSaveStatus('saved');
-      } catch {
-        setSaveStatus('unavailable');
-      }
-    };
-    const timer = setTimeout(save, 500);
-    window.addEventListener('pagehide', save);
-    return () => {
-      clearTimeout(timer);
-      window.removeEventListener('pagehide', save);
-    };
-  }, [hydrated, table, mapping, config, posterior, multipliers, data]);
   function restoreProjectText(text: string) {
-    const project = readProject(text);
-    invalidate();
-    setTable(project.dataset);
-    setMapping(project.mapping);
-    setConfig(project.config);
-    setPosterior(project.posterior);
-    setMultipliers(project.scenarioMultipliers);
+    const restored = parseWorkspace(text);
+    resetRunState();
+    act({ type: 'restore', workspace: restored });
     setTab('overview');
     setNotice(
-      'Project restored locally. Saved posterior and scenarios are available; original Arrow files remain separate exports.',
+      'Project restored locally, including saved fits, edited settings and scenarios. Arrow files remain separate exports.',
     );
   }
   function pasteProject() {
@@ -341,32 +317,29 @@ export default function Home() {
       setError(e instanceof Error ? e.message : String(e));
     }
   }
-  function invalidate() {
+  function resetRunState() {
     generation.current++;
     controller.current?.abort();
-    setPosterior(null);
     setTraces([]);
-    setMultipliers([]);
     setProgress(emptyProgress);
     setError('');
     setNotice('');
   }
   function changeConfig<K extends keyof Config>(key: K, value: Config[K]) {
-    invalidate();
-    setConfig((c) => ({ ...c, [key]: value }));
+    resetRunState();
+    act({ type: 'configure', patch: { [key]: value } });
   }
   function changeMapping(m: Mapping) {
-    invalidate();
-    setMapping(m);
+    resetRunState();
+    act({ type: 'mapping', mapping: m });
   }
   async function upload(file: File | undefined) {
     if (!file || busy) return;
     try {
       if (file.size > 5_000_000) throw Error('Choose a CSV smaller than 5 MB.');
       const raw = parseCSV(await file.text(), file.name.replace(/\.csv$/i, ''));
-      invalidate();
-      setTable(raw);
-      setMapping(inferMapping(raw));
+      resetRunState();
+      act({ type: 'data', dataset: raw });
       setTab('data');
       setNotice('CSV loaded locally. Review the column roles before fitting.');
     } catch (e) {
@@ -376,21 +349,19 @@ export default function Home() {
     }
   }
   function loadExample() {
-    invalidate();
-    setTable(example);
-    setMapping(inferMapping(example));
-    setConfig(defaultConfig);
+    resetRunState();
+    act({ type: 'data', dataset: example, resetConfig: true });
     setNotice('Synthetic example loaded.');
   }
   async function run() {
-    if (!data || busy || python.busy)
+    if (!data || busy || controller.current || python.busy)
       return {
         status: 'unavailable',
         message: 'Validate data and wait for the current fit first.',
       };
+    markActive();
     const epoch = ++generation.current;
     setBusy(true);
-    setPosterior(null);
     setTraces([]);
     setError('');
     setNotice('');
@@ -408,18 +379,10 @@ export default function Home() {
         },
         ctrl.signal,
       );
-      if (epoch !== generation.current) return { status: 'cancelled' };
-      setSavedFits((previous) => [
-        ...previous.slice(-3),
-        {
-          id: ++fitId.current,
-          dataset: JSON.stringify({ table, mapping }),
-          config: structuredClone(config),
-          posterior: result.posterior,
-        },
-      ]);
-      setPosterior(result.posterior);
+      if (epoch !== generation.current || ctrl.signal.aborted)
+        return { status: 'cancelled' };
       setTraces(result.traces);
+      let initialMultipliers: number[] = [];
       const startExampleMix = table.example && multipliers.length === 0;
       if (startExampleMix) {
         const planner = createPlanner(
@@ -431,12 +394,24 @@ export default function Home() {
           defaultPreferences.adherence,
           defaultPreferences.risk,
         );
-        setMultipliers(
-          suggested.map((w, i) =>
-            planner.prior[i] > 0 ? w / planner.prior[i] : 1,
-          ),
+        initialMultipliers = suggested.map((w, i) =>
+          planner.prior[i] > 0 ? w / planner.prior[i] : 1,
         );
       }
+      act({
+        type: 'complete',
+        fit: {
+          id: crypto.randomUUID(),
+          number: Math.max(0, ...workspace.fits.map((f) => f.number)) + 1,
+          completedAt: new Date().toISOString(),
+          dataset: table,
+          mapping,
+          config,
+          posterior: result.posterior,
+          artifact: result.artifact,
+        },
+        multipliers: initialMultipliers,
+      });
       setNotice(
         'Local fit complete. Review convergence before interpreting contributions.' +
           (startExampleMix
@@ -462,20 +437,7 @@ export default function Home() {
     }
   }
   function projectJSON() {
-    return JSON.stringify(
-      {
-        format: 'mixlab-project',
-        version: 1,
-        createdAt: new Date().toISOString(),
-        dataset: table,
-        mapping,
-        config,
-        posterior,
-        scenarioMultipliers: effectiveMultipliers,
-      },
-      null,
-      2,
-    );
+    return JSON.stringify(workspace);
   }
   async function copyProject() {
     try {
@@ -490,7 +452,14 @@ export default function Home() {
     }
   }
   function exportProject() {
-    download('mixlab-project.json', projectJSON());
+    const text = projectJSON();
+    if (text.length > 100_000_000) {
+      setError(
+        'This history exceeds the 100 MB project limit. Export individual fits from the saved-fit history instead.',
+      );
+      return;
+    }
+    download('mixlab-project.json', text);
     setNotice(
       'Project export prepared. If your browser blocks the download, use Copy project JSON.',
     );
@@ -528,8 +497,8 @@ export default function Home() {
   async function importProject(file: File | undefined) {
     if (!file || busy) return;
     try {
-      if (file.size > 20_000_000)
-        throw Error('Choose a project smaller than 20 MB.');
+      if (file.size > 100_000_000)
+        throw Error('Choose a project smaller than 100 MB.');
       restoreProjectText(await file.text());
     } catch (e) {
       setError(e instanceof Error ? e.message : String(e));
@@ -538,14 +507,17 @@ export default function Home() {
     }
   }
 
-  const datasetIdentity = JSON.stringify({ table, mapping });
-  const comparableFits = savedFits.filter((f) => f.dataset === datasetIdentity);
+  const datasetIdentity = datasetKey(workspace.draft);
+  const comparableFits = workspace.fits.filter(
+    (f) => datasetKey(f) === datasetIdentity,
+  );
   const agentRevision = JSON.stringify({
     datasetIdentity,
     view: tab,
     config,
     multipliers: effectiveMultipliers,
-    fitted: !!posterior,
+    selectedFitId: activeFit?.id,
+    fitIds: workspace.fits.map((f) => f.id),
     python: python.draft,
     pythonStatus: python.status,
   });
@@ -564,12 +536,15 @@ export default function Home() {
     validation: { errors: checked.errors, warnings: checked.warnings },
     config,
     fitting: busy,
+    resultSettings: activeFit?.config ?? null,
+    settingsChangedSinceFit: changedSettings,
+    selectedFit: activeFit?.number ?? null,
     diagnostics: posterior?.diagnostics ?? null,
     contributions: posterior?.contributions ?? null,
     scenario: simulation,
     scenarioMultipliers: effectiveMultipliers,
     fits: comparableFits.map((f) => ({
-      id: f.id,
+      id: f.number,
       config: f.config,
       diagnostics: f.posterior.diagnostics,
       contributions: f.posterior.contributions,
@@ -603,24 +578,24 @@ export default function Home() {
     if (action.kind === 'python_output') return { output: python.output };
 
     if (action.kind === 'configure') {
-      invalidate();
-      setConfig((c) => ({ ...c, ...action.patch }));
+      resetRunState();
+      act({ type: 'configure', patch: action.patch });
       focusWorkspace('model');
-      return 'Model draft updated. Previous completed fits remain in the comparison strip; fit this draft to compute new results.';
+      return 'Settings updated. Saved fit results are unchanged and still use their original assumptions. Fit the updated settings to compute new results.';
     }
     if (action.kind === 'fit') {
       focusWorkspace('overview');
       return await run();
     }
     if (!data || !posterior)
-      throw Error('Fit the current model before evaluating a scenario.');
+      throw Error('Select a completed fit before evaluating a scenario.');
     if (action.channel >= data.channels.length)
       throw Error('Channel is not in this dataset.');
     const next = [...effectiveMultipliers];
     next[action.channel] = action.multiplier;
     setMultipliers(next);
     focusWorkspace('scenarios');
-    return scenario(data, ThinPosterior(posterior), config.lag, next);
+    return scenario(data, ThinPosterior(posterior), resultConfig.lag, next);
   }
 
   const runAction = (
@@ -630,7 +605,11 @@ export default function Home() {
       onClick={run}
     >
       <Play size={16} />
-      {posterior ? 'Run again' : 'Fit in this browser'}
+      {changedSettings
+        ? 'Fit updated settings'
+        : posterior
+          ? 'Run again'
+          : 'Fit in this browser'}
       <ArrowRight />
     </Button>
   );
@@ -759,6 +738,54 @@ export default function Home() {
               </button>
             </div>
           )}
+          {storageNotice && (
+            <div className="notice" role="status">
+              <span>{storageNotice}</span>
+              <Button
+                variant="ghost"
+                size="icon"
+                aria-label="Dismiss storage notice"
+                onClick={dismissStorageNotice}
+              >
+                <X />
+              </Button>
+            </div>
+          )}
+          {activeFit && (
+            <div
+              className={`fit-context ${changedSettings ? 'settings-changed' : ''}`}
+              role="status"
+            >
+              <span>
+                <strong>Results: Fit {activeFit.number}</strong>
+                {changedSettings
+                  ? ' · Settings changed. These results use the saved assumptions.'
+                  : ' · Matches your current settings.'}
+              </span>
+              {changedSettings && (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  disabled={busy || python.busy}
+                  onClick={run}
+                >
+                  Fit updated settings
+                </Button>
+              )}
+            </div>
+          )}
+          <FitHistory
+            workspace={workspace}
+            busy={busy || python.busy}
+            onSelect={(id) => {
+              resetRunState();
+              act({ type: 'select', id });
+            }}
+            onUseSettings={(id) => {
+              resetRunState();
+              act({ type: 'use-settings', id });
+            }}
+          />
           <Tabs value={tab} onValueChange={(v) => setTab(String(v))}>
             <div className="tabbar">
               <TabsList variant="line">
@@ -835,7 +862,7 @@ export default function Home() {
                     {busy
                       ? progress.phase
                       : posterior
-                        ? `${number(posterior.diagnostics.samplingSeconds, 1)}s sampling · ${config.chains} chains`
+                        ? `${number(posterior.diagnostics.samplingSeconds, 1)}s sampling · ${resultConfig.chains} chains`
                         : 'Fit your first model to reveal the posterior'}
                   </p>
                 </div>
@@ -1237,8 +1264,8 @@ export default function Home() {
                 <div className="eyebrow">MODEL WORKBENCH</div>
                 <h2>Make the assumptions yours.</h2>
                 <p>
-                  Every assumption is explicit. Changing one clears the previous
-                  fit.
+                  Every assumption is explicit. Try a change; your completed
+                  fits stay available for comparison.
                 </p>
               </div>
               <PriorEditor
@@ -1246,13 +1273,11 @@ export default function Home() {
                 config={config}
                 disabled={busy}
                 onApply={(adstockPrior, saturationPrior, priorScale) => {
-                  invalidate();
-                  setConfig((c) => ({
-                    ...c,
-                    adstockPrior,
-                    saturationPrior,
-                    priorScale,
-                  }));
+                  resetRunState();
+                  act({
+                    type: 'configure',
+                    patch: { adstockPrior, saturationPrior, priorScale },
+                  });
                   setNotice(
                     'Priors applied. Python and notebook exports now use these distributions. Refit to update results.',
                   );
@@ -1493,7 +1518,9 @@ export default function Home() {
                         {busy
                           ? 'Fitting your model'
                           : posterior
-                            ? 'Fit complete'
+                            ? changedSettings
+                              ? 'Ready to fit changes'
+                              : 'Fit complete'
                             : 'Fit your model'}
                       </h2>
                       {busy ? (
@@ -1550,10 +1577,11 @@ export default function Home() {
                           </p>
                           <div className="run-facts">
                             <span>
-                              Carryover window <span>{config.lag} weeks</span>
+                              Next fit: carryover{' '}
+                              <span>{config.lag} weeks</span>
                             </span>
                             <span>
-                              Posterior draws{' '}
+                              Next fit: draws{' '}
                               <span>
                                 {number(config.chains * config.draws)} ·{' '}
                                 {config.chains} chains
@@ -1666,65 +1694,6 @@ export default function Home() {
                       )}
                     </section>
                   )}
-                  {comparableFits.length > 0 && (
-                    <section
-                      className="fit-history"
-                      aria-label="Completed fit comparisons"
-                    >
-                      <div>
-                        <strong>Evidence from this session</strong>
-                        <p>
-                          Completed fits stay separate from your current draft.
-                          Keep up to four; export a project for a durable
-                          backup.
-                        </p>
-                      </div>
-                      <div className="fit-cards">
-                        {comparableFits.map((f) => (
-                          <article key={f.id}>
-                            <strong>
-                              Fit {f.id}
-                              {posterior === f.posterior ? ' · current' : ''}
-                            </strong>
-                            <p>
-                              {f.config.lag}-week carryover · prior scale{' '}
-                              {f.config.priorScale} · seasonality{' '}
-                              {f.config.seasonality ? 'on' : 'off'}
-                            </p>
-                            <p>
-                              R-hat{' '}
-                              {f.posterior.diagnostics.maxRhat?.toFixed(3) ??
-                                'unavailable'}{' '}
-                              · {f.posterior.diagnostics.divergences}{' '}
-                              divergences
-                            </p>
-                            {mapping.channels.map((channel, i) => (
-                              <p key={channel}>
-                                {label(channel)}:{' '}
-                                {compact(f.posterior.contributions[i].median)}{' '}
-                                <span>
-                                  ({compact(f.posterior.contributions[i].low)}–
-                                  {compact(f.posterior.contributions[i].high)})
-                                </span>
-                              </p>
-                            ))}
-                            <Button
-                              variant="outline"
-                              disabled={busy}
-                              onClick={() => {
-                                invalidate();
-                                setConfig(f.config);
-                                setPosterior(f.posterior);
-                                setTab('fitting');
-                              }}
-                            >
-                              Open this fit
-                            </Button>
-                          </article>
-                        ))}
-                      </div>
-                    </section>
-                  )}
                 </TabsContent>
                 <TabsContent value="sensitivity">
                   <PriorSensitivity
@@ -1773,7 +1742,7 @@ export default function Home() {
                     <AllocationPlanner
                       data={data}
                       posterior={thin!}
-                      lag={config.lag}
+                      lag={resultConfig.lag}
                       multipliers={effectiveMultipliers}
                       onChange={setMultipliers}
                     />
@@ -2103,14 +2072,12 @@ export default function Home() {
           <span>
             PyMC-Marketing + nuts-rs <span className="footer-plus">+</span>{' '}
             {saveStatus === 'saved'
-              ? 'Saved in this tab · Export to keep'
+              ? 'Saved on this device · Export for backup'
               : saveStatus === 'saving'
                 ? 'Saving locally…'
-                : saveStatus === 'invalid'
-                  ? 'Review mapping to save locally'
-                  : saveStatus === 'unavailable'
-                    ? 'Local save unavailable · Export to keep'
-                    : 'Opening local workspace…'}
+                : saveStatus === 'unavailable'
+                  ? 'Local save unavailable · Export to keep'
+                  : 'Opening local workspace…'}
           </span>
         </footer>
       </section>
@@ -2138,7 +2105,8 @@ export default function Home() {
           <DialogTitle>Take your work with you.</DialogTitle>
           <DialogDescription>
             Export a reproducible project, the actual model, or chain-level
-            samples. Nothing is uploaded.
+            samples. Python and notebooks use your edited settings; project JSON
+            keeps all saved fits. Nothing is uploaded.
           </DialogDescription>
           <div className="export-options">
             <Button
@@ -2173,7 +2141,7 @@ export default function Home() {
               <FileJson />
               <span>
                 Project JSON
-                <small>Data, settings, posterior, and scenario</small>
+                <small>All fits, edited settings, data and scenarios</small>
               </span>
               <Download />
             </Button>
@@ -2243,13 +2211,15 @@ export default function Home() {
           <p>
             The real PyMC-Marketing model runs in a local Python/WebAssembly
             worker, with nuts-rs providing NUTS sampling. Data and results stay
-            on this device, with a session backup saved in this tab.
+            on this device, with completed fits saved automatically in this
+            browser.
           </p>
           <p>
             First use downloads approximately 120 MB of runtime assets. Chains
             run sequentially. The guided workspace restores after reload when
-            the local save succeeds. Export before closing the tab; live Python
-            sessions are not restored.
+            the local save succeeds, including after reopening the app. Export
+            for a portable backup; clearing browser storage removes local work.
+            Live Python sessions are not restored.
           </p>
           <p>
             Our example uses synthetic marketing data, rescaled from the

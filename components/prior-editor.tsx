@@ -220,7 +220,7 @@ export function PriorEditor({
             {!okay
               ? 'Use finite parameters between 0.001 and 400.'
               : changed
-                ? 'Unapplied changes · applying clears the previous fit.'
+                ? 'Unapplied changes · saved fits will keep their original assumptions.'
                 : 'These priors are in your model and exports.'}
           </span>
         </div>

@@ -1,11 +1,11 @@
 {
   "upstream": "https://github.com/pymc-labs/nuts-rs-wasm",
-  "commit": "6f95e5d87c632b9d1517ca4442c8abe7c5c09d2c",
+  "commit": "5baf1dec57aa6d0d8a7cebe06147bec42abb5759",
   "rust": "1.94.0",
   "files": {
     "COMLINK-LICENSE": "bcf29b4fd3ec2cb5f9d40a0866da446f6da62170d2ccedf4aeca9cf9406dd20c",
     "LICENSE": "7d3224da3e6bbeffd5d79105149110e5725790e58edd2b958d2428a8a5c4dc65",
-    "README.md": "e722dfd4adf87ab096aa6ce43fc4b35260128b43d0c036e0adb21af9f818b97d",
+    "README.md": "d03d0ff6d6e3ce9394df373bed0b8fa5715c3af47bb9823c2937f626ac287013",
     "bridge-memory.mjs": "d350741f9839951ba9805d710fa83e019df4ffa86df1e69e1bdc40c303616c59",
     "bridge.mjs": "1cda8566a306e87ee531dfb71efa689c6da482fbbd97deb58d0650e7c9b4d870",
     "client.mjs": "af8a6bfe0a60b5d1271705d5f32ac5edea006c15719439e440b596a1326c8e71",
@@ -15,5 +15,18 @@
     "nuts_browser_adapter.wasm": "edef2489e075d806e571b76344104e6d67133295b4c7fbb3cc584c549630c866",
     "results.py": "a45da210cebf49466efb00aa3bff62f57c4d84c3fabe552def6759193ceb358c",
     "worker-loader.js": "71c305302e3d4dbcc2de5786279df7f75cd417d786b2e5aecfb51b9e57571a9d"
-  }
+  },
+  "version": "0.1.0",
+  "archive": {
+    "url": "https://github.com/pymc-labs/nuts-rs-wasm/releases/download/v0.1.0/nuts-rs-wasm-adapter-v0.1.0.tar.gz",
+    "sha256": "60f672d50c62031dc27e1f8098f1a63cdddff2e03da5afb0b1586cff246aeae9",
+    "bytes": 495385
+  },
+  "patches": [
+    {
+      "path": "compile_model.py",
+      "upstreamSha256": "d937e9ff38fc08f4882f29feaff94b8af3b3b56cf5621e43e701ba72920caa1c",
+      "description": "Suppress only the optional tqdm IProgress warning in the browser worker."
+    }
+  ]
 }

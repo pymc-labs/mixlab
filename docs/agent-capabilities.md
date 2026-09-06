@@ -7,10 +7,10 @@ The assistant has two read tools (`inspect_workspace`, `inspect_data`) and eight
 | Explore data | `inspect_data` | Local numeric aggregates, missing/nonnumeric counts and pairwise complete Pearson correlations; no fit needed, no raw rows or categorical values shared. |
 | Inspect current state and validation | `inspect_workspace` | Current mapping, configuration, validation, fit diagnostics, contribution intervals, comparable fits and scenario summaries. |
 | Open a view | `navigate` | data, model, overview, scenarios, code. Navigation alone does not analyze data. |
-| Change priors and sampling | `configure` | Shared channel priors, bounded settings; invalidates current fit. |
+| Change priors and sampling | `configure` | Shared channel priors and bounded settings; preserves saved fits. Updated results require a new fit. |
 | Fit guided model | `fit` | Valid guided data and idle runtime. |
 | Review diagnostics and robustness | `inspect_workspace` | Completed fits; comparing configurations requires separate fits. No automated sensitivity sweep. |
-| Historical counterfactual | `scenario` | Current guided posterior and existing channel; multiplier 0–2. Not forecasting or optimization. |
+| Historical counterfactual | `scenario` | Selected guided posterior and existing channel; multiplier 0–2. Not forecasting or optimization. |
 | Draft custom model | `python_draft` | Complete source, sampled variable names and after-sampling analysis. Does not execute. |
 | Run custom model | `python_fit` | Nonempty draft and idle runtime; host performs sampling. Runtime compatibility remains experimental. |
 | Follow-up Python | `python_cell` | Successfully fitted kernel matching current model source and data; cannot perform pre-fit EDA. |

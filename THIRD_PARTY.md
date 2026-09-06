@@ -15,6 +15,6 @@
 
 `public/nuts/compile_model.py` has one Mixlab-specific patch: suppress only tqdm’s missing-IProgress warning before Python library imports. The standalone worker has no Jupyter widget manager and uses Mixlab’s progress display. Other warnings remain visible.
 
-The nuts-rs-wasm adapter is pinned to upstream commit `6f95e5d87c632b9d1517ca4442c8abe7c5c09d2c`. Its WASM was rebuilt from that commit with Rust 1.94.0 and the locked dependencies. `bridge-memory.mjs` is included with the other adapter modules. The runtime bootstrap is overlaid from this same adapter during runtime setup; the scientific runtime archive is unchanged.
+The nuts-rs-wasm adapter is pinned to [v0.1.0](https://github.com/pymc-labs/nuts-rs-wasm/releases/tag/v0.1.0), upstream commit `5baf1dec57aa6d0d8a7cebe06147bec42abb5759`. The published adapter archive and every upstream file-manifest entry were checksum-verified. Its WASM and JavaScript modules are byte-identical to our preceding build from `6f95e5d87c632b9d1517ca4442c8abe7c5c09d2c` with Rust 1.94.0 and locked dependencies; the bundled README is updated to the release version. `bridge-memory.mjs` is included with the other adapter modules. The runtime bootstrap is overlaid from this same adapter during runtime setup; the scientific runtime archive is unchanged.
 
-`adapter-manifest.json` records SHA-256 checksums for the bundled adapter, including the Mixlab warning patch. The test suite verifies these bytes and the matching bundled/standalone clients.
+`adapter-manifest.json` records the release version, commit, archive URL/checksum and SHA-256 checksums for the bundled adapter, including the Mixlab warning patch and its upstream file checksum. The test suite verifies these bytes and the matching bundled/standalone clients.
