@@ -7,8 +7,9 @@ import {createModelBridge} from './bridge-memory.mjs';
 export async function sample({bytes, runtime, model, chains = 2, tune = 750,
     draws = 500, seed = 42, targetAccept = 0.9, onProgress = () => {},
     onSamples = () => {}, onTrace, resultFormat = 'compatibility',
-    retainUnconstrained = true, bridgeCache = 'callbacks'}) {
-  if (!['compatibility', 'binary'].includes(resultFormat)) throw Error('Invalid resultFormat');
+    retainUnconstrained = true, bridgeCache = 'callbacks', maxDepth = 10,
+    jitter = 1, initRetries = 10}) {
+  if (!['compatibility', 'binary', 'stream'].includes(resultFormat)) throw Error('Invalid resultFormat');
   if (typeof retainUnconstrained !== 'boolean') throw Error('Invalid retainUnconstrained');
   for (const [name, value] of Object.entries({chains, tune, draws, seed})) {
     if (!Number.isInteger(value) || value < (name === 'seed' ? 0 : 1)
@@ -19,6 +20,10 @@ export async function sample({bytes, runtime, model, chains = 2, tune = 750,
     throw Error('A finite, nonempty initial position is required');
   }
   if (!(targetAccept > 0 && targetAccept < 1)) throw Error("Invalid targetAccept");
+  if (!Number.isInteger(maxDepth) || maxDepth < 1 || maxDepth > 20) throw Error('Invalid maxDepth (expected 1–20)');
+  if (!Number.isFinite(jitter) || jitter < 0) throw Error('Invalid jitter');
+  if (!Number.isInteger(initRetries) || initRetries < 0 || initRetries > 1000) throw Error('Invalid initRetries');
+  const streamOnly = resultFormat === 'stream';
   const traces = [];
   const layout = model.expanded_layout ?? [{name: "unconstrained", size: model.initial.length, shape: [model.initial.length], dims: ["parameter"]}];
   const unexpected = () => {throw Error('Unexpected wasm-bindgen runtime call');};
@@ -46,7 +51,8 @@ export async function sample({bytes, runtime, model, chains = 2, tune = 750,
     },
   });
   ex = instance.exports;
-  ex.set_result_options(1, Number(retainUnconstrained));
+  ex.set_result_options(1, Number(retainUnconstrained && !streamOnly));
+  if (ex.set_sampler_options(maxDepth, jitter, initRetries, Number(streamOnly))) throw Error('Invalid sampler options');
   const metadata = new TextEncoder().encode(JSON.stringify(layout));
   const units = Math.ceil(metadata.length/8), mp = ex.alloc_f64(units);
   try {
@@ -63,6 +69,8 @@ export async function sample({bytes, runtime, model, chains = 2, tune = 750,
       new Uint8Array(ex.memory.buffer, ex.result_ptr(), ex.result_len())));
     if (status) throw Error(result.error);
     const copy = name => new Float64Array(ex.memory.buffer, ex[`${name}_ptr`](), ex[`${name}_len`]()).slice();
+    if (streamOnly) return {...result, result_format: 'stream', sampling_seconds: samplingSeconds,
+      layout: model.layout, expanded_layout: layout, coords: model.coords ?? {}, traces};
     result.expanded_samples = copy('expanded');
     result.stats = copy('stats');
     if (retainUnconstrained) result.samples = copy('samples');

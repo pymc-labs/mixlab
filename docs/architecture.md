@@ -66,6 +66,8 @@ Investigation steps and agent actions can focus the active workbench area, scrol
 
 The runtime archive remains pinned by `runtime-manifest.json`. Setup verifies that archive, then overlays `public/nuts/worker-loader.js` as the runtime bootstrap. Runtime checks verify this bootstrap against the vendored adapter rather than the older archive entry. Refreshing the adapter requires refreshing its JS, Python, WASM and bootstrap together.
 
+The adapter now uses independent seeded initial jitter (amplitude 1) and up to 10 additional attempts for invalid starts, with the default maximum tree depth of 10. This changes seeded draws relative to the previous fixed-start adapter; `jitter: 0` on a direct sampler call restores that behavior. Guided and Python-lab fits use the upstream defaults. Retained binary results, Arrow traces and `afterSample` remain enabled for guided diagnostics. Mutable-data updates and stream-only sampling are available upstream but are not enabled by the guided session.
+
 ## Fit-history verification
 
 `tests/workspace.test.ts` covers two fits with different sampling budgets followed by export/restore, independent edited settings, saved-lag scenario behavior, dataset compatibility, per-fit scenarios, history beyond four fits, legacy migration and malformed histories. The TypeScript suite and static production build pass. This change has not been validated with a fresh browser sampling run or an interactive IndexedDB reload test. Custom Python/lab execution and generic result rendering remain separate extension work.

@@ -10,12 +10,12 @@ self.nutsBrowser = {async sample(config, options) {
     const response = await fetch(new URL('nuts_browser_adapter.wasm', assets));
     if (!response.ok) throw Error('Could not load the Rust sampler');
     const result = await sample({bytes: await response.arrayBuffer(), runtime: Module,
-      model: config, ...options, resultFormat: 'binary',
+      model: config, ...options, resultFormat: options.resultFormat === 'stream' ? 'stream' : 'binary',
       onProgress: progress => self.postMessage({nuts: 'progress', progress}),
       onSamples: samples => self.postMessage({nuts: 'samples', samples}, [samples.values.buffer]),
     });
-    const python_result_path = stagedPath = stageWorkerResult(result, Module.FS, `/tmp/nuts-result-${crypto.randomUUID()}`);
-    const output = options.resultFormat === 'binary' ? result : compatibilityResult(result);
+    const python_result_path = stagedPath = options.resultFormat === 'stream' ? undefined : stageWorkerResult(result, Module.FS, `/tmp/nuts-result-${crypto.randomUUID()}`);
+    const output = options.resultFormat !== 'compatibility' ? result : compatibilityResult(result);
     output.python_result_path = python_result_path;
     const transfer = result.traces.map(t => t.bytes.buffer);
     if (options.resultFormat === 'binary') {
