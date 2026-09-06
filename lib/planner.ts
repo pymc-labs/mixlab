@@ -48,7 +48,7 @@ export function createPlanner(data: Dataset, p: Posterior, lag: number) {
   const prior = normalizeWeights(spend);
   const n = p.alpha.length;
   const curves = data.channels.map((_, j) => {
-    const grid = Array.from({ length: 101 }, () => new Float64Array(n));
+    const grid = Array.from({ length: 201 }, () => new Float64Array(n));
     for (let d = 0; d < n; d++) {
       const a = p.alpha[d][j];
       let norm = 0;
@@ -58,7 +58,7 @@ export function createPlanner(data: Dataset, p: Posterior, lag: number) {
         for (let k = 0; k < lag && k <= t; k++) x += data.x[t - k][j] * a ** k;
         return (p.lam[d][j] * x) / (2 * p.channelScale[j] * norm);
       });
-      for (let g = 0; g <= 100; g++) {
+      for (let g = 0; g <= 200; g++) {
         const multiplier = spend[j] > 0 ? (total * g) / 100 / spend[j] : 0;
         grid[g][d] =
           (xs.reduce((s, x) => s + Math.tanh(x * multiplier), 0) / xs.length) *
@@ -71,9 +71,9 @@ export function createPlanner(data: Dataset, p: Posterior, lag: number) {
   const draws = (weights: number[]) =>
     Array.from({ length: n }, (_, d) =>
       weights.reduce((s, w, j) => {
-        const g = Math.max(0, Math.min(100, w * 100)),
+        const g = Math.max(0, Math.min(200, w * 100)),
           lo = Math.floor(g),
-          hi = Math.min(100, lo + 1);
+          hi = Math.min(200, lo + 1);
         return (
           s + curves[j][lo][d] * (1 - (g - lo)) + curves[j][hi][d] * (g - lo)
         );
@@ -123,7 +123,42 @@ export function createPlanner(data: Dataset, p: Posterior, lag: number) {
   };
   const summarize = (weights: number[], adherence: number, risk: number) => {
     const result = evaluate(weights, adherence, risk);
-    return { ...result, interval: interval(result.delta) };
+    return {
+      ...result,
+      interval: interval(result.delta),
+      predictive: p.predictiveMean
+        ? interval(result.delta.map((v, i) => v + p.predictiveMean![i]))
+        : null,
+    };
   };
   return { prior, total, evaluate, summarize, optimize };
+}
+
+export type Planner = ReturnType<typeof createPlanner>;
+
+/** Slices pass through the actual allocation, including variable-budget scenarios. */
+export function channelSlice(
+  planner: Planner,
+  weights: number[],
+  channel: number,
+  locked: boolean,
+  adherence: number,
+  risk: number,
+) {
+  const max = locked ? 1 : Math.max(1, planner.prior[channel] * 2);
+  const points = Array.from({ length: 51 }, (_, i) => {
+    const share = (max * i) / 50;
+    const next = locked
+      ? changeWeight(weights, channel, share, planner.prior)
+      : weights.map((v, j) => (j === channel ? share : v));
+    return {
+      share: next[channel],
+      ...planner.summarize(next, adherence, risk),
+    };
+  });
+  points.push({
+    share: weights[channel],
+    ...planner.summarize(weights, adherence, risk),
+  });
+  return points.sort((a, b) => a.share - b.share);
 }

@@ -4,6 +4,7 @@ import {
   changeWeight,
   normalizeWeights,
   createPlanner,
+  channelSlice,
 } from '../lib/planner.ts';
 import { scenario, type Dataset, type Posterior } from '../lib/core.ts';
 const data: Dataset = {
@@ -103,5 +104,68 @@ void test('predictive summaries shift matching noisy outcome draws and support l
   assert.equal(
     scenario(data, { ...p, predictiveMean: undefined }, 2, [1, 1]).predictive,
     null,
+  );
+});
+
+void test('every channel slice passes through the current scenario and respects budget mode', () => {
+  const planner = createPlanner(data, p, 2);
+  for (const locked of [false, true]) {
+    const w = locked ? [0.63, 0.37] : [0.63, 0.7];
+    for (let j = 0; j < 2; j++) {
+      const points = channelSlice(planner, w, j, locked, 1, 0.5);
+      const current = points.find((point) => point.share === w[j])!;
+      assert.deepEqual(
+        current.predictive,
+        planner.summarize(w, 1, 0.5).predictive,
+      );
+      const end = points.at(-1)!;
+      const expected = locked
+        ? changeWeight(w, j, 1, planner.prior)
+        : w.map((v, i) => (i === j ? 1 : v));
+      assert.deepEqual(
+        end.predictive,
+        planner.summarize(expected, 1, 0.5).predictive,
+      );
+    }
+  }
+});
+void test('prior and risk reshape the objective without inventing a different sales response', () => {
+  const planner = createPlanner(
+    data,
+    {
+      ...p,
+      beta: [
+        [4, 1],
+        [1, 4],
+      ],
+    },
+    2,
+  );
+  const free = channelSlice(planner, [0.7, 0.3], 0, true, 0, 0);
+  const close = channelSlice(planner, [0.7, 0.3], 0, true, 5, 2);
+  for (let i = 0; i < free.length; i++)
+    assert.deepEqual(free[i].predictive, close[i].predictive);
+  assert.ok(close[0].score < free[0].score);
+});
+void test('sales projection matches paired scenario predictive draws and handles budgets above 100 percent', () => {
+  const planner = createPlanner(data, p, 2);
+  const weights = [1.3, 0.4];
+  const predicted = planner.summarize(weights, 0, 0).predictive!;
+  const exact = scenario(
+    data,
+    p,
+    2,
+    weights.map((w, i) => w / planner.prior[i]),
+  ).predictive!;
+  for (const key of ['low', 'median', 'high'] as const)
+    assert.ok(Math.abs(predicted[key] - exact[key]) < 1e-10);
+});
+void test('legacy fits show only contribution uncertainty', () => {
+  const planner = createPlanner(data, { ...p, predictiveMean: undefined }, 2);
+  assert.equal(planner.summarize([0.7, 0.3], 1, 1).predictive, null);
+  assert.ok(
+    channelSlice(planner, [0.7, 0.3], 0, true, 1, 1).every(
+      (p) => p.predictive === null,
+    ),
   );
 });
