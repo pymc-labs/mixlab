@@ -1860,3 +1860,24 @@ footer > span {
     margin-left: auto;
   }
 }
+
+.prior-studio { margin-bottom: 24px; padding: 28px; }
+.prior-studio h3 { font-size: 26px; margin: 12px 0; }
+.prior-studio > p { color: var(--muted-foreground); max-width: 850px; }
+.prior-studio fieldset { border: 0; padding: 0; margin: 24px 0; min-width: 0; }
+.prior-studio fieldset:disabled { opacity: .55; pointer-events: none; }
+.prior-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.prior-card { min-width: 0; border: 1px solid #303c35; border-radius: 14px; padding: 18px; background: #151e19; }
+.prior-card h4 { display: flex; gap: 16px; justify-content: space-between; margin: 0 0 12px; }
+.prior-card h4 span { color: #b5f268; font-weight: 400; }
+.modist-chart { --m-acc: #b5f268; --m-grid: #35453b; --m-mut: #a0afa5; --m-card: #223328; --m-border: #53665a; --m-fg: #e5ede7; }
+.prior-parameters { display: flex; gap: 16px; margin: 16px 0; }
+.prior-parameters label { display: grid; gap: 8px; flex: 1; min-width: 0; color: #b7c7bd; font-size: 12px; }
+.prior-parameters input { width: 100%; border: 1px solid #415247; border-radius: 8px; padding: 10px; color: #edf4ef; background: #0f1712; }
+.prior-actions { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-top: 24px; }
+.prior-actions button { padding: 12px 18px; border-radius: 9px; border: 1px solid #4c654f; cursor: pointer; }
+.prior-actions .primary { background: #b5f268; color: #12200a; }
+.prior-actions .secondary { background: transparent; color: #dbe8df; }
+.prior-actions button:disabled { opacity: .4; cursor: default; }
+.prior-studio a { text-decoration: underline; }
+@media(max-width: 850px) { .prior-grid { grid-template-columns: 1fr; } .prior-studio { padding: 18px; } }

@@ -41,3 +41,7 @@ The interpretation is average weekly channel contribution over the observed peri
 ## Hosting
 
 The build is static. Runtime assets are deliberately outside Git so the repository stays within notebook.link's size constraints. Releases contain the checked runtime archive. `npm run runtime:setup` installs it and verifies bytes. `npm run build` verifies the runtime, regenerates examples, and exports the app. No runtime API secrets are required.
+
+## Prior editing
+
+`components/prior-editor.tsx` adapts pinned Modist ESM widgets to a minimal local anywidget model (`get`, `set`, `on`, `save_changes`). Draft parameters are separate from the fitted model. Apply invalidates previous results and writes `adstockPrior` / `saturationPrior` to the configuration. Beta parameters select the geometric adstock prior; Gamma shape/rate select logistic saturation speed. The amplitude prior remains HalfNormal. Legacy projects omit these fields and use Beta(1, 3) and Gamma(3, 1). Project imports validate finite positive parameters within the UI's supported range. Both Python model constructors receive the same explicit priors; native log-density equivalence checks cover defaults and customized priors.

@@ -25,9 +25,15 @@ mmm = MMM(
     date_column='date',
     channel_columns=channels,
     control_columns=controls or None,
-    adstock=GeometricAdstock(l_max=config['lag'], normalize=True),
+    adstock=GeometricAdstock(
+        l_max=config['lag'], normalize=True,
+        priors={'alpha': Prior('Beta', **config.get('adstockPrior', {'alpha': 1, 'beta': 3}))},
+    ),
     saturation=LogisticSaturation(
-        priors={'beta': Prior('HalfNormal', sigma=config['priorScale'])},
+        priors={
+            'beta': Prior('HalfNormal', sigma=config['priorScale']),
+            'lam': Prior('Gamma', **config.get('saturationPrior', {'alpha': 3, 'beta': 1})),
+        },
     ),
     yearly_seasonality=2 if config['seasonality'] else None,
 )
@@ -273,6 +279,24 @@ export function readProject(text: string): SavedProject {
     c.seed > 2147483000
   )
     throw Error('The project sampling settings are unsupported.');
+  for (const name of ['adstockPrior', 'saturationPrior']) {
+    const prior = c[name];
+    if (
+      prior !== undefined &&
+      (!prior ||
+        typeof prior !== 'object' ||
+        ![prior.alpha, prior.beta].every(
+          (v) =>
+            typeof v === 'number' &&
+            Number.isFinite(v) &&
+            v >= 0.001 &&
+            v <= 400,
+        ))
+    )
+      throw Error(
+        'Prior shape and rate parameters must be between 0.001 and 400.',
+      );
+  }
   const checked = validate(t, m);
   if (!checked.data)
     throw Error(`The saved data need review: ${checked.errors[0]}`);
@@ -370,6 +394,22 @@ export function readProject(text: string): SavedProject {
       targetAccept: c.targetAccept,
       seed: c.seed,
       priorScale: c.priorScale,
+      ...(c.adstockPrior
+        ? {
+            adstockPrior: {
+              alpha: c.adstockPrior.alpha,
+              beta: c.adstockPrior.beta,
+            },
+          }
+        : {}),
+      ...(c.saturationPrior
+        ? {
+            saturationPrior: {
+              alpha: c.saturationPrior.alpha,
+              beta: c.saturationPrior.beta,
+            },
+          }
+        : {}),
     },
     posterior,
     scenarioMultipliers: multipliers,

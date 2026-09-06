@@ -5,6 +5,11 @@ Set PYTENSOR_FLAGS=cxx=,blas__ldflags=,numba__cache=False before importing PyTen
 in the browser. Keep the returned object alive for the lifetime of sampling.
 """
 
+# This worker has no Jupyter widget manager; Mixlab renders its own progress UI.
+# Suppress only tqdm's optional IProgress warning, preserving model warnings.
+import warnings
+warnings.filterwarnings('ignore', message=r'IProgress not found.*', module=r'tqdm\.(auto|autonotebook)')
+
 import json
 from dataclasses import dataclass
 

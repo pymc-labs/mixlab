@@ -18,6 +18,7 @@ export type Dataset = {
   controls: string[];
   z: number[][];
 };
+export type ShapePrior = { alpha: number; beta: number };
 export type Config = {
   lag: number;
   seasonality: boolean;
@@ -27,6 +28,8 @@ export type Config = {
   targetAccept: number;
   seed: number;
   priorScale: number;
+  adstockPrior?: ShapePrior;
+  saturationPrior?: ShapePrior;
 };
 export const defaultConfig: Config = {
   lag: 8,

@@ -13,6 +13,7 @@ Mixlab turns a CSV into an editable PyMC-Marketing model, runs real NUTS inferen
 - **Browser NUTS:** four-chain default, configurable sampling budget, live progress and carryover posterior, cancellation, Arrow posterior and sampler-statistic downloads.
 - **Honest results:** observed series, in-sample posterior predictive intervals, channel contributions, R-hat, bulk/tail ESS, and divergences. No simulated fit or fabricated posterior.
 - **Counterfactual lab:** rescale the historical channel spend, recompute the model's exact carryover and saturation, and compare paired posterior contributions and credible intervals.
+- **Modist prior studio:** drag Will Dean’s actual Beta and Gamma distribution widgets to choose carryover and saturation priors. Numeric inputs support precise and keyboard-based editing. Apply explicitly; the next fit, project backup, Python source, and notebook exports all share the selected parameters. Existing projects retain PyMC-Marketing’s defaults.
 - **Open Python lab:** edit model code, sample in a separate browser session, and execute follow-up Python with `mmm` and `idata` still available. Export the edited model and follow-up cells together as a browser notebook.
 - **Portable projects:** download and restore data, mappings, configuration, posterior summaries/parameter draws, and scenario settings. Arrow traces are separate files.
 - **Notebook escape routes:** self-contained native PyMC notebooks and browser notebooks using the same WASM runtime. Both include the selected data and editable code.

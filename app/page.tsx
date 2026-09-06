@@ -1,4 +1,5 @@
 'use client';
+import { PriorEditor } from '../components/prior-editor';
 import { useDeferredValue, useEffect, useMemo, useRef, useState } from 'react';
 import {
   Activity,
@@ -1166,6 +1167,17 @@ export default function Home() {
                 fit.
               </p>
             </div>
+            <PriorEditor
+              config={config}
+              disabled={busy}
+              onApply={(adstockPrior, saturationPrior) => {
+                invalidate();
+                setConfig((c) => ({ ...c, adstockPrior, saturationPrior }));
+                setNotice(
+                  'Priors applied. Python and notebook exports now use these distributions. Refit to update results.',
+                );
+              }}
+            />
             <div className="model-layout">
               <section className="panel model-controls">
                 <div className="model-step">
@@ -1194,8 +1206,11 @@ export default function Home() {
                   disabled={busy}
                 />
                 <p className="tiny">
-                  β ~ HalfNormal(σ); α ~ Beta(1, 3); λ ~ Gamma(3, 1). Channel
-                  and outcome scales are inferred from the data.
+                  β ~ HalfNormal(σ); α ~ Beta({config.adstockPrior?.alpha ?? 1},{' '}
+                  {config.adstockPrior?.beta ?? 3}); λ ~ Gamma(
+                  {config.saturationPrior?.alpha ?? 3},{' '}
+                  {config.saturationPrior?.beta ?? 1}). Channel and outcome
+                  scales are inferred from the data.
                 </p>
                 <div className="toggle-row">
                   <div>

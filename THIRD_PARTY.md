@@ -8,3 +8,9 @@
 - The synthetic example in `public/example.csv` derives from the nuts-rs-wasm MMM example. Outcome and spend columns have been rescaled and renamed for a more legible working surface. It is not real client data.
 
 - `vendor/nuts-rs-wasm/` contains the same unmodified client and Comlink modules for bundler-native imports in the guided app. Their original license notices are retained. The standalone Python lab uses the identical modules from `public/nuts/`.
+
+## Modist prior widgets
+
+`vendor/modist/` contains unmodified Beta and Gamma ESM bundles and CSS from [Will Dean’s Modist](https://github.com/williambdean/modist), pinned to commit `53ed3d23e269a5c2daff70d49620453f58b838a5` (0.5.0). Modist and its bundled jStat mathematics are MIT licensed; both notices are included. Mixlab supplies a local anywidget-compatible state adapter, without requiring a notebook widget manager.
+
+`public/nuts/compile_model.py` has one Mixlab-specific patch: suppress only tqdm’s missing-IProgress warning before Python library imports. The standalone worker has no Jupyter widget manager and uses Mixlab’s progress display. Other warnings remain visible.

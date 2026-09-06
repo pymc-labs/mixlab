@@ -65,3 +65,46 @@ test('project import rejects unsupported settings and malformed posteriors', () 
     readProject(JSON.stringify({ ...saved, format: 'different' })),
   );
 });
+
+test('Modist parameters survive project and lab export without converting Gamma rate', () => {
+  const config = {
+    ...defaultConfig,
+    adstockPrior: { alpha: 4, beta: 2 },
+    saturationPrior: { alpha: 5, beta: 2 },
+  };
+  assert.deepEqual(
+    readProject(JSON.stringify({ ...saved, config })).config,
+    config,
+  );
+  const payload = labPayload(data, config);
+  assert.deepEqual(payload.config, config);
+  assert.ok(
+    payload.source.includes("Prior('Gamma', **config.get('saturationPrior'"),
+  );
+  assert.ok(
+    payload.source.includes("Prior('Beta', **config.get('adstockPrior'"),
+  );
+});
+test('nonpositive, nonnumeric and excessive Modist priors are rejected on project restore', () => {
+  for (const value of [
+    null,
+    {},
+    { alpha: 0, beta: 1 },
+    { alpha: '2', beta: 1 },
+    { alpha: 401, beta: 1 },
+    { alpha: 2, beta: -1 },
+  ]) {
+    for (const key of ['adstockPrior', 'saturationPrior']) {
+      assert.throws(
+        () =>
+          readProject(
+            JSON.stringify({
+              ...saved,
+              config: { ...defaultConfig, [key]: value },
+            }),
+          ),
+        /Prior/,
+      );
+    }
+  }
+});

@@ -15,7 +15,7 @@ import {parseCSV,inferMapping,validate,defaultConfig} from './lib/core.ts';
 import {readFileSync} from 'node:fs';
 const raw=parseCSV(readFileSync('public/example.csv','utf8'));
 const data=validate(raw,inferMapping(raw)).data;
-const fixtures=[{...defaultConfig,lag:12,priorScale:.5,seasonality:false},{...defaultConfig,lag:4,priorScale:3,seasonality:true}].map(config=>{
+const fixtures=[{...defaultConfig,lag:12,priorScale:.5,seasonality:false},{...defaultConfig,lag:4,priorScale:3,seasonality:true,adstockPrior:{alpha:4,beta:2},saturationPrior:{alpha:5,beta:2}}].map(config=>{
  const nb=notebook(data,config,'native','https://example.com');
  return nb.cells.filter(c=>c.cell_type==='code').slice(0,3).map(c=>c.source.join('')).join('\n');
 });
