@@ -42,7 +42,18 @@ export const defaultConfig: Config = {
   priorScale: 2,
 };
 export type Interval = { low: number; median: number; high: number };
+export type DiagnosticPlot = {
+  name: string;
+  chains: number[][];
+  divergences: number[][];
+  rank?: { x: number[]; y: number[] }[];
+  envelope?: { x: number[]; low: number[]; high: number[] };
+  ess?: { x: number[]; y: (number | null)[] };
+  rankError?: string;
+  essError?: string;
+};
 export type Posterior = {
+  diagnosticPlots?: DiagnosticPlot[];
   alpha: number[][];
   lam: number[][];
   beta: number[][];

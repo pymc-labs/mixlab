@@ -1,6 +1,7 @@
 'use client';
 import { usePythonWorkspace } from '../hooks/use-python-workspace';
 import { summarizeAgentData } from '../lib/agent-data';
+import { DiagnosticPlots } from '../components/diagnostic-plots';
 import { Investigation } from '../components/investigation';
 import { validateAction, type AgentAction } from '../lib/agent';
 import { AllocationPlanner } from '../components/allocation-planner';
@@ -1445,7 +1446,13 @@ export default function Home() {
                       ? 'BAYESIAN INFERENCE, LIVE'
                       : 'FROM DATA TO EVIDENCE'}
                   </div>
-                  <h2>{busy ? 'Fitting your model' : posterior ? 'Fit complete' : 'Fit your model'}</h2>
+                  <h2>
+                    {busy
+                      ? 'Fitting your model'
+                      : posterior
+                        ? 'Fit complete'
+                        : 'Fit your model'}
+                  </h2>
                   {busy ? (
                     <>
                       <p aria-live="polite">{progress.phase}</p>
@@ -1593,6 +1600,7 @@ export default function Home() {
                   </div>
                 </section>
               )}
+              {posterior && <DiagnosticPlots posterior={posterior} />}
               {!posterior && (
                 <section className="panel fitting-empty" aria-live="polite">
                   <Activity size={24} />

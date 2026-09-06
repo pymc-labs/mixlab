@@ -1,5 +1,7 @@
 # Architecture and extension points
 
+The fitting tab renders interactive diagnostics with Recharts. `arviz_plots` runs with its `none` data backend in the existing Python worker to produce rank ΔECDF curves, 95% reference envelopes and quantile ESS; unthinned chains and divergent draw indices support trace inspection. These optional payloads travel with the posterior and are validated on project import. Older projects remain supported and show a refit prompt for interactive plots. `scripts/check-diagnostic-plots.py` validates the bridge against the native runtime.
+
 ## A static app, a real model
 
 The React/Vinext app exports to static assets. `lib/core.ts` owns CSV validation, canonical model inputs, diagnostic gates, and the mathematically exact historical counterfactual calculation. It is independent of React.
