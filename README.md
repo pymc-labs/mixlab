@@ -36,6 +36,8 @@ The first command installs the app. `runtime:setup` downloads the ~120 MB runtim
 npm run runtime:setup -- --from /path/to/the/tested/runtime
 ```
 
+The browser adapter is pinned to [nuts-rs-wasm 0.1.0](https://github.com/pymc-labs/nuts-rs-wasm/releases/tag/v0.1.0); `adapter-manifest.json` records its verified release archive and the local warning filter. The scientific runtime remains the separately pinned Mixlab archive.
+
 The configured runtime must match `runtime-manifest.json`; it is the tested Xeus/Python/Numba distribution from [nuts-rs-wasm](https://github.com/pymc-labs/nuts-rs-wasm). Stock Pyodide is not a substitute.
 
 To build a static website:
