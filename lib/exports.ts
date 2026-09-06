@@ -229,8 +229,16 @@ export type SavedProject = {
 export function readProject(text: string): SavedProject {
   if (text.length > 20_000_000)
     throw Error('Choose a project smaller than 20 MB.');
-  const p = JSON.parse(text);
-  if (p.format !== 'mixlab-project' || p.version !== 1)
+  return readProjectValue(JSON.parse(text));
+}
+
+/** Shared boundary validator for legacy files and versioned workspace records. */
+export function readProjectValue(
+  value: unknown,
+  allowIncompleteDraft = false,
+): SavedProject {
+  const p = value as SavedProject & { format: string; version: number };
+  if (!p || p.format !== 'mixlab-project' || p.version !== 1)
     throw Error('This is not a supported Mixlab project.');
   const t = p.dataset,
     m = p.mapping,
@@ -281,7 +289,7 @@ export function readProject(text: string): SavedProject {
     c.seed > 2147483000
   )
     throw Error('The project sampling settings are unsupported.');
-  for (const name of ['adstockPrior', 'saturationPrior']) {
+  for (const name of ['adstockPrior', 'saturationPrior'] as const) {
     const prior = c[name];
     if (
       prior !== undefined &&
@@ -300,9 +308,9 @@ export function readProject(text: string): SavedProject {
       );
   }
   const checked = validate(t, m);
-  if (!checked.data)
+  if (!checked.data && (!allowIncompleteDraft || p.posterior))
     throw Error(`The saved data need review: ${checked.errors[0]}`);
-  let posterior: Posterior | null = p.posterior ?? null;
+  const posterior: Posterior | null = p.posterior ?? null;
   if (posterior) {
     const n = posterior.alpha?.length,
       k = m.channels.length,
@@ -379,9 +387,10 @@ export function readProject(text: string): SavedProject {
     )
       throw Error('The saved sensitivity analysis is malformed.');
   }
-  const channelSpend = checked.data.channels.map((_, j) =>
-    checked.data!.x.reduce((sum, row) => sum + row[j], 0),
-  );
+  const channelSpend =
+    checked.data?.channels.map((_, j) =>
+      checked.data!.x.reduce((sum, row) => sum + row[j], 0),
+    ) ?? [];
   const totalSpend = channelSpend.reduce((sum, v) => sum + v, 0);
   const multipliers =
     Array.isArray(p.scenarioMultipliers) &&
