@@ -5,6 +5,7 @@ import {
   normalizeWeights,
   createPlanner,
   channelSlice,
+  defaultPreferences,
 } from '../lib/planner.ts';
 import { scenario, type Dataset, type Posterior } from '../lib/core.ts';
 const data: Dataset = {
@@ -168,4 +169,31 @@ void test('legacy fits show only contribution uncertainty', () => {
       (p) => p.predictive === null,
     ),
   );
+});
+
+void test('the default example suggestion improves expected sales at the original budget', () => {
+  const planner = createPlanner(data, p, 2);
+  const { adherence, risk } = defaultPreferences;
+  const weights = planner.optimize(adherence, risk);
+  const result = planner.summarize(weights, adherence, risk);
+  assert.ok(Math.abs(weights.reduce((a, b) => a + b, 0) - 1) < 1e-12);
+  assert.ok(result.mean > 0);
+  assert.ok(result.score > 0);
+  assert.ok(
+    result.predictive!.median >
+      planner.summarize(planner.prior, 0, 0).predictive!.median,
+  );
+  // An example with indistinguishable channels should keep the observed mix.
+  const balanced = createPlanner(
+    data,
+    {
+      ...p,
+      beta: [
+        [1, 1],
+        [1, 1],
+      ],
+    },
+    2,
+  );
+  assert.deepEqual(balanced.optimize(adherence, risk), balanced.prior);
 });

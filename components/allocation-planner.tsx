@@ -11,7 +11,12 @@ import { RotateCcw, Sparkles } from 'lucide-react';
 import { Button } from './ui/button';
 import { Slider } from './ui/slider';
 import { Switch } from './ui/switch';
-import { changeWeight, createPlanner, normalizeWeights } from '../lib/planner';
+import {
+  changeWeight,
+  createPlanner,
+  defaultPreferences,
+  normalizeWeights,
+} from '../lib/planner';
 import {
   colors,
   compact,
@@ -38,8 +43,10 @@ export function AllocationPlanner({
     [data, posterior, lag],
   );
   const [locked, setLocked] = useState(true);
-  const [adherence, setAdherence] = useState(1);
-  const [risk, setRisk] = useState(0.5);
+  const [adherence, setAdherence] = useState<number>(
+    defaultPreferences.adherence,
+  );
+  const [risk, setRisk] = useState<number>(defaultPreferences.risk);
   const weights = planner.prior.map((v, i) => v * multipliers[i]);
   const sum = weights.reduce((a, b) => a + b, 0);
   const normalized = normalizeWeights(weights, planner.prior);
@@ -224,14 +231,6 @@ export function AllocationPlanner({
           className={styles.explorer}
           aria-busy={deferred !== JSON.stringify({ weights, adherence, risk })}
         >
-          <SalesProjection planner={planner} weights={display.weights} />
-          <PreferenceSurface
-            channels={data.channels}
-            planner={planner}
-            adherence={adherence}
-            risk={risk}
-            onChoose={choosePreferences}
-          />
           <ChannelSurfaces
             planner={planner}
             weights={display.weights}
@@ -240,12 +239,25 @@ export function AllocationPlanner({
             adherence={display.adherence}
             risk={display.risk}
           />
-          <p className={styles.note}>
-            Preference penalties change the recommended allocation and
-            objective, not the underlying sales response. Suggestions use an
-            approximate 1 pp search; no global-optimum guarantee.
-          </p>
         </div>
+      </div>
+      <div
+        className={styles.results}
+        aria-busy={deferred !== JSON.stringify({ weights, adherence, risk })}
+      >
+        <SalesProjection planner={planner} weights={display.weights} />
+        <PreferenceSurface
+          channels={data.channels}
+          planner={planner}
+          adherence={adherence}
+          risk={risk}
+          onChoose={choosePreferences}
+        />
+        <p className={styles.note}>
+          Preference penalties change the recommended allocation and objective,
+          not the underlying sales response. Suggestions use an approximate 1 pp
+          search; no global-optimum guarantee.
+        </p>
       </div>
     </section>
   );

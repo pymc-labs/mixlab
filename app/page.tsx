@@ -6,6 +6,7 @@ import { Investigation } from '../components/investigation';
 import { validateAction, type AgentAction } from '../lib/agent';
 import { PriorSensitivity } from '../components/prior-sensitivity';
 import { AllocationPlanner } from '../components/allocation-planner';
+import { createPlanner, defaultPreferences } from '../lib/planner';
 import { PriorEditor } from '../components/prior-editor';
 import { useDeferredValue, useEffect, useMemo, useRef, useState } from 'react';
 import {
@@ -419,8 +420,28 @@ export default function Home() {
       ]);
       setPosterior(result.posterior);
       setTraces(result.traces);
+      const startExampleMix = table.example && multipliers.length === 0;
+      if (startExampleMix) {
+        const planner = createPlanner(
+          data,
+          ThinPosterior(result.posterior),
+          config.lag,
+        );
+        const suggested = planner.optimize(
+          defaultPreferences.adherence,
+          defaultPreferences.risk,
+        );
+        setMultipliers(
+          suggested.map((w, i) =>
+            planner.prior[i] > 0 ? w / planner.prior[i] : 1,
+          ),
+        );
+      }
       setNotice(
-        'Local fit complete. Review convergence before interpreting contributions.',
+        'Local fit complete. Review convergence before interpreting contributions.' +
+          (startExampleMix
+            ? ' The example starts with a model-suggested mix at the same total budget; Reset returns to the observed mix.'
+            : ''),
       );
       return {
         status: 'complete',
