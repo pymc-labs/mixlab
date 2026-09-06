@@ -24,7 +24,7 @@ export const actionFields: Record<AgentAction['kind'], string[]> = {
   python_cell: ['source'],
   python_output: [],
 };
-export const views = ['data', 'model', 'overview', 'scenarios', 'code'];
+export const views = ['data', 'model', 'overview', 'fitting', 'scenarios', 'code'];
 export function validateAction(value: unknown): AgentAction {
   if (!value || typeof value !== 'object' || Array.isArray(value))
     throw Error('Invalid action.');

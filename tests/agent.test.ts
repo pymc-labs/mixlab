@@ -205,7 +205,7 @@ test('every advertised workspace action validates and has a review description',
   const { agentTools, describeAction, actionFields } =
     await import('../lib/agent.ts');
   const actions = [
-    ...['data', 'model', 'overview', 'scenarios', 'code'].map((view) => ({
+    ...['data', 'model', 'overview', 'fitting', 'scenarios', 'code'].map((view) => ({
       kind: 'navigate',
       view,
     })),
