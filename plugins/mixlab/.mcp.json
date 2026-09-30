@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "mixlab": {
+      "type": "http",
+      "url": "https://pymc-mixlab-mcp.fly.dev/mcp"
+    }
+  }
+}

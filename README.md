@@ -113,3 +113,16 @@ Browser interaction checks cover complete four-chain fits in both the guided wor
 Mixlab application code is MIT licensed. The bundled nuts-rs-wasm adapter retains its own MIT notice and the Comlink Apache-2.0 notice. Runtime dependencies retain their upstream licenses, included in the runtime archive under `third-party-licenses` and package metadata. See [THIRD_PARTY.md](THIRD_PARTY.md).
 
 Contributions that make the model more inspectable, reproducible, extensible, or portable are particularly welcome. Off-platform workflows are a feature.
+
+
+## Codex plugin
+
+Install the hosted Mixlab MCP App directly from this repository:
+
+```sh
+codex plugin marketplace add pymc-labs/mixlab
+codex plugin add mixlab@mixlab-local
+```
+
+Restart Codex and open Mixlab. No local server or API key is required for the
+hosted synthetic demo. See [plugin setup and updates](plugins/mixlab/README.md).

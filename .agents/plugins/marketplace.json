@@ -1,0 +1,20 @@
+{
+  "name": "mixlab-local",
+  "interface": {
+    "displayName": "Mixlab Local"
+  },
+  "plugins": [
+    {
+      "name": "mixlab",
+      "source": {
+        "source": "local",
+        "path": "./plugins/mixlab"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Developer Tools"
+    }
+  ]
+}
