@@ -50,26 +50,43 @@ npm run build
 
 Serve `dist/client` at the root of any static origin supporting WebAssembly MIME types. Runtime assets and the application are served from the same origin. There is no application backend, no database, no inference API, and no app-owned authentication. Sites hosting can put a separate private access layer around the static site.
 
-### Deploy to Fly.io
+### Deploy to Cloudflare Pages
 
-The public deployment is [pymc-mixlab.fly.dev](https://pymc-mixlab.fly.dev), in the PyMC-Labs organization and Frankfurt region. To deploy the current checkout with an authenticated Fly CLI:
+The website's new address is **https://mixlab.pymc-labs.com**. Its independent
+Pages project connects to `pymc-labs/mixlab`. Pushes to `main` publish production;
+branches get preview URLs. Contributors only need GitHub access.
 
-```sh
-npm test
-npm run typecheck
-flyctl deploy --remote-only --ha=false
-```
+One-time maintainer setup:
 
-Pushes to `main` automatically deploy to Fly.io after tests, type checking, and the production build pass. Pull requests and other branches only run validation. You can also run **Validate and deploy Mixlab** manually from GitHub Actions on `main`. Deployments are serialized so an active release is never cancelled by a newer push.
+- Project name: `pymc-mixlab`.
+- Production branch: `main`.
+- Framework preset: None.
+- Build command: `npm run runtime:setup && npm run build && node scripts/check-pages.mjs`.
+- Output directory: `dist/client`.
+- Node version: 22.13 or newer.
+- Custom domain: `mixlab.pymc-labs.com`.
 
-The workflow uses the repository Actions secret `FLY_API_TOKEN`, an app-scoped deploy token for `pymc-mixlab`. Rotate it before its one-year expiry. To replace it without printing or storing the token locally:
+The runtime setup verifies the pinned archive and each runtime file before the
+build. The Pages check rejects files over 25 MiB, more than 20,000 assets, or a
+missing wildcard `noindex` header. Model computation and imported data stay in
+the visitor's browser.
 
-```sh
-set -o pipefail
-flyctl tokens create deploy --app pymc-mixlab --name github-actions --expiry 8760h | gh secret set FLY_API_TOKEN --repo twiecki/mixlab
-```
+Google sign-in is the default. Protect the custom domain, the production
+`pages.dev` address, and every preview/deployment hostname with the existing
+**Labs Google users** policy. It requires a Google login with an
+`@pymc-labs.com` email. A project owner can explicitly choose a public site;
+the maintainer must apply that choice consistently to all reachable hostnames.
+`noindex` remains enabled either way. Website login is configured in Cloudflare,
+not by a repository switch.
 
-The Docker build installs locked dependencies, downloads and verifies the pinned runtime, and builds the static website. Nginx serves the app and runtime on port 8080. Fly provides HTTPS and a health check; a single 256 MB machine stops when idle and starts on demand. CSV data and inference stay in the visitor's browser.
+GitHub Actions validates tests, type checking and the static build; it no longer
+deploys the website to Fly. `fly.toml`, Dockerfile and nginx.conf remain as a
+rollback reference. Retire the old `pymc-mixlab` website machine only after the
+Cloudflare deployment, runtime loading and real browser inference pass.
+
+The separate Mixlab plugin MCP service at `pymc-mixlab-mcp.fly.dev` is a backend,
+not this static website. Its migration and retirement are separate from the
+website cutover. Do not stop it when retiring `pymc-mixlab`.
 
 ## Notebook.link
 
