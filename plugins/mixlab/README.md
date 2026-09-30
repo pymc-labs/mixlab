@@ -33,7 +33,7 @@ codex plugin add mixlab@mixlab-local
 
 The workbench opens synthetic marketing mix data. Change supported priors and
 sampling settings, run a TyMC fit and inspect uncertainty and convergence
-warnings. Keep the app frame open while sampling. It currently does not expose
+warnings. Keep the app frame open while sampling. Version 0.1.2 automatically keeps up to six completed fits per session and adds `list_fits` and `show_plot`. Ask for channel contribution plots, carryover/saturation/coefficient posterior histograms, residuals, or two-fit contribution comparisons without resampling. Draw-based plots need the original frame to stay open; saved fits are session history, not permanent storage. It currently does not expose
 private CSV import or budget optimization. Passing convergence diagnostics does
 not establish causality. In-memory sessions expire after inactivity and are
 cleared on server restart.

@@ -1,6 +1,6 @@
 {
   "name": "mixlab",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Interactive marketing mix models with lightweight TyMC sampling.",
   "skills": "./skills/",
   "mcpServers": "./.mcp.json",
