@@ -14,6 +14,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: 'Mixlab · Marketing Science Studio',
+  robots: { index: false, follow: false, noimageindex: true, nosnippet: true },
   description:
     'Explore your marketing mix with Bayesian models that run entirely in your browser. Open source. Your data stays on your device.',
 };
